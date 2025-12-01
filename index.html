@@ -3,18 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lines of Justice: A Survivor's Story</title>
+    <title>Lines of Justice: Dhaani's Story</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Source+Sans+Pro:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
       :root {
         --primary-teal: #2d7d7b;
         --accent-teal: #4a9b8e;
@@ -30,19 +24,25 @@
         --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
       body {
         font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont,
           "Segoe UI", Roboto, sans-serif;
-        background: var(--bg-cream);
+        background: linear-gradient(
+          135deg,
+          var(--deep-purple) 0%,
+          var(--primary-teal) 100%
+        );
         color: var(--text-charcoal);
         height: 100vh;
         overflow: hidden;
         display: flex;
         flex-direction: column;
-        position: fixed;
-        width: 100%;
-        top: 0;
-        left: 0;
       }
 
       /* Start Screen */
@@ -62,7 +62,6 @@
         justify-content: center;
         z-index: 1000;
         animation: fadeIn 0.6s ease-out;
-        overflow: hidden;
       }
 
       /* Butterfly Animation */
@@ -229,6 +228,25 @@
 
       @keyframes butterflyFlyOut {
         0% {
+          opacity: 1;
+          top: 0;
+          left: 50%;
+          transform: rotateX(50deg) rotateY(20deg) rotateZ(-50deg) translateY(0px);
+        }
+        100% {
+          opacity: 0;
+          top: -200px;
+          left: 120%;
+          transform: rotateX(50deg) rotateY(20deg) rotateZ(-50deg) translateY(-100px) scale(0.3);
+        }
+      }
+
+      .butterfly-exit {
+        animation: butterflyFlyOut 1s ease-in forwards !important;
+      }
+
+      @keyframes butterflyFlyOut {
+        0% {
           top: 15%;
           left: 85%;
           transform: rotateX(50deg) rotateY(20deg) rotateZ(-50deg)
@@ -298,11 +316,7 @@
         box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
       }
 
-      .play-button:active {
-        transform: translateY(-2px) scale(1.02);
-      }
-
-      /* Enhanced HUD with Glassmorphism */
+      /* HUD */
       .hud {
         background: rgba(255, 255, 255, 0.92);
         backdrop-filter: blur(12px);
@@ -326,6 +340,10 @@
         min-width: 80px;
         text-align: center;
         transition: var(--transition);
+        /* position: relative;
+                        background: rgba(255, 255, 255, 0.5);
+                        padding: 8px;
+                        border-radius: 8px; */
       }
 
       .metric:hover {
@@ -333,7 +351,7 @@
       }
 
       .metric-icon {
-        font-size: 22px;
+        font-size: 28px;
         margin-bottom: 4px;
         display: block;
         filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
@@ -344,7 +362,7 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        color: var(--text-gray);
+        color: var(--text-charcoal);
         margin-bottom: 6px;
         font-family: "Poppins", sans-serif;
       }
@@ -361,11 +379,10 @@
       .metric-bar {
         height: 100%;
         border-radius: 4px;
-        transition: var(--transition);
+        transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
       }
 
-      /* Unique gradient colors per metric */
       .bar-safety {
         background: linear-gradient(
           90deg,
@@ -408,7 +425,7 @@
         overflow: hidden;
       }
 
-      /* Enhanced Card with animations */
+      /* Cards */
       .card {
         background: white;
         border-radius: 16px;
@@ -421,8 +438,7 @@
         max-height: calc(100vh - 100px);
         display: flex;
         flex-direction: column;
-        position: relative;
-        overflow: hidden;
+        animation: fadeIn 0.6s ease-out;
       }
 
       .card-background {
@@ -566,7 +582,6 @@
         flex-direction: row-reverse;
       }
 
-      /* Images with subtle gradient overlay */
       .card-image {
         width: 40%;
         object-fit: cover;
@@ -587,20 +602,6 @@
         max-height: calc(100% - 32px);
       }
 
-      .card-content::-webkit-scrollbar {
-        width: 6px;
-      }
-
-      .card-content::-webkit-scrollbar-track {
-        background: var(--bg-warm);
-        border-radius: 3px;
-      }
-
-      .card-content::-webkit-scrollbar-thumb {
-        background: var(--accent-teal);
-        border-radius: 3px;
-      }
-
       .card-title {
         font-size: 24px;
         font-weight: 700;
@@ -611,11 +612,12 @@
         letter-spacing: -0.3px;
       }
 
-      .card-text {
+      .card-narrative {
         font-size: 15px;
-        line-height: 1.6;
+        line-height: 1.7;
         color: var(--text-gray);
         margin-bottom: 16px;
+        white-space: pre-line;
       }
 
       .dialogue {
@@ -642,14 +644,37 @@
         line-height: 1;
       }
 
-      .stats-panel {
-        background: var(--bg-warm);
-        padding: 12px;
+      .dialogue .speaker {
+        font-weight: 700;
+        display: block;
+        margin-bottom: 4px;
+        color: var(--primary-teal);
+      }
+
+      .data-card {
+        background: linear-gradient(
+          135deg,
+          rgba(122, 219, 212, 0.08) 0%,
+          rgba(123, 104, 238, 0.08) 100%
+        );
+        border-left: 4px solid var(--accent-teal);
+        padding: 14px;
         border-radius: 8px;
-        margin-top: 12px;
-        font-size: 12px;
+        margin: 16px 0;
+        font-size: 13px;
         color: var(--text-gray);
-        border-left: 3px solid var(--gold);
+        line-height: 1.5;
+      }
+
+      .data-card .statement {
+        font-style: italic;
+        margin-bottom: 8px;
+      }
+
+      .data-card .source {
+        font-size: 11px;
+        opacity: 0.8;
+        font-weight: 600;
       }
 
       .choices-container {
@@ -689,6 +714,31 @@
         transform: translateY(0);
       }
 
+      /* Collapse Message */
+      .collapse-message {
+        background: linear-gradient(135deg, #e53935 0%, #ef5350 100%);
+        color: white;
+        padding: 20px;
+        border-radius: 12px;
+        text-align: center;
+        margin: 20px 0;
+        font-weight: 600;
+        animation: shake 0.5s ease-out;
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-5px);
+        }
+        75% {
+          transform: translateX(5px);
+        }
+      }
+
       /* Ending Screen */
       .ending-screen {
         background: white;
@@ -698,23 +748,9 @@
         width: 100%;
         padding: 36px 28px;
         text-align: center;
-        animation: zoomIn 0.6s ease-out;
+        animation: fadeIn 0.6s ease-out;
         overflow-y: auto;
         max-height: calc(100vh - 100px);
-      }
-
-      .ending-screen::-webkit-scrollbar {
-        width: 6px;
-      }
-
-      .ending-screen::-webkit-scrollbar-track {
-        background: var(--bg-warm);
-        border-radius: 3px;
-      }
-
-      .ending-screen::-webkit-scrollbar-thumb {
-        background: var(--accent-teal);
-        border-radius: 3px;
       }
 
       .ending-title {
@@ -759,7 +795,7 @@
         font-size: 16px;
         line-height: 1.7;
         color: var(--text-gray);
-        margin-bottom: 24px;
+        /* margin-bottom: 24px; */
       }
 
       .ending-notes {
@@ -820,218 +856,14 @@
         box-shadow: 0 6px 25px rgba(109, 93, 208, 0.4);
       }
 
-      /* Responsive Design */
-      @media (max-width: 1024px) {
-        .card {
-          max-width: 100%;
-        }
-
-        .card-title {
-          font-size: 22px;
-        }
-
-        .card-image {
-          width: 35%;
-        }
-
-        .card-content {
-          width: 65%;
-        }
-      }
-
-      @media (max-width: 768px) {
-        .hud {
-          padding: 8px 12px;
-        }
-
-        .metric {
-          min-width: 70px;
-        }
-
-        .metric-icon {
-          font-size: 18px;
-        }
-
-        .metric-label {
-          font-size: 8px;
-        }
-
-        .card-container {
-          padding: 8px;
-        }
-
-        .card-content-wrapper {
-          flex-direction: column !important;
-        }
-
-        .card-image {
-          width: 100%;
-          height: 180px;
-          min-height: 180px;
-        }
-
-        .card-content {
-          width: 100%;
-          padding: 20px;
-        }
-
-        .card-title {
-          font-size: 20px;
-          margin-bottom: 12px;
-        }
-
-        .card-text {
-          font-size: 14px;
-          margin-bottom: 12px;
-        }
-
-        .dialogue {
-          font-size: 13px;
-          padding: 12px 12px 12px 28px;
-          margin-bottom: 12px;
-        }
-
-        .choice-button {
-          padding: 12px 16px;
-          font-size: 13px;
-        }
-
-        .ending-screen {
-          padding: 28px 20px;
-        }
-
-        .ending-title {
-          font-size: 26px;
-        }
-
-        .ending-outcome {
-          font-size: 18px;
-        }
-
-        .start-title {
-          font-size: 36px;
-        }
-
-        .start-subtitle {
-          font-size: 18px;
-        }
-
-        .start-description {
-          font-size: 14px;
-        }
-
-        .butterfly {
-          transform: scale(0.7);
-        }
-
-        @keyframes butterflyFlyIn {
-          0% {
-            top: -100px;
-            left: 50%;
-          }
-          50% {
-            top: 30%;
-            left: 50%;
-          }
-          100% {
-            top: 10%;
-            left: 80%;
-          }
-        }
-      }
-
-      @media (max-width: 480px) {
-        .metrics-container {
-          gap: 6px;
-        }
-
-        .metric {
-          min-width: 60px;
-        }
-
-        .metric-icon {
-          font-size: 16px;
-        }
-
-        .card-content {
-          padding: 16px;
-          margin: 0px;
-        }
-
-        .card-title {
-          font-size: 18px;
-        }
-
-        .card-text {
-          font-size: 13px;
-        }
-
-        .choice-button {
-          font-size: 12px;
-          padding: 10px 14px;
-        }
-
-        .start-content {
-          padding: 30px 20px;
-        }
-
-        .start-title {
-          font-size: 28px;
-        }
-
-        .play-button {
-          padding: 16px 40px;
-          font-size: 16px;
-        }
-
-        .butterfly {
-          transform: scale(0.6);
-        }
-
-        @keyframes butterflyFlyIn {
-          0% {
-            top: -100px;
-            left: 50%;
-          }
-          50% {
-            top: 25%;
-            left: 50%;
-          }
-          100% {
-            top: 8%;
-            left: 75%;
-          }
-        }
-      }
-
-      /* Subtle background pattern */
-      body::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-image: radial-gradient(
-          circle at 10% 20%,
-          rgba(122, 219, 212, 0.03) 0%,
-          transparent 20%
-        );
-        pointer-events: none;
-        z-index: -1;
-      }
-
-      .hidden {
-        display: none !important;
-      }
-      /* Parameter Change Animation */
+      /* Metric Change Animation */
       .metric-change {
         position: absolute;
         top: -25px;
         left: 50%;
         transform: translateX(-50%);
         font-weight: 700;
-        font-size: 16px;
+        font-size: 14px;
         animation: floatUp 1.5s ease-out forwards;
         pointer-events: none;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -1042,7 +874,6 @@
       .metric-change.positive {
         color: #4caf50;
       }
-
       .metric-change.negative {
         color: #e53935;
       }
@@ -1058,88 +889,286 @@
         }
       }
 
-      /* Metric pulse animation */
-      .metric.pulse-positive {
-        animation: pulseGreen 0.6s ease-out;
-      }
-
-      .metric.pulse-negative {
-        animation: pulseRed 0.6s ease-out;
-      }
-
-      @keyframes pulseGreen {
-        0%,
-        100% {
-          transform: scale(1);
-          box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
         }
-        50% {
-          transform: scale(1.05);
-          box-shadow: 0 0 0 8px rgba(76, 175, 80, 0.4);
+        to {
+          opacity: 1;
         }
       }
 
-      @keyframes pulseRed {
-        0%,
-        100% {
-          transform: scale(1);
-          box-shadow: 0 0 0 0 rgba(229, 57, 53, 0);
+      /* Responsive */
+      @media (max-width: 768px) {
+        .card-content-wrapper {
+          flex-direction: column !important;
         }
-        50% {
-          transform: scale(1.05);
-          box-shadow: 0 0 0 8px rgba(229, 57, 53, 0.4);
+        .card-image {
+          width: 100%;
+          height: 180px;
+          min-height: 180px;
+        }
+        .card-content {
+          width: 100%;
+          padding: 20px;
+          margin: 0;
+        }
+        .start-title {
+          font-size: 36px;
+        }
+        .metric {
+          min-width: 70px;
+        }
+        .metric-icon {
+          font-size: 18px;
         }
       }
 
-      /* Bar fill animation */
-      .metric-bar.animate-change {
-        transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      @media (max-width: 480px) {
+        .metric {
+          min-width: 60px;
+          padding: 6px;
+        }
+        .metric-change {
+          font-size: 12px;
+          top: -20px;
+        }
+        .card-content {
+          padding: 16px;
+        }
       }
 
-      /* Enhanced metric container */
-      .metric {
-        position: relative;
-        background: rgba(255, 255, 255, 0.5);
-        padding: 8px;
-        border-radius: 8px;
+      .hidden {
+        display: none !important;
       }
 
-      /* Blue-toned overlay for images to match your color scheme */
-      .card-image::after {
-        content: "";
-        position: absolute;
+      .popup-overlay {
+        position: fixed;
         top: 0;
         left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(
-          135deg,
-          rgba(45, 125, 123, 0.2) 0%,
-          rgba(93, 78, 156, 0.25) 100%
-        );
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+      }
+
+      .popup-content {
+        background: white;
+        border-radius: 16px;
+        padding: 32px;
+        max-width: 600px;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        animation: zoomIn 0.3s ease-out;
+      }
+
+      .popup-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        color: var(--primary-teal);
+        font-family: "Poppins", sans-serif;
+      }
+
+      .popup-text {
+        font-size: 14px;
+        line-height: 1.6;
+        color: var(--text-gray);
+        margin-bottom: 20px;
+        white-space: pre-line;
+      }
+
+      .popup-source {
+        font-size: 12px;
+        font-style: italic;
+        color: var(--text-gray);
+        opacity: 0.8;
+        margin-bottom: 24px;
+      }
+
+      .popup-close {
+        background: var(--accent-teal);
+        color: white;
+        border: none;
+        padding: 12px 32px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        width: 100%;
+      }
+
+      .popup-close:hover {
+        background: var(--primary-teal);
+        transform: translateY(-2px);
+      }
+
+      /* Background Story Screen - FIXED VERSION */
+      .background-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        /* background removed to let body show through */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 999;
+        padding: 20px;
+        overflow: auto; /* CHANGED: Allow scrolling if needed */
+        transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1);
+        opacity: 1;
+      }
+
+      .background-screen.fade-out {
+        opacity: 0;
         pointer-events: none;
       }
 
-      /* Choice button selected state */
-      .choice-button.selected {
-        background: linear-gradient(
-          135deg,
-          var(--primary-teal) 0%,
-          var(--deep-purple) 100%
-        );
+      .background-content {
+        width: 100%;
+        max-width: 1400px;
+        max-height: 95vh; /* Prevents overflow */
         color: white;
-        border-color: var(--primary-teal);
-        transform: scale(0.95);
-      }
-      .metric-change {
-        font-size: 14px;
-        top: -20px;
+        display: flex;
+        flex-direction: column;
       }
 
-      .metric {
-        padding: 6px;
+      .background-title {
+        font-size: clamp(28px, 4vw, 42px);
+        font-weight: 700;
+        margin-bottom: 30px;
+        font-family: "Poppins", sans-serif;
+        text-align: center;
+        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        animation: fadeIn 0.8s ease-out;
+      }
+
+      .background-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+        margin-bottom: 30px;
+        flex: 1;
+        overflow: hidden; /* Prevent grid overflow */
+      }
+
+      .background-column {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 25px 20px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        opacity: 0;
+        animation: slideUp 0.6s ease-out forwards;
+        overflow-y: auto; /* Allow scrolling within columns */
+        max-height: 60vh; /* Increased height for more content */
+      }
+
+      .background-column h3 {
+        font-size: clamp(18px, 2vw, 24px);
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: var(--bg-warm);
+        font-family: "Poppins", sans-serif;
+      }
+
+      .background-column p {
+        font-size: clamp(14px, 1.5vw, 16px);
+        line-height: 1.6;
+        margin-bottom: 15px;
+        color: white !important; /* FORCED: Ensure white text */
+        opacity: 0.95;
+      }
+
+      .emphasize {
+        background: rgba(255, 184, 0, 0.25);
+        padding: 15px;
+        border-radius: 12px;
+        border: 2px solid var(--gold);
+        font-weight: 700;
+        font-size: clamp(15px, 1.6vw, 17px);
+        margin-top: 20px;
+        color: white !important;
+      }
+
+      .continue-button {
+        background: white;
+        color: var(--deep-purple);
+        border: none;
+        padding: 18px 45px;
+        border-radius: 50px;
+        font-size: clamp(16px, 2vw, 20px);
+        font-weight: 700;
+        cursor: pointer;
+        transition: var(--transition);
+        font-family: "Poppins", sans-serif;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        margin-top: 20px;
+        opacity: 0;
+        animation: fadeIn 1s ease-out 1.2s forwards;
+        align-self: center;
+      }
+
+      /* Ensure scrollbars are visible if needed */
+      .background-column::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .background-column::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+      }
+
+      .background-column::-webkit-scrollbar-thumb {
+        background: var(--gold);
+        border-radius: 3px;
+      }
+
+      /* Mobile - Stack columns vertically */
+      @media (max-width: 1024px) {
+        .background-grid {
+          grid-template-columns: 1fr;
+          gap: 20px;
+          max-height: 75vh; /* Allow more vertical space */
+          overflow-y: auto; /* Enable scrolling for the grid */
+        }
+
+        .background-column {
+          max-height: none; /* Remove restriction on mobile */
+        }
+      }
+
+      @media (max-width: 768px) {
+        .background-screen {
+          padding: 15px;
+          align-items: flex-start; /* Better scroll behavior */
+          padding-top: 40px;
+        }
+
+        .background-content {
+          max-height: none;
+        }
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
     </style>
+    <base target="_blank" />
   </head>
   <body>
     <div id="startScreen" class="start-screen">
@@ -1155,20 +1184,86 @@
       </div>
       <div class="start-content">
         <h1 class="start-title">Lines of Justice</h1>
-        <p class="start-subtitle">A Survivor's Story</p>
+        <p class="start-subtitle">Dhaani's Story</p>
         <p class="start-description">
-          Navigate the complex journey of seeking justice in the face of
-          domestic violence. Your choices will impact safety, health, financial
-          stability, and your child's well-being. Every decision matters.
+          Navigate the complex journey of seeking justice as a survivor of
+          domestic violence in India. Every choice impacts your safety, health,
+          finances, and your child's well-being. The system is stacked against
+          you—can you find a path forward?
         </p>
-        <button class="play-button" onclick="startGame()">Play Game</button>
+        <button class="play-button" onclick="startGame()">Begin Journey</button>
+      </div>
+    </div>
+
+    <!-- Add this after the startScreen div -->
+    <div id="backgroundScreen" class="background-screen hidden">
+        <div class="butterfly">
+        <div class="wing">
+          <div class="bit"></div>
+          <div class="bit"></div>
+        </div>
+        <div class="wing">
+          <div class="bit"></div>
+          <div class="bit"></div>
+        </div>
+      </div>
+      <div class="background-content">
+        <h2 class="background-title">Step Into Dhaani's Story</h2>
+
+        <div class="background-grid">
+          <div class="background-column animate-in">
+            <h3>Who She Is</h3>
+            <p>
+              Dhaani is a young migrant woman from a marginalized caste, living
+              in an informal settlement. She works irregular jobs—cleaning,
+              sorting waste, childcare—while caring for her 6-year-old child.
+            </p>
+
+            <p>
+              Her husband, a migrant labourer, has become increasingly violent,
+              fuelled by erratic work, debt, and substance use.
+            </p>
+          </div>
+
+          <div class="background-column animate-in">
+            <h3>Her Reality</h3>
+            <p>
+              Dhaani has little family support and limited savings. Her life is
+              shaped by constant calculations: safety, income, shelter, and her
+              child's wellbeing.
+            </p>
+
+            <p>
+              After a recent violent incident, she must decide how to
+              respond—knowing each choice will shape who she can trust, what
+              risks she faces, and which doors remain open or closed.
+            </p>
+          </div>
+
+          <div class="background-column animate-in">
+            <h3>Your Role</h3>
+            <p>
+              For the next few minutes, step into Dhaani's shoes. Every choice
+              shapes her future pathways.
+            </p>
+
+            <p class="emphasize">
+              There is no perfect option. Each action helps in some ways and
+              complicates others—just like the real choices women like Dhaani
+              navigate daily.
+            </p>
+          </div>
+        </div>
+
+        <button class="continue-button" onclick="startGameProper()">
+          Begin Dhaani's Journey →
+        </button>
       </div>
     </div>
 
     <div id="app" class="hidden"></div>
 
     <script>
-      // Animation types to cycle through
       const animations = [
         "slide-in-left",
         "slide-in-right",
@@ -1177,217 +1272,452 @@
         "flip-in",
       ];
       let currentAnimationIndex = 0;
-
       // Game Data
       const gameData = {
-        metrics: {
-          safety: { name: "Safety", value: 5, max: 10, icon: "🛡️" },
-          health: { name: "Health", value: 5, max: 10, icon: "❤️" },
-          money: { name: "Money", value: 5, max: 10, icon: "💰" },
-          child: { name: "Child Well-being", value: 5, max: 10, icon: "🧸" },
-          justice: { name: "Justice Progress", value: 5, max: 10, icon: "⚖️" },
-        },
-        currentScene: 0,
-        scenes: [
+        cards: [
           {
             id: 1,
             title: "Violence at Home",
-            image: "./images/1.jpg",
-            background:
-              "linear-gradient(rgba(183,58,79,0.3), rgba(45,125,123,0.2)), url('https://images.unsplash.com/photo-1497942304796-b8bc2c4f5b95?w=1000&h=600&fit=crop')",
-            imagePosition: "left",
-            text: "It's late night. Your partner lashes out violently again. Your child clings to you, crying. You know this can't go on, but what can you do tonight?",
-            stats:
-              "4,48,211 cases of crime against women were registered in 2023 (NCRB). 'Cruelty by Husband or Relatives' accounted for 29.8%.",
+            "image-alt": "A dimly lit room, Dhaani shielding her child.",
+            image:
+              "./images/1.jpg",
+            narrative:
+              "It's late at night. Your partner comes home unsteady, the familiar smell of alcohol filling the room. His anger rises quickly, words slurred but sharp. A glass hits the floor. Your child jolts awake and clings to your saree, their small body shaking against yours.\n\nYou try to stay calm, but your heart races as he steps closer. You edge back, shielding your child, wishing the neighbours would knock or the night would pass faster. The fear is heavy and familiar. You know that whatever happens next will shape tomorrow; and you're running out of strength to hope it will be different.",
+            dialogue: {
+              speaker: "Dhaani (thinking)",
+              text: "I can't keep living like this, I can't go on, but what can you do tonight?",
+            },
             choices: [
               {
-                text: "Stay home and hope it calms down.",
-                effects: { safety: -2, health: -1 },
-                nextScene: 1,
+                id: "c1_1",
+                text: "You realise you have no options, nowhere to go. Stay home and hope it calms down.",
+                consequences: { Safety: -2, Health: -1, Child: -1 },
+                outcome: {
+                  type: "collapse",
+                  message: "The violence escalates. Your journey ends here.",
+                  collapseImage:"./images/collapse1.png",
+                },
               },
               {
-                text: "Take your child and walk to a nearby NGO shelter.",
-                effects: { money: -1, safety: 2 },
-                nextScene: 1,
+                id: "c1_2",
+                text: "Go to parent's house even though they've been reluctant to help before, saying you have to deal with your marriage and kid however you want yourself",
+                consequences: {},
+                outcome: {
+                  type: "collapse",
+                  message:
+                    'Your parents refuse to take you in and blame you for "ruining your married home."',
+                  collapseImage:"./images/collapse1.png",
+                },
               },
               {
-                text: "Call the police station.",
-                effects: { justice: 1 },
-                nextScene: 1,
-                random: { safety: [1, -1] },
+                id: "c1_3",
+                text: "Call a helpline you remember from a door-to-door campaign flyer, asking them to contact the police station and refer you to a shelter.",
+                consequences: { Justice: 1, Safety: 1, Money: -1 },
+                outcome: { type: "continue", nextCard: 2 },
               },
             ],
+            dataCard: {
+              statement:
+                "You're not alone. While around 1 in 30 married women face domestic violence and abuse, only 14% of women who face domestic violence ever seek help, and only 7% approach the police.\n\nFor every 1 case of domestic violence recorded by police, surveys estimate at least 20 cases go unreported.",
+              source: "NFHS-5, Ministry of Health & Family Welfare",
+            },
           },
           {
             id: 2,
-            title: "Shelter & Child Care",
-            image: "./images/2.jpg",
-            background:
-              "linear-gradient(rgba(109,93,208,0.2), rgba(123,104,238,0.15)), url('https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1000&h=600&fit=crop')",
-            imagePosition: "right",
-            dialogue:
-              '"We can offer you a bed tonight. But for you to attend legal counseling tomorrow, your child should stay at our daycare. Will you agree?"',
+            title: "Shelter & Medical Care",
+            "image-alt": "A crowded shelter dormitory with women and children.",
+            image:
+              "./images/2.jpg",
+            narrative:
+              "You are taken to a crowded shelter dormitory with women and children; mattresses close together; soft noises of crying and coughing. You stand at the doorway, overwhelmed but relieved to be somewhere safer.",
+            dialogue: {
+              speaker: "NGO Worker",
+              text: "We can give you a bed for the night. It's crowded, but you'll be safe here.\n\nIf you need medical attention, we can arrange basic first-aid now or a proper check-up tomorrow.\n\nThere's also a legal desk in the morning that you MUST attend—your child can stay in our daycare if you choose. What would you like to do?",
+            },
             choices: [
               {
-                text: "Keep child with you.",
-                effects: { child: -1, safety: 1 },
-                nextScene: 2,
+                id: "c2_1",
+                text: "Stay in the shelter with your child and request basic first-aid tonight.",
+                consequences: { Safety: 2, Health: 1, Child: 1, Money: -1 },
+                outcome: { type: "continue", nextCard: 3 },
               },
               {
-                text: "Leave child at daycare.",
-                effects: { child: 1, money: -1 },
-                nextScene: 2,
-                note: "Costs ₹50/day",
+                id: "c2_2",
+                text: "Agree to send your child to daycare tomorrow and go for a proper medical check-up, before attending the legal desk",
+                consequences: { Child: 1, Health: 2, Money: -2 },
+                outcome: { type: "continue", nextCard: 3 },
+              },
+              {
+                id: "c2_3",
+                text: "Call a community leader to mediate and ask for advice before committing to the shelter.",
+                consequences: {},
+                outcome: {
+                  type: "collapse",
+                  message:
+                    "The community leader, after hearing the situation, pushes you to not break the house and insists you should take your child and go back to your husband's home.",
+                  collapseImage:"./images/collapse1.png",
+                },
+              },
+              {
+                id: "c2_4",
+                text: "Leave the shelter and return home, feeling overwhelmed by the crowd, the talk of legal steps, and unsure if you're ready for all this.",
+                consequences: {},
+                outcome: {
+                  type: "collapse",
+                  message: "You return to the abusive environment.",
+                  collapseImage:"./images/collapse1.png",
+                },
               },
             ],
+            dataCard: {
+              statement:
+                "You escape an abusive home and reach a shelter, only to learn it can offer you safety for just a short while. With limited space and temporary beds, you're pushed back into uncertainty.",
+              source:
+                "Ministry of Women and Child Development Annual Report 2018–19 - According to the Ministry, over 48% of shelter homes run at or beyond capacity.",
+            },
           },
           {
             id: 3,
             title: "Access to Legal Aid",
-            image: "./images/3.jpg",
-            background:
-              "linear-gradient(rgba(42,79,170,0.25), rgba(74,107,138,0.2)), url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1000&h=600&fit=crop')",
-            imagePosition: "left",
-            text: "A PLV will be in your locality, conducting a legal awareness session. Today you can either take informal cleaning work, or attend the session.",
-            stats:
-              "Access to legal aid varies greatly across regions, affecting justice outcomes.",
+            "image-alt":
+              "Dhaani holding a mop in one hand and a leaflet about free legal aid in the other.",
+            image:
+              "./images/3.jpg",
+            narrative:
+              "A Paralegal Volunteer (PLV) is visiting your locality today to hold a legal awareness session. The shelter has also offered to connect you with a Legal Aid Lawyer (LAL) on their roster. But you only have a few hours free—and you still need money to support your child and plan your move out of the shelter.",
+            dialogue: { speaker: "Dhaani (thinking)", text: " " },
             choices: [
               {
-                text: "Take the cleaning job (₹200).",
-                effects: { money: 2, health: -1 },
-                nextScene: 3,
+                id: "c3_1",
+                text: "Take the informal cleaning job (₹200) and quickly stop by the legal desk on the way. You don't get a lawyer assigned.",
+                consequences: { Money: 2, Justice: -1, Health: -1 },
+                outcome: { type: "continue", nextCard: 4 },
               },
               {
-                text: "Attend legal aid awareness session.",
-                effects: { justice: 2, money: -2 },
-                nextScene: 3,
+                id: "c3_2",
+                text: "Attend the awareness session, and receive legal and procedural assistance from the PLV.",
+                consequences: { Justice: 2, Safety: 1, Money: -1 },
+                outcome: { type: "continue", nextCard: 4 },
               },
               {
-                text: "Ask your community for help.",
-                effects: { money: 1 },
-                nextScene: 3,
-                random: { money: [1, 0], safety: [0, -1] },
+                id: "c3_3",
+                text: "Go with the shelter's recommended LAL for first-response support.",
+                consequences: { Justice: 1, Safety: 1, Money: -1 },
+                outcome: { type: "continue", nextCard: 4 },
+              },
+              {
+                id: "c3_4",
+                text: "Approach a private lawyer recommended by community women for quicker, more efficient results",
+                consequences: { Money: -5, Justice: 1 },
+                outcome: { type: "continue", nextCard: 4 },
               },
             ],
+            dataCard: {
+              statement:
+                "With India now having four times fewer legal-aid clinics per population than seven years ago, the closest legal-aid centre could be far away.",
+              source:
+                "India Justice Report 2025 - Legal Aid: Villages per Legal Aid Clinic states that, today, one clinic serves an average of 163 villages, and in some states, more than 500.",
+            },
           },
           {
             id: 4,
             title: "Police Station",
-            image: "./images/4.jpg",
-            background:
-              "linear-gradient(rgba(94,84,142,0.3), rgba(45,125,123,0.25)), url('https://images.unsplash.com/photo-1551818011-88051982c178?w=1000&h=600&fit=crop')",
-            imagePosition: "right",
-            dialogue:
-              '"Show me your ID first. And you know… in matrimonial matters, it\'s better to settle and keep the family together."',
-            stats:
-              "Low rates of reporting in DV cases are common due to systemic barriers.",
+            "image-alt":
+              "Police desk officer, papers piled up, skeptical look.",
+            image:
+              "./images/4.jpg",
+            narrative:
+              "Your hands tremble as you step inside the police station. The room feels colder than outside. You're terrified of saying the wrong thing, guilty for 'airing dirty laundry,' and unsure whether this is even the right place to come. But your child's face from last night flashes in your mind, and you stay.",
+            dialogue: {
+              speaker: "Police Officer",
+              text: "ID lao. And stop crying—won't help. These matrimonial complaints… they break families for no reason. Better you sit down with your husband and sort it out. Court-kacchari will only ruin your home",
+            },
             choices: [
               {
-                text: "Agree to mediation at the risk of facing husband.",
-                effects: { justice: 1 },
-                nextScene: 4,
-                random: { justice: [1, 0], safety: [-2, 0] },
+                id: "c4_1",
+                text: "Agree to police-facilitated mediation with your husband. (You risk retraumatisation)",
+                consequences: { Justice: 0, Safety: -2 },
+                outcome: { type: "continue", nextCard: 5 },
+                random: { Justice: [-1, 0] },
               },
               {
-                text: "Return with NGO staff tomorrow.",
-                effects: { justice: 1, safety: 2, money: -1 },
-                nextScene: 4,
+                id: "c4_2",
+                text: "Skip the mediation and quietly return home, overwhelmed and unsure.",
+                consequences: {},
+                outcome: {
+                  type: "collapse",
+                  message:
+                    "You return to the abusive environment without any protection.",
+                  collapseImage:"./images/collapse1.png",
+                },
+              },
+              {
+                id: "c4_3",
+                text: "Ask the police to register your complaint with PLV + LAL support.",
+                consequences: { Justice: 1, Safety: 2, Money: -1 },
+                outcome: { type: "continue", nextCard: 5 },
               },
             ],
+            dataCard: {
+              statement:
+                "You take a step toward justice by filing the complaint, but the struggle begins immediately. Survivors often find themselves going to the police station repeatedly, facing delays, dismissive behaviour, and mismanagement. It's a key reason nearly 75% of people avoid reporting crimes, especially women and marginalised groups.",
+              source:
+                "Study by Tata Institute of Social Sciences (TISS), Mumbai, for the Bureau of Police Research and Development (BPR&D)",
+            },
           },
           {
             id: 5,
             title: "Medical Evidence",
-            image: "./images/5.jpg",
-            background:
-              "linear-gradient(rgba(183,58,79,0.2), rgba(232,90,108,0.15)), url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1000&h=600&fit=crop')",
-            imagePosition: "left",
-            text: "The court asks for medical proof of injuries. Public hospital is free but discriminatory. A private clinic is kinder, but costs.",
+            "image-alt": "Public hospital waiting hall, long queues.",
+            image:
+              "./images/5.jpg",
+            narrative:
+              "The court has asked for medical proof of your injuries. You need to decide where to go for this examination. The public hospital is free but often crowded and sometimes dismissive. A private clinic would be kinder but costs money you don't really have.",
+            dialogue: {
+              speaker: "Dhaani (thinking)",
+              text: "Public Hospital is free but discriminatory. A private clinic is kinder, but costs",
+            },
             choices: [
               {
+                id: "c5_1",
                 text: "Go to public hospital.",
-                effects: { justice: 1, health: 1, child: -1 },
-                nextScene: 5,
+                consequences: { Justice: 1, Health: 1, Child: -1 },
+                outcome: { type: "continue", nextCard: 6 },
               },
               {
-                text: "Pay private clinic (₹1,000).",
-                effects: { money: -3, justice: 2, health: 2 },
-                nextScene: 5,
+                id: "c5_2",
+                text: "Pay private clinic(₹1,000).",
+                consequences: { Money: -3, Justice: 2, Health: 2 },
+                outcome: { type: "continue", nextCard: 6 },
               },
-              { text: "Skip exam.", effects: { justice: -2 }, nextScene: 5 },
+              {
+                id: "c5_3",
+                text: "Skip exam (Your lawyer advised this).",
+                consequences: { Justice: -2 },
+                outcome: { type: "continue", nextCard: 6 },
+              },
             ],
+            dataCard: {
+              statement:
+                "Any support puts you in a rare 2% that are able to access essential medical assistance. Over 98% of survivors of partner violence get no medical help for the trauma they endure",
+              source:
+                "National Family Health Survey (NFHS-V) shows less than 2% of survivors ever approach medical personnel after partner violence",
+            },
           },
           {
             id: 6,
-            title: "Court Hearing",
-            image: "./images/6.jpg",
-            background:
-              "linear-gradient(rgba(42,79,170,0.3), rgba(74,107,138,0.25)), url('https://images.unsplash.com/photo-1505664199159-4d4b396c22b8?w=1000&h=600&fit=crop')",
-            imagePosition: "right",
-            dialogue:
-              '"Maintain silence in the courtroom! If you can\'t manage your child, wait outside until your matter is called."',
+            title: "Everyday Struggles and Challenges",
+            "image-alt":
+              "A cramped one-room rental. Dhani's child lying on a thin mattress feverish.",
+            image:
+              "./images/6.png",
+            narrative:
+              "As your time at the shelter home comes to an end, you are planning to move out and have found a small rented room. To support this, you have also started working as a domestic worker in 3 houses. But you only get two days off a month. Today, your child has woken up sick. What do you do now?",
+            dialogue: { speaker: "Dhaani (thinking)", text: "" },
             choices: [
               {
-                text: "Take child inside anyway.",
-                effects: { child: -1, justice: 1 },
-                nextScene: 6,
+                id: "c6_1",
+                text: "Go to work and leave the child at the anganwadi. (Not equipped for sick children)",
+                consequences: { Health: 2, Child: -2 },
+                outcome: { type: "continue", nextCard: 7 },
               },
               {
-                text: "Miss the hearing.",
-                effects: { justice: -2, safety: -1 },
-                nextScene: 6,
+                id: "c6_2",
+                text: "Take the child to the PHC (Primary Health center).",
+                consequences: { Health: 3, Money: -1, Child: 1 },
+                outcome: { type: "continue", nextCard: 7 },
               },
               {
-                text: "Seek volunteer/anganwadi worker to watch child.",
-                effects: { child: 1, justice: 1 },
-                nextScene: 6,
+                id: "c6_3",
+                text: "Call employer and request a day off.",
+                consequences: { Child: 2, Money: -2 },
+                outcome: { type: "continue", nextCard: 7 },
+              },
+              {
+                id: "c6_4",
+                text: "Give home remedies and go to work anyway.",
+                consequences: { Money: 2, Child: -3 },
+                outcome: { type: "continue", nextCard: 7 },
               },
             ],
+            dataCard: {
+              statement:
+                "Your child's health and well-being continues to be at stake. A significant proportion of Indian children under age 5 remain undernourished.",
+              source:
+                "National Family Health Survey 5 (NFHS-5, 2019–21) shows that undernutrition is widespread among children under 5, with 32.1% stunted, 19.3% wasted, and 24.7% underweight, risks that are higher for children from poorer households, rural areas, and mothers with lower education",
+            },
           },
           {
             id: 7,
             title: "Threats from Abuser's Family",
-            image: "./images/7.jpg",
-            background:
-              "linear-gradient(rgba(183,58,79,0.35), rgba(229,57,53,0.25)), url('https://images.unsplash.com/photo-1535778626772-88723fb11334?w=1000&h=600&fit=crop')",
-            imagePosition: "left",
-            dialogue:
-              "\"Withdraw the case, or we'll make sure you regret it. You can't just drag your family matters in front of everyone.\"",
+            "image-alt": "A narrow alley, relatives blocking Dhaani's way.",
+            image:
+              "./images/7.jpg",
+            narrative:
+              "As you're returning from work, your husband's relatives confront you in a narrow alley. They're angry about the case you've filed and the shame it's bringing to the family. They demand you withdraw the case immediately.",
+            dialogue: {
+              speaker: "Relative",
+              text: "Withdraw the case, or we'll make sure you regret it. You can't just drag your family matters in front of everyone, it affects our image in society",
+            },
             choices: [
               {
+                id: "c7_1",
                 text: "Ask police for protection.",
-                effects: { justice: 1, money: -1 },
-                nextScene: 7,
-                random: { safety: [2, 0] },
+                consequences: { Justice: 2, Money: -1 },
+                outcome: { type: "continue", nextCard: 8 },
+                random: { Safety: [2, 0] },
               },
               {
+                id: "c7_2",
                 text: "Stay hidden, skip court.",
-                effects: { safety: 1, justice: -2 },
-                nextScene: 7,
+                consequences: { Safety: 1, Justice: -2 },
+                outcome: { type: "continue", nextCard: 8 },
               },
-              { text: "Confront them.", effects: { safety: -2 }, nextScene: 7 },
+              {
+                id: "c7_3",
+                text: "Confront them with community/PLV support.",
+                consequences: { Safety: -2, Justice: 1 },
+                outcome: { type: "continue", nextCard: 8 },
+              },
             ],
+            dataCard: {
+              statement:
+                "Police protection may reduce immediate physical risk, but long-term safety is not always guaranteed.",
+              source:
+                "Human Rights Watch, Everyone Blames Me (2017) Report notes that even when survivors take positive action, the system rarely lets them get ahead.",
+            },
           },
           {
             id: 8,
+            title: "Preparation for Court Proceedings",
+            "image-alt":
+              "Crowded courtroom hallway with Dhaani and her lawyer.",
+            image:
+              "./images/8.jpg",
+            narrative:
+              "Crowded courtroom hallway. Legal aid lawyer standing beside Dhaani, gently explaining the process while looking at the case file.",
+            dialogue: {
+              speaker: "Legal Aid Lawyer",
+              text: "Today the judge will take up your application. We can request an interim protection order and maintenance, but I want to prepare you: these things take time and a positive order won't mean immediate protection or financial resources for you",
+            },
+            choices: [
+              {
+                id: "c8_1",
+                text: "Tell the lawyer you want to request protection and maintenance today.",
+                consequences: { Justice: 2, Money: -1 },
+                outcome: { type: "continue", nextCard: 9 },
+              },
+              {
+                id: "c8_2",
+                text: "Request a paralegal volunteer to join you during the hearing.",
+                consequences: { Justice: 1, Safety: 1 },
+                outcome: { type: "continue", nextCard: 9 },
+              },
+              {
+                id: "c8_3",
+                text: "Ask whether a settlement should be considered due to fear of facing husband in court.",
+                consequences: { Justice: -1, Safety: 1, Money: 2 },
+                outcome: { type: "continue", nextCard: 9 },
+              },
+            ],
+            dataCard: {
+              statement:
+                "The Domestic Violence Act mandates a 60 day resolution, yet with 4.71 lakh pending domestic violence cases, justice can remain out of reach for months after you file.",
+              source:
+                "NALSA, State-wise Data on Pendency of Domestic Violence Cases, revealed that a total of 4,71,684 original cases and 21,088 appeals were pending under the DV Act in India as on July 2022.",
+            },
+          },
+          {
+            id: 9,
+            title: "Court Hearing",
+            "image-alt":
+              "Courtroom with judge's bench, child tugging at Dhaani's sari.",
+            image:
+              "./images/9.jpg",
+            narrative:
+              "Weeks have passed since you filed your case. The court keeps giving new dates. Every visit means losing a day's wages and arranging childcare again. Your Legal Aid Lawyer explains that this is normal, cases take time—but you feel the strain growing heavier each day.",
+            dialogue: {
+              speaker: "Court clerk",
+              text: "Ab agle tareek pe dekhenge, aap bas date likh lo",
+            },
+            choices: [
+              {
+                id: "c9_1",
+                text: "Continue the case despite the delays, missed work, and mounting expenses. You have a few positive interim orders keeping you afloat.",
+                consequences: { Justice: 2, Money: -2, Health: -1 },
+                outcome: { type: "continue", nextCard: 10 },
+              },
+              {
+                id: "c9_2",
+                text: "Consider a 'compromise' because nothing seems to change even after court orders, and you just want to start afresh and put this traumatic chapter behind you.",
+                consequences: { Justice: -1, Safety: -1 },
+                outcome: { type: "continue", nextCard: 10 },
+              },
+              {
+                id: "c9_3",
+                text: "Stop following up on the case as you feel financially drained and hopeless about a meaningful resolution.",
+                consequences: { Justice: -3, Safety: -2, Money: 2, Health: -2 },
+                outcome: { type: "continue", nextCard: 10 },
+              },
+            ],
+            dataCard: {
+              statement:
+                "The case, meant to resolve and support, often becomes yet another challenge that feels insurmountable—filled with inaccessible legalese and procedural hurdles. In addition, the government's High-Level Committee noted that the judiciary often lacks gender sensitivity and fails to remove barriers that marginalise women navigating litigation.",
+              source:
+                "Report of the High-Level Committee on the Status of Women (HLC, 2014–15).",
+            },
+          },
+          {
+            id: 10,
             title: "Verdict / Resolution",
-            image: "./images/8.jpg",
-            background:
-              "radial-gradient(circle at center, rgba(109,93,208,0.2) 0%, rgba(45,125,123,0.15) 100%), url('https://images.unsplash.com/photo-1589994962902-9e0300c5e0b0?w=1000&h=600&fit=crop')",
-            imagePosition: "right",
-            text: "The judge is delivering the final verdict...",
-            choices: [],
+            "image-alt": "Judge delivering verdict, Dhaani holding her child.",
+            image:
+              "./images/6.jpg",
+            narrative:
+              "After months of struggle, the court has finally reached a decision in your case. The journey has been long and difficult, with many sacrifices along the way. Now you face the outcome of all your efforts.",
+            dialogue: {
+              speaker: "Judge",
+              text: "After considering all evidence and circumstances, this court has reached its verdict.",
+            },
+            choices: [
+              {
+                id: "c10_1",
+                text: "Hear the verdict",
+                consequences: {},
+                outcome: { type: "end" },
+              },
+            ],
+            dataCard: {
+              statement:
+                "The journey through the justice system is often just the beginning of a longer struggle for safety, stability, and healing.",
+              source:
+                "Based on real experiences of survivors navigating the legal system in India",
+            },
           },
         ],
       };
 
-      // Game Logic
+      // Game State
       class Game {
         constructor() {
-          this.metrics = JSON.parse(JSON.stringify(gameData.metrics));
-          this.currentScene = 0;
-          this.sceneHistory = [];
+          this.metrics = {
+            Safety: { name: "Safety", value: 5, max: 10, icon: "🛡️" },
+            Health: { name: "Health", value: 5, max: 10, icon: "❤️" },
+            Money: { name: "Money", value: 5, max: 10, icon: "💰" },
+            Child: { name: "Child Well-being", value: 5, max: 10, icon: "🧸" },
+            Justice: {
+              name: "Justice Progress",
+              value: 5,
+              max: 10,
+              icon: "⚖️",
+            },
+          };
+          this.currentCardId = 1;
           this.choicesMade = [];
+        }
+
+        getCurrentCard() {
+          return gameData.cards.find((card) => card.id === this.currentCardId);
         }
 
         applyEffects(effects) {
@@ -1401,50 +1731,9 @@
                   this.metrics[metric].value + change
                 )
               );
-
-              // Trigger animation
               this.animateMetricChange(metric, change, oldValue);
             }
           });
-        }
-
-        animateMetricChange(metricKey, change, oldValue) {
-          // Wait for next render
-          setTimeout(() => {
-            const metricElement = document.querySelector(
-              `.metric[data-metric="${metricKey}"]`
-            );
-            if (!metricElement) return;
-
-            // Add floating number
-            const changeIndicator = document.createElement("div");
-            changeIndicator.className = `metric-change ${
-              change > 0 ? "positive" : "negative"
-            }`;
-            changeIndicator.textContent = `${change > 0 ? "+" : ""}${change}`;
-            metricElement.style.position = "relative";
-            metricElement.appendChild(changeIndicator);
-
-            // Add pulse animation
-            metricElement.classList.add(
-              change > 0 ? "pulse-positive" : "pulse-negative"
-            );
-
-            // Animate bar
-            const bar = metricElement.querySelector(".metric-bar");
-            if (bar) {
-              bar.classList.add("animate-change");
-            }
-
-            // Clean up
-            setTimeout(() => {
-              changeIndicator.remove();
-              metricElement.classList.remove(
-                "pulse-positive",
-                "pulse-negative"
-              );
-            }, 1500);
-          }, 50);
         }
 
         applyRandomEffect(effect) {
@@ -1452,6 +1741,7 @@
             const randomValue =
               possibleValues[Math.floor(Math.random() * possibleValues.length)];
             if (this.metrics[metric]) {
+              const oldValue = this.metrics[metric].value;
               this.metrics[metric].value = Math.max(
                 0,
                 Math.min(
@@ -1459,15 +1749,39 @@
                   this.metrics[metric].value + randomValue
                 )
               );
+              this.animateMetricChange(metric, randomValue, oldValue);
             }
           });
+        }
+
+        animateMetricChange(metricKey, change, oldValue) {
+          const metricElement = document.querySelector(
+            `.metric[data-metric="${metricKey}"]`
+          );
+          if (!metricElement) return;
+
+          const bar = metricElement.querySelector('.metric-bar');
+          if (bar) {
+            bar.style.width = `${(this.metrics[metricKey].value / this.metrics[metricKey].max) * 100}%`;
+          }
+
+          // Show the change indicator
+          const changeIndicator = document.createElement("div");
+          changeIndicator.className = `metric-change ${
+            change > 0 ? "positive" : "negative"
+          }`;
+          changeIndicator.textContent = `${change > 0 ? "+" : ""}${change}`;
+          metricElement.appendChild(changeIndicator);
+
+          setTimeout(() => changeIndicator.remove(), 1500);
         }
 
         getEnding() {
           const avgMetric =
             Object.values(this.metrics).reduce((sum, m) => sum + m.value, 0) /
             Object.keys(this.metrics).length;
-          const justiceScore = this.metrics.justice.value;
+          const justiceScore = this.metrics.Justice.value;
+          const childScore = this.metrics.Child.value;
 
           if (justiceScore >= 7 && avgMetric >= 6) {
             return {
@@ -1495,7 +1809,7 @@
                 "Financial instability threatens independence",
               ],
             };
-          } else if (justiceScore >= 2 && this.metrics.child.value >= 4) {
+          } else if (justiceScore >= 2 && childScore >= 4) {
             return {
               type: "survival",
               title: "Survival without Justice",
@@ -1531,20 +1845,91 @@
           const metricsHTML = Object.entries(this.metrics)
             .map(
               ([key, metric]) => `
-                    <div class="metric" data-metric="${key}">
-                        <span class="metric-icon">${metric.icon}</span>
-                        <div class="metric-label">${metric.name}</div>
-                        <div class="metric-bar-container">
-                            <div class="metric-bar bar-${key}" style="width: ${
+                        <div class="metric" data-metric="${key}">
+                            <span class="metric-icon">${metric.icon}</span>
+                            <div class="metric-label">${metric.name}</div>
+                            <div class="metric-bar-container">
+                                <div class="metric-bar bar-${key.toLowerCase()}" style="width: ${
                 (metric.value / metric.max) * 100
               }%"></div>
+                            </div>
                         </div>
-                    </div>
-                `
+                    `
             )
             .join("");
 
           hudContainer.innerHTML = `<div class="metrics-container">${metricsHTML}</div>`;
+        }
+
+        renderCard() {
+          const app = document.getElementById("app");
+          const card = this.getCurrentCard();
+
+          if (!card) return;
+
+          if (card.id === 10) {
+            this.renderEnding();
+            return;
+          }
+          const animation = this.getNextAnimation();
+          const cardHTML = `
+                    <div class="hud"></div>
+                    <div class="game-container">
+                        <div class="card-container">
+                            <div class="card ${animation}">
+                                <div class="card-background" style="background-image: url('${
+                                  card.image
+                                }')"></div>
+                                <div class="card-content-wrapper">
+                                    <img src="${card.image}" alt="${
+            card["image-alt"]
+          }" class="card-image">
+                                    <div class="card-content">
+                                        <h1 class="card-title">${
+                                          card.title
+                                        }</h1>
+                                        ${
+                                          card.dialogue && card.dialogue.speaker
+                                            ? `
+                                            <div class="dialogue">
+                                                <span class="speaker">${card.dialogue.speaker}:</span>
+                                                ${card.dialogue.text}
+                                            </div>
+                                        `
+                                            : ""
+                                        }
+                                        <div class="card-narrative">${
+                                          card.narrative
+                                        }</div>
+                                        
+                                        <div class="choices-container">
+                                            ${card.choices
+                                              .map(
+                                                (choice, index) => `
+                                                <button class="choice-button" data-choice="${index}">
+                                                    ${choice.text}
+                                                </button>
+                                            `
+                                              )
+                                              .join("")}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+          app.innerHTML = cardHTML;
+          this.renderHUD();
+          this.attachChoiceListeners();
+        }
+
+        attachChoiceListeners() {
+          const buttons = document.querySelectorAll(".choice-button");
+          buttons.forEach((button, index) => {
+            button.addEventListener("click", () => this.makeChoice(index));
+          });
         }
 
         getNextAnimation() {
@@ -1554,116 +1939,108 @@
           return animation;
         }
 
-        renderScene() {
-          const app = document.getElementById("app");
-          const scene = gameData.scenes[this.currentScene];
-
-          if (!scene) return;
-
-          if (scene.id === 8) {
-            this.renderEnding();
-            return;
-          }
-
-          const animation = this.getNextAnimation();
-
-          const sceneHTML = `
-                <div class="hud"></div>
-                <div class="game-container">
-                    <div class="card-container">
-                        <div class="card ${animation}">
-                            <div class="card-background" style="${
-                              scene.background
-                                ? `background: ${scene.background};`
-                                : ""
-                            }"></div>
-                            <div class="card-content-wrapper ${
-                              scene.imagePosition === "right"
-                                ? "image-right"
-                                : ""
-                            }">
-                                <img src="${scene.image}" alt="${
-            scene.title
-          }" class="card-image">
-                                <div class="card-content">
-                                    <h1 class="card-title">${scene.title}</h1>
-                                    ${
-                                      scene.dialogue
-                                        ? `<div class="dialogue">${scene.dialogue}</div>`
-                                        : ""
-                                    }
-                                    <p class="card-text">${scene.text}</p>
-                                    ${
-                                      scene.stats
-                                        ? `<div class="stats-panel">${scene.stats}</div>`
-                                        : ""
-                                    }
-                                    <div class="choices-container">
-                                        ${scene.choices
-                                          .map(
-                                            (choice, index) => `
-                                            <button class="choice-button" data-choice="${index}">
-                                                ${choice.text}
-                                                ${
-                                                  choice.note
-                                                    ? `<br><small style="opacity: 0.7; font-weight: 400;">${choice.note}</small>`
-                                                    : ""
-                                                }
-                                            </button>
-                                        `
-                                          )
-                                          .join("")}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-          app.innerHTML = sceneHTML;
-          this.renderHUD();
-          this.attachChoiceListeners();
-        }
-        attachChoiceListeners() {
-          const buttons = document.querySelectorAll(".choice-button");
-          buttons.forEach((button, index) => {
-            button.addEventListener("click", () => this.makeChoice(index));
-          });
-        }
-
         makeChoice(choiceIndex) {
-          const scene = gameData.scenes[this.currentScene];
-          const choice = scene.choices[choiceIndex];
+          const card = this.getCurrentCard();
+          const choice = card.choices[choiceIndex];
 
-          // Highlight selected button
-          const buttons = document.querySelectorAll(".choice-button");
-          buttons[choiceIndex].classList.add("selected");
+          // Store the dataCard for potential popup
+          const currentDataCard = card.dataCard;
 
-          this.choicesMade.push({
-            scene: scene.title,
-            choice: choice.text,
-            effects: choice.effects,
-          });
+          // Disable buttons
+          document
+            .querySelectorAll(".choice-button")
+            .forEach((btn) => (btn.disabled = true));
 
-          if (choice.effects) {
-            this.applyEffects(choice.effects);
+          // Apply consequences
+          if (choice.consequences) {
+            this.applyEffects(choice.consequences);
           }
 
+          // Apply random effects if present
           if (choice.random) {
             this.applyRandomEffect(choice.random);
           }
 
-          this.sceneHistory.push(this.currentScene);
-          this.currentScene = choice.nextScene;
+          // Record choice
+          this.choicesMade.push({
+            card: card.title,
+            choice: choice.text,
+          });
 
-          // Disable all buttons to prevent multiple clicks
-          buttons.forEach((btn) => (btn.disabled = true));
-
+          // Navigate based on outcome
           setTimeout(() => {
-            this.renderScene();
-          }, 1200); // Increased delay to see animations
+            if (choice.outcome.type === "collapse") {
+              // Pass user-specified image to collapse popup if provided
+              this.renderCollapse(
+                choice.outcome.message,
+                choice.outcome.collapseImage || (card && card.image),
+                // choice.outcome.collapseImageAlt || (card && card["image-alt"]) || "Collapse Image"
+              );
+            } else if (choice.outcome.type === "continue") {
+              // Pass image to popup
+              this.showDataCardPopup(currentDataCard, () => {
+                this.currentCardId = choice.outcome.nextCard;
+                this.renderCard();
+              });
+            } else if (choice.outcome.type === "end") {
+              this.showDataCardPopup(currentDataCard, () => {
+                this.renderEnding();
+              });
+            }
+          }, 500); // Slight delay for choice animation
         }
+
+        showDataCardPopup(dataCard, callback) {
+          if (!dataCard) {
+            callback();
+            return;
+          }
+          // Do not show an image in the popup
+          const popupHTML = `
+        <div class="popup-overlay" id="popupOverlay">
+            <div class="popup-content">
+                <h2 class="popup-title">Important Context</h2>
+                <div class="popup-text">${dataCard.statement}</div>
+                <div class="popup-source">Source: ${dataCard.source}</div>
+                <button class="popup-close" onclick="closePopup()">Continue</button>
+            </div>
+        </div>
+    `;
+          document.body.insertAdjacentHTML("beforeend", popupHTML);
+          window.currentPopupCallback = callback;
+        }
+
+        renderCollapse(message, collapseImage, collapseImageAlt) {
+          const app = document.getElementById("app");
+          // Use user-specified collapseImage if provided, else fallback to card image
+          const card = this.getCurrentCard();
+          const imageToShow = collapseImage || (card && card.image ? card.image : null);
+          const imageAltToShow = collapseImageAlt || (card && card["image-alt"] ? card["image-alt"] : "Collapse Image");
+          app.innerHTML = `
+                    <div class="hud"></div>
+                    <div class="game-container">
+                        <div class="card-container">
+                            <div class="ending-screen">
+                              <div class="ending-outcome collapse">Journey Ended</div>
+                                <p class="ending-description">${message}</p>
+                                ${imageToShow ? `<img src="${imageToShow}" alt="${imageAltToShow}" style="max-width: 100%; border-radius: 12px; margin-bottom: 18px; margin-top: 40px;">` : ""}
+                                <div class="stats-panel" style="text-align: left; margin-bottom: 20px;">
+                                    <strong>Final Status:</strong><br>
+                                    ${Object.entries(this.metrics)
+                                      .map(
+                                        ([key, metric]) =>
+                                          `${metric.name}: ${metric.value}/${metric.max}`
+                                      )
+                                      .join(" • ")}
+                                </div>
+                                <button class="restart-button" onclick="restartGame()">Try Again</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+          this.renderHUD();
+        }
+
         renderEnding() {
           const app = document.getElementById("app");
           const ending = this.getEnding();
@@ -1688,7 +2065,7 @@
                                           .join("")}
                                     </ul>
                                 </div>
-                                <div class="stats-panel" style="text-align: left;">
+                                <div class="stats-panel" style="text-align: left; margin-bottom: 20px;">
                                     <strong>Final Status:</strong><br>
                                     ${Object.entries(this.metrics)
                                       .map(
@@ -1707,43 +2084,51 @@
           this.renderHUD();
         }
 
-        restart() {
-          this.metrics = JSON.parse(JSON.stringify(gameData.metrics));
-          this.currentScene = 0;
-          this.sceneHistory = [];
-          this.choicesMade = [];
-          currentAnimationIndex = 0;
-          this.renderScene();
-        }
-
         start() {
-          this.renderScene();
+          this.renderCard();
         }
       }
 
       let game;
 
       function startGame() {
-        const butterfly = document.querySelector(".butterfly");
-        const startScreen = document.getElementById("startScreen");
+        // Animate butterfly out
+        const butterfly = document.querySelector('.butterfly');
+        butterfly.classList.add('butterfly-exit');
+        // After animation, switch screens
+        butterfly.addEventListener('animationend', function handler() {
+          butterfly.removeEventListener('animationend', handler);
+          document.getElementById("startScreen").classList.add("hidden");
+          document.getElementById("backgroundScreen").classList.remove("hidden");
+        });
+      }
 
-        // Trigger butterfly exit animation
-        butterfly.classList.add("butterfly-exit");
-
-        // Wait for animation to complete before transitioning to game
+      function startGameProper() {
+        // Animate background screen out
+        const bgScreen = document.getElementById("backgroundScreen");
+        bgScreen.classList.add("fade-out");
         setTimeout(() => {
-          startScreen.classList.add("hidden");
+          bgScreen.classList.add("hidden");
           document.getElementById("app").classList.remove("hidden");
           game = new Game();
           game.start();
-        }, 1000);
+        }, 700); // match transition duration
       }
 
+      // Keep your restartGame() function as is:
       function restartGame() {
-        document.getElementById("startScreen").classList.remove("hidden");
-        document.getElementById("app").classList.add("hidden");
         window.location.reload();
-        game = null;
+      }
+
+      function closePopup() {
+        const overlay = document.getElementById("popupOverlay");
+        if (overlay) {
+          overlay.remove();
+        }
+        if (window.currentPopupCallback) {
+          window.currentPopupCallback();
+          window.currentPopupCallback = null;
+        }
       }
 
       window.addEventListener("DOMContentLoaded", () => {
