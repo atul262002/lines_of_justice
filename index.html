@@ -1136,7 +1136,6 @@
           padding-bottom: 12px;
         }
       }
-
       @media (max-width: 480px) {
         .hud {
           max-width: 80px;
@@ -1497,6 +1496,9 @@
         </div>
       </div>
       <div class="start-content">
+        <div class="logo-front" style="text-align:center; margin-bottom: 18px;">
+          <img src="./images/logo.jpeg" alt="Game Logo" style="max-width:120px; border-radius:12px; box-shadow:0 2px 12px #0002;">
+        </div>
         <h1 class="start-title">Lines of Justice</h1>
         <p class="start-subtitle">Dhaani's Story</p>
         <p class="start-description">
@@ -1840,8 +1842,8 @@
             image:
               "./images/6.png",
             narrative:
-              "As your time at the shelter home comes to an end, you are planning to move out and have found a small rented room. To support this, you have also started working as a domestic worker in 3 houses. But you only get two days off a month. Today, your child has woken up sick. What do you do now?",
-            dialogue: { speaker: "Dhaani (thinking)", text: "" },
+              "The PLV is coming for a legal session… and the shelter can connect me to a Legal Aid Lawyer too. The session might give me clarity, but speaking to a lawyer could help with my case directly. What could help our situation most right now? As your time at the shelter home comes to an end, you are planning to move out and have found a small rented room. To support this, you have also started working as a domestic worker in 3 houses. But you only get two days off a month. Today, your child has woken up sick. What do you do now?",
+            dialogue: { speaker: "Dhaani (thinking)", text: "He's so unwell...what can I do, I can't take him with me, and I can't ask for leave when I've only just started working, can I...?" },
             choices: [
               {
                 id: "c6_1",
@@ -1923,7 +1925,7 @@
             image:
               "./images/8.jpg",
             narrative:
-              "He corridor is packed with people— lawyers rushing between courtrooms, families waiting on hard benches, clerks calling out case numbers that echo off the walls. Paper files are stacked everywhere, a reminder of how many lives sit on hold here. Amid the noise and confusion, you stand with your legal aid lawyer, who flips through the case file. You grip the edge of your dupatta, trying to steady yourself in a place that feels both official and overwhelming",
+              "THe corridor is packed with people— lawyers rushing between courtrooms, families waiting on hard benches, clerks calling out case numbers that echo off the walls. Paper files are stacked everywhere, a reminder of how many lives sit on hold here. Amid the noise and confusion, you stand with your legal aid lawyer, who flips through the case file. You grip the edge of your dupatta, trying to steady yourself in a place that feels both official and overwhelming",
             dialogue: {
               speaker: "Legal Aid Lawyer",
               text: "Today the judge will take up your application. We can request an interim protection order and maintenance, but I want to prepare you: these things take time and a positive order won't mean immediate protection or financial resources for you",
@@ -2153,7 +2155,7 @@
           } else {
             return {
               type: "collapse",
-              title: "Systemic Collapse",
+              title: "Protection pathways exhausted",
               description:
                 "The case is dismissed due to insufficient evidence. Without protection, Dhaani is forced back into her abusive environment.",
               notes: [
@@ -2468,6 +2470,69 @@
       window.addEventListener("DOMContentLoaded", () => {
         // Show start screen on load
       });
+
+      // Show audio permission suggestion if not already granted
+      function requestAudioPermission() {
+        const audio = document.getElementById('bgAudio');
+        if (!audio) return;
+        // Only show if not previously granted or denied
+        const audioStatus = localStorage.getItem('audioPermission');
+        if (audioStatus === 'granted') {
+          audio.play();
+          return;
+        }
+        if (audioStatus === 'denied') {
+          audio.pause();
+          audio.muted = true;
+          return;
+        }
+        // Modern browsers require user interaction for autoplay
+        if (audio.paused) {
+          const permissionDiv = document.createElement('div');
+          permissionDiv.className = 'audio-permission-suggestion';
+          permissionDiv.style.position = 'fixed';
+          permissionDiv.style.top = '0';
+          permissionDiv.style.left = '0';
+          permissionDiv.style.width = '100vw';
+          permissionDiv.style.height = '100vh';
+          permissionDiv.style.background = 'rgba(0,0,0,0.7)';
+          permissionDiv.style.zIndex = '3000';
+          permissionDiv.style.display = 'flex';
+          permissionDiv.style.alignItems = 'center';
+          permissionDiv.style.justifyContent = 'center';
+          permissionDiv.innerHTML = `
+            <div style="background: #fff; border-radius: 16px; padding: 32px; max-width: 340px; text-align: center; box-shadow: 0 8px 32px #0002; font-family: 'Poppins', sans-serif;">
+              <h2 style="color: #2d7d7b; font-size: 1.3em; margin-bottom: 18px;">Enable Audio</h2>
+              <p style="color: #444; font-size: 1em; margin-bottom: 24px;">This app would like to play background audio for a more immersive experience. Please tap below to allow audio playback.</p>
+              <button style="background: linear-gradient(90deg,#2d7d7b,#7b68ee); color: #fff; border: none; border-radius: 8px; padding: 12px 28px; font-size: 1em; font-weight: 700; cursor: pointer; margin-bottom: 12px;" onclick="grantAudioPermission()">Allow Audio</button>
+              <br>
+              <button style="background: #eee; color: #222; border: none; border-radius: 8px; padding: 10px 24px; font-size: 1em; font-weight: 600; cursor: pointer; margin-top: 8px;" onclick="denyAudioPermission()">No, thanks</button>
+            </div>
+          `;
+          document.body.appendChild(permissionDiv);
+        }
+      }
+      function grantAudioPermission() {
+        const audio = document.getElementById('bgAudio');
+        if (audio) {
+          audio.muted = false;
+          audio.play();
+        }
+        localStorage.setItem('audioPermission', 'granted');
+        const permDiv = document.querySelector('.audio-permission-suggestion');
+        if (permDiv) permDiv.remove();
+      }
+      function denyAudioPermission() {
+        const audio = document.getElementById('bgAudio');
+        if (audio) {
+          audio.pause();
+          audio.muted = true;
+        }
+        localStorage.setItem('audioPermission', 'denied');
+        const permDiv = document.querySelector('.audio-permission-suggestion');
+        if (permDiv) permDiv.remove();
+      }
+      window.addEventListener('DOMContentLoaded', requestAudioPermission);
     </script>
   </body>
 </html>
