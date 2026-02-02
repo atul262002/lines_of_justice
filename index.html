@@ -1,2252 +1,2389 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lines of Justice: Dhaani's Story</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Source+Sans+Pro:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      :root {
-        --primary-teal: #2d7d7b;
-        --accent-teal: #4a9b8e;
-        --soft-purple: #7b68ee;
-        --deep-purple: #5d4e9c;
-        --warm-red: #d73a4f;
-        --gold: #ffb800;
-        --bg-cream: #fffdf8;
-        --bg-warm: #f9f7f4;
-        --text-charcoal: #1e1e24;
-        --text-gray: #5a5a6e;
-        --shadow: rgba(94, 84, 142, 0.12);
-        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lines of Justice: Dhaani's Story</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Source+Sans+Pro:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --primary-teal: #2d7d7b;
+      --accent-teal: #4a9b8e;
+      --soft-purple: #7b68ee;
+      --deep-purple: #5d4e9c;
+      --warm-red: #d73a4f;
+      --gold: #ffb800;
+      --bg-cream: #fffdf8;
+      --bg-warm: #f9f7f4;
+      --text-charcoal: #1e1e24;
+      --text-gray: #5a5a6e;
+      --shadow: rgba(94, 84, 142, 0.12);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      min-height: 100vh;
+      width: 100vw;
+      overflow: auto !important;
+    }
+
+    body {
+      font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(135deg,
+          var(--deep-purple) 0%,
+          var(--primary-teal) 100%);
+      color: var(--text-charcoal);
+      min-height: 100vh;
+      height: auto;
+      overflow: auto !important;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Start Screen */
+    .start-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: linear-gradient(135deg,
+          var(--deep-purple) 0%,
+          var(--primary-teal) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    /* Butterfly Animation */
+    .butterfly {
+      animation: hover 250ms cubic-bezier(0.48, 0.01, 0.54, 1) infinite,
+        butterflyFlyIn 3s ease-out forwards;
+      animation-direction: alternate, normal;
+      animation-fill-mode: reverse, forwards;
+      position: absolute;
+      transform-style: preserve-3d;
+      transform: rotateX(50deg) rotateY(20deg) rotateZ(-50deg) translateY(0px);
+      width: 30px;
+      top: -100px;
+      left: 50%;
+      z-index: 1001;
+    }
+
+    .butterfly::before {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      content: "";
+      display: block;
+      height: 110px;
+      left: 50%;
+      margin-left: -10px;
+      outline: 1px solid transparent;
+      position: absolute;
+      top: -15px;
+      transform: rotatey(100deg);
+      width: 20px;
+      z-index: 2;
+    }
+
+    .wing {
+      background: transparent;
+      display: block;
+      opacity: 0.9;
+      outline: 1px solid transparent;
+      position: absolute;
+      top: 0;
+    }
+
+    .wing:first-child {
+      animation: leftflap 250ms cubic-bezier(0.48, 0.01, 0.54, 1) infinite;
+      animation-direction: alternate;
+      animation-fill-mode: reverse;
+      height: 1px;
+      left: 0;
+      transform: rotateY(-20deg);
+      transform-origin: 700% 50%;
+      width: 1px;
+      z-index: 3;
+    }
+
+    .wing:last-child {
+      animation: rightflap 250ms cubic-bezier(0.48, 0.01, 0.54, 1) infinite;
+      animation-direction: alternate;
+      animation-fill-mode: reverse;
+      right: 0;
+      transform: rotateY(200deg);
+      z-index: 1;
+    }
+
+    .wing .bit {
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .wing .bit::after {
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    .wing .bit,
+    .wing .bit::after {
+      border-radius: 50%;
+      overflow: hidden;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transform-origin: 100% 50%;
+    }
+
+    .wing .bit:first-child {
+      height: 70px;
+      text-align: center;
+      top: 15px;
+      transform: rotateZ(40deg);
+      width: 130px;
+    }
+
+    .wing .bit:first-child::after {
+      content: "";
+      display: inline-block;
+      height: 60px;
+      left: -30px;
+      top: 5px;
+      width: 100px;
+    }
+
+    .wing .bit:last-child {
+      height: 55px;
+      transform: rotateZ(-40deg);
+      width: 100px;
+    }
+
+    .wing .bit:last-child::after {
+      content: "";
+      display: inline-block;
+      height: 45px;
+      left: -24px;
+      top: 5px;
+      width: 60px;
+      z-index: 1;
+    }
+
+    @keyframes butterflyFlyIn {
+      0% {
+        top: -100px;
+        left: 50%;
+        transform: rotateX(50deg) rotateY(20deg) rotateZ(-50deg) translateX(-50%);
       }
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+      50% {
+        top: 40%;
+        left: 60%;
+        transform: rotateX(50deg) rotateY(20deg) rotateZ(-50deg) translateX(-50%);
       }
 
-      html, body {
+      100% {
+        top: 15%;
+        left: 85%;
+        transform: rotateX(50deg) rotateY(20deg) rotateZ(-50deg) translateX(-50%);
+      }
+    }
+
+    @keyframes hover {
+      0% {
+        transform: rotateX(50deg) rotateY(20deg) rotateZ(-50deg) translateZ(0px);
+      }
+
+      100% {
+        transform: rotateX(50deg) rotateY(20deg) rotateZ(-50deg) translateZ(-3px);
+      }
+    }
+
+    @keyframes leftflap {
+      0% {
+        transform: rotateY(-20deg);
+      }
+
+      100% {
+        transform: rotateY(90deg);
+      }
+    }
+
+    @keyframes rightflap {
+      0% {
+        transform: rotateY(200deg);
+      }
+
+      100% {
+        transform: rotateY(90deg);
+      }
+    }
+
+    @keyframes butterflyFlyOut {
+      0% {
+        opacity: 1;
+        top: 0;
+        left: 50%;
+        transform: rotateX(50deg) rotateY(20deg) rotateZ(-50deg) translateY(0px);
+      }
+
+      100% {
+        opacity: 0;
+        top: -200px;
+        left: 120%;
+        transform: rotateX(50deg) rotateY(20deg) rotateZ(-50deg) translateY(-100px) scale(0.3);
+      }
+    }
+
+    .butterfly-exit {
+      animation: butterflyFlyOut 1s ease-in forwards !important;
+    }
+
+    @keyframes butterflyFlyOut {
+      0% {
+        top: 15%;
+        left: 85%;
+        transform: rotateX(50deg) rotateY(20deg) rotateZ(-50deg) translateX(-50%);
+        opacity: 1;
+      }
+
+      100% {
+        top: -200px;
+        left: 120%;
+        transform: rotateX(50deg) rotateY(20deg) rotateZ(-50deg) translateX(-50%) scale(0.3);
+        opacity: 0;
+      }
+    }
+
+    .butterfly-exit {
+      animation: butterflyFlyOut 1s ease-in forwards !important;
+    }
+
+    .start-content {
+      text-align: center;
+      color: white;
+      padding: 40px;
+      max-width: 700px;
+    }
+
+    .start-title {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      font-family: "Poppins", sans-serif;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .start-subtitle {
+      font-size: 20px;
+      margin-bottom: 30px;
+      opacity: 0.95;
+      line-height: 1.6;
+    }
+
+    .start-description {
+      font-size: 16px;
+      margin-bottom: 40px;
+      opacity: 0.9;
+      line-height: 1.7;
+    }
+
+    .play-button {
+      background: white;
+      color: var(--deep-purple);
+      border: none;
+      padding: 20px 50px;
+      border-radius: 50px;
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: "Poppins", sans-serif;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .play-button:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    /* HUD */
+    .hud {
+      background: linear-gradient(90deg, #fffdf8 0%, #e3f6f5 100%);
+      backdrop-filter: blur(16px);
+      padding: 18px 28px;
+      box-shadow: 0 4px 24px var(--shadow);
+      border-radius: 18px;
+      z-index: 100;
+      position: relative;
+      margin: 18px auto 24px auto;
+      max-width: 900px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .metrics-container {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .hud-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 24px;
+    }
+
+    .hud-logo img {
+      height: 64px;
+      width: auto;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.14);
+      margin-left: 26px;
+      transition: height 0.3s;
+    }
+
+    .metric {
+      flex: 1;
+      min-width: 90px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 12px 8px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+      position: relative;
+      margin: 0 4px;
+    }
+
+    .metric-icon {
+      font-size: 32px;
+      margin-bottom: 6px;
+      display: block;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
+    }
+
+    .metric-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      color: var(--primary-teal);
+      margin-bottom: 8px;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .metric-bar-container {
+      background: var(--bg-warm);
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.07);
+    }
+
+    .metric-bar {
+      height: 100%;
+      border-radius: 5px;
+      transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    @media (max-width: 768px) {
+
+      html,
+      body {
         height: 100%;
         min-height: 100vh;
         width: 100vw;
         overflow: auto !important;
       }
 
-      body {
-        font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont,
-          "Segoe UI", Roboto, sans-serif;
-        background: linear-gradient(
-          135deg,
-          var(--deep-purple) 0%,
-          var(--primary-teal) 100%
-        );
-        color: var(--text-charcoal);
+      .app-layout {
+        flex-direction: row !important;
+        width: 100vw;
         min-height: 100vh;
         height: auto;
-        overflow: auto !important;
-        display: flex;
-        flex-direction: column;
+        align-items: stretch;
+        overflow: visible;
       }
 
-      /* Start Screen */
-      .start-screen {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background: linear-gradient(
-          135deg,
-          var(--deep-purple) 0%,
-          var(--primary-teal) 100%
-        );
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-        animation: fadeIn 0.6s ease-out;
-      }
-
-      /* Butterfly Animation */
-      .butterfly {
-        animation: hover 250ms cubic-bezier(0.48, 0.01, 0.54, 1) infinite,
-          butterflyFlyIn 3s ease-out forwards;
-        animation-direction: alternate, normal;
-        animation-fill-mode: reverse, forwards;
-        position: absolute;
-        transform-style: preserve-3d;
-        transform: rotateX(50deg) rotateY(20deg) rotateZ(-50deg) translateY(0px);
-        width: 30px;
-        top: -100px;
-        left: 50%;
-        z-index: 1001;
-      }
-
-      .butterfly::before {
-        background: rgba(255, 255, 255, 0.3);
-        border-radius: 50%;
-        content: "";
-        display: block;
-        height: 110px;
-        left: 50%;
-        margin-left: -10px;
-        outline: 1px solid transparent;
-        position: absolute;
-        top: -15px;
-        transform: rotatey(100deg);
-        width: 20px;
-        z-index: 2;
-      }
-
-      .wing {
-        background: transparent;
-        display: block;
-        opacity: 0.9;
-        outline: 1px solid transparent;
-        position: absolute;
-        top: 0;
-      }
-
-      .wing:first-child {
-        animation: leftflap 250ms cubic-bezier(0.48, 0.01, 0.54, 1) infinite;
-        animation-direction: alternate;
-        animation-fill-mode: reverse;
-        height: 1px;
-        left: 0;
-        transform: rotateY(-20deg);
-        transform-origin: 700% 50%;
-        width: 1px;
-        z-index: 3;
-      }
-
-      .wing:last-child {
-        animation: rightflap 250ms cubic-bezier(0.48, 0.01, 0.54, 1) infinite;
-        animation-direction: alternate;
-        animation-fill-mode: reverse;
-        right: 0;
-        transform: rotateY(200deg);
-        z-index: 1;
-      }
-
-      .wing .bit {
-        background: rgba(255, 255, 255, 0.8);
-      }
-
-      .wing .bit::after {
-        background: rgba(255, 255, 255, 0.6);
-      }
-
-      .wing .bit,
-      .wing .bit::after {
-        border-radius: 50%;
-        overflow: hidden;
-        position: absolute;
-        right: 0;
-        top: 0;
-        transform-origin: 100% 50%;
-      }
-
-      .wing .bit:first-child {
-        height: 70px;
-        text-align: center;
-        top: 15px;
-        transform: rotateZ(40deg);
-        width: 130px;
-      }
-
-      .wing .bit:first-child::after {
-        content: "";
-        display: inline-block;
-        height: 60px;
-        left: -30px;
-        top: 5px;
-        width: 100px;
-      }
-
-      .wing .bit:last-child {
-        height: 55px;
-        transform: rotateZ(-40deg);
-        width: 100px;
-      }
-
-      .wing .bit:last-child::after {
-        content: "";
-        display: inline-block;
-        height: 45px;
-        left: -24px;
-        top: 5px;
-        width: 60px;
-        z-index: 1;
-      }
-
-      @keyframes butterflyFlyIn {
-        0% {
-          top: -100px;
-          left: 50%;
-          transform: rotateX(50deg) rotateY(20deg) rotateZ(-50deg)
-            translateX(-50%);
-        }
-        50% {
-          top: 40%;
-          left: 60%;
-          transform: rotateX(50deg) rotateY(20deg) rotateZ(-50deg)
-            translateX(-50%);
-        }
-        100% {
-          top: 15%;
-          left: 85%;
-          transform: rotateX(50deg) rotateY(20deg) rotateZ(-50deg)
-            translateX(-50%);
-        }
-      }
-
-      @keyframes hover {
-        0% {
-          transform: rotateX(50deg) rotateY(20deg) rotateZ(-50deg)
-            translateZ(0px);
-        }
-        100% {
-          transform: rotateX(50deg) rotateY(20deg) rotateZ(-50deg)
-            translateZ(-3px);
-        }
-      }
-
-      @keyframes leftflap {
-        0% {
-          transform: rotateY(-20deg);
-        }
-        100% {
-          transform: rotateY(90deg);
-        }
-      }
-
-      @keyframes rightflap {
-        0% {
-          transform: rotateY(200deg);
-        }
-        100% {
-          transform: rotateY(90deg);
-        }
-      }
-
-      @keyframes butterflyFlyOut {
-        0% {
-          opacity: 1;
-          top: 0;
-          left: 50%;
-          transform: rotateX(50deg) rotateY(20deg) rotateZ(-50deg) translateY(0px);
-        }
-        100% {
-          opacity: 0;
-          top: -200px;
-          left: 120%;
-          transform: rotateX(50deg) rotateY(20deg) rotateZ(-50deg) translateY(-100px) scale(0.3);
-        }
-      }
-
-      .butterfly-exit {
-        animation: butterflyFlyOut 1s ease-in forwards !important;
-      }
-
-      @keyframes butterflyFlyOut {
-        0% {
-          top: 15%;
-          left: 85%;
-          transform: rotateX(50deg) rotateY(20deg) rotateZ(-50deg)
-            translateX(-50%);
-          opacity: 1;
-        }
-        100% {
-          top: -200px;
-          left: 120%;
-          transform: rotateX(50deg) rotateY(20deg) rotateZ(-50deg)
-            translateX(-50%) scale(0.3);
-          opacity: 0;
-        }
-      }
-
-      .butterfly-exit {
-        animation: butterflyFlyOut 1s ease-in forwards !important;
-      }
-
-      .start-content {
-        text-align: center;
-        color: white;
-        padding: 40px;
-        max-width: 700px;
-      }
-
-      .start-title {
-        font-size: 48px;
-        font-weight: 700;
-        margin-bottom: 20px;
-        font-family: "Poppins", sans-serif;
-        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      }
-
-      .start-subtitle {
-        font-size: 20px;
-        margin-bottom: 30px;
-        opacity: 0.95;
-        line-height: 1.6;
-      }
-
-      .start-description {
-        font-size: 16px;
-        margin-bottom: 40px;
-        opacity: 0.9;
-        line-height: 1.7;
-      }
-
-      .play-button {
-        background: white;
-        color: var(--deep-purple);
-        border: none;
-        padding: 20px 50px;
-        border-radius: 50px;
-        font-size: 20px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: var(--transition);
-        font-family: "Poppins", sans-serif;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
-
-      .play-button:hover {
-        transform: translateY(-5px) scale(1.05);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-      }
-
-      /* HUD */
       .hud {
-        background: linear-gradient(90deg, #fffdf8 0%, #e3f6f5 100%);
-        backdrop-filter: blur(16px);
-        padding: 18px 28px;
-        box-shadow: 0 4px 24px var(--shadow);
-        border-radius: 18px;
-        z-index: 100;
-        position: relative;
-        margin: 18px auto 24px auto;
-        max-width: 900px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .metrics-container {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        gap: 18px;
-        flex-wrap: wrap;
-        align-items: center;
-      }
-      .hud-logo {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 24px;
-      }
-      .hud-logo img {
-        height: 64px;
-        width: auto;
-        border-radius: 12px;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.14);
-        margin-left: 26px;
-        transition: height 0.3s;
-      }
-      .metric {
-        flex: 1;
+        max-width: 120px;
         min-width: 90px;
-        text-align: center;
-        background: rgba(255,255,255,0.7);
-        padding: 12px 8px;
-        border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        width: 28vw;
+        height: 100vh;
+        margin: 0;
+        border-radius: 0 12px 12px 0;
+        box-shadow: 2px 0 12px rgba(0, 0, 0, 0.08);
+        padding: 8px 4px;
         position: relative;
-        margin: 0 4px;
-      }
-      .metric-icon {
-        font-size: 32px;
-        margin-bottom: 6px;
-        display: block;
-        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12));
-      }
-      .metric-label {
-        font-size: 11px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.7px;
-        color: var(--primary-teal);
-        margin-bottom: 8px;
-        font-family: "Poppins", sans-serif;
-      }
-      .metric-bar-container {
-        background: var(--bg-warm);
-        height: 10px;
-        border-radius: 5px;
-        overflow: hidden;
-        position: relative;
-        box-shadow: inset 0 1px 3px rgba(0,0,0,0.07);
-      }
-      .metric-bar {
-        height: 100%;
-        border-radius: 5px;
-        transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
-        position: relative;
-      }
-      @media (max-width: 768px) {
-        html, body {
-          height: 100%;
-          min-height: 100vh;
-          width: 100vw;
-          overflow: auto !important;
-        }
-        .app-layout {
-          flex-direction: row !important;
-          width: 100vw;
-          min-height: 100vh;
-          height: auto;
-          align-items: stretch;
-          overflow: visible;
-        }
-        .hud {
-          max-width: 120px;
-          min-width: 90px;
-          width: 28vw;
-          height: 100vh;
-          margin: 0;
-          border-radius: 0 12px 12px 0;
-          box-shadow: 2px 0 12px rgba(0,0,0,0.08);
-          padding: 8px 4px;
-          position: relative;
-          overflow-y: auto;
-        }
-        .game-container {
-          flex: 1;
-          width: 72vw;
-          min-height: 100vh;
-          height: auto;
-          margin: 0;
-          box-sizing: border-box;
-          overflow-y: auto !important;
-          max-height: none;
-        }
-        .card-container, .ending-screen {
-          max-height: none;
-          overflow-y: visible !important;
-        }
-        .choices-container {
-          max-height: none;
-          overflow-y: visible;
-          padding-bottom: 12px;
-        }
-      }
-      @media (max-width: 480px) {
-        .hud {
-          max-width: 80px;
-          min-width: 60px;
-          width: 24vw;
-          padding: 4px 2px;
-        }
-        .game-container {
-          width: 76vw;
-          min-height: 100vh;
-          height: auto;
-        }
-        .choices-container {
-          max-height: none;
-        }
+        overflow-y: auto;
       }
 
-      .metrics-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-        flex-wrap: wrap;
-      }
-
-      .metric {
-        flex: 1;
-        min-width: 80px;
-        text-align: center;
-        transition: var(--transition);
-        /* position: relative;
-                        background: rgba(255, 255, 255, 0.5);
-                        padding: 8px;
-                        border-radius: 8px; */
-      }
-
-      .metric:hover {
-        transform: translateY(-2px);
-      }
-
-      .metric-icon {
-        font-size: 28px;
-        margin-bottom: 4px;
-        display: block;
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-      }
-
-      .metric-label {
-        font-size: 9px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        color: var (--text-charcoal);
-        margin-bottom: 6px;
-        font-family: "Poppins", sans-serif;
-      }
-
-      .metric-bar-container {
-        background: var(--bg-warm);
-        height: 8px;
-        border-radius: 4px;
-        overflow: hidden;
-        position: relative;
-        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
-      }
-
-      .metric-bar {
-        height: 100%;
-        border-radius: 4px;
-        transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-      }
-
-      .bar-safety {
-        background: linear-gradient(
-          90deg,
-          var(--primary-teal) 0%,
-          #6bc5b8 100%
-        );
-      }
-      .bar-health {
-        background: linear-gradient(90deg, #b53a4f 0%, #e85a6c 100%);
-      }
-      .bar-money {
-        background: linear-gradient(90deg, #e89a26 0%, var(--gold) 100%);
-      }
-      .bar-child {
-        background: linear-gradient(
-          90deg,
-          var(--deep-purple) 0%,
-          var(--soft-purple) 100%
-        );
-      }
-      .bar-justice {
-        background: linear-gradient(90deg, #2a4faa 0%, #4a6b8a 100%);
-      }
-
-      /* Main Game Area */
       .game-container {
         flex: 1;
-        height: calc(100vh - 40px); /* Match HUD height on desktop */
-        margin: 20px 20px 20px 0;
+        width: 72vw;
+        min-height: 100vh;
+        height: auto;
+        margin: 0;
         box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
+        overflow-y: auto !important;
+        max-height: none;
       }
 
-      .card-container {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 12px;
-        overflow: hidden;
-      }
-
-      /* Cards */
-      .card {
-        background: white;
-        border-radius: 16px;
-        box-shadow: 0 12px 40px var(--shadow);
-        max-width: 1000px;
-        width: 100%;
-        overflow: hidden;
-        position: relative;
-        height: 100%;
-        /* max-height: calc(100vh - 100px); */
-        display: flex;
-        flex-direction: column;
-        animation: fadeIn 0.6s ease-out;
-      }
-
-      .card-background {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-size: cover;
-        background-position: center;
-        z-index: 0;
-      }
-
-      .card-background::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(
-          135deg,
-          rgba(255, 255, 255, 0.92) 0%,
-          rgba(255, 255, 255, 0.88) 100%
-        );
-      }
-
-      .card.slide-out-left {
-        animation: slideOutLeft 0.4s ease-in forwards;
-      }
-
-      .card.slide-out-right {
-        animation: slideOutRight 0.4s ease-in forwards;
-      }
-
-      .card.slide-in-left {
-        animation: slideInLeft 0.5s ease-out;
-      }
-
-      .card.slide-in-right {
-        animation: slideInRight 0.5s ease-out;
-      }
-
-      .card.fade-in {
-        animation: fadeIn 0.6s ease-out;
-      }
-
-      .card.zoom-in {
-        animation: zoomIn 0.5s ease-out;
-      }
-
-      .card.flip-in {
-        animation: flipIn 0.6s ease-out;
-      }
-
-      @keyframes slideOutLeft {
-        from {
-          opacity: 1;
-          transform: translateX(0);
-        }
-        to {
-          opacity: 0;
-          transform: translateX(-100%);
-        }
-      }
-
-      @keyframes slideOutRight {
-        from {
-          opacity: 1;
-          transform: translateX(0);
-        }
-        to {
-          opacity: 0;
-          transform: translateX(100%);
-        }
-      }
-
-      @keyframes slideInLeft {
-        from {
-          opacity: 0;
-          transform: translateX(-100%);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      }
-
-      @keyframes slideInRight {
-        from {
-          opacity: 0;
-          transform: translateX(100%);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      }
-
-      @keyframes zoomIn {
-        from {
-          opacity: 0;
-          transform: scale(0.8);
-        }
-        to {
-          opacity: 1;
-          transform: scale(1);
-        }
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-
-      @keyframes flipIn {
-        from {
-          opacity: 0;
-          transform: rotateY(-90deg);
-        }
-        to {
-          opacity: 1;
-          transform: rotateY(0);
-        }
-      }
-
-      .card-content-wrapper {
-        display: flex;
-        flex-direction: row;
-        flex: 1;
-        overflow: hidden;
-        position: relative;
-        z-index: 1;
-      }
-
-      .card-content-wrapper.image-right {
-        flex-direction: row-reverse;
-      }
-
-      .card-image {
-        width: 40%;
-        object-fit: cover;
-        position: relative;
-      }
-
-      .card-content {
-        width: 60%;
-        padding: 24px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        overflow-y: auto;
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: blur(4px);
-        margin: 16px;
-        border-radius: 12px;
-        max-height: calc(100% - 32px);
-      }
-
-      .card-title {
-        font-size: 24px;
-        font-weight: 700;
-        margin-bottom: 16px;
-        color: var(--text-charcoal);
-        line-height: 1.3;
-        font-family: "Poppins", sans-serif;
-        letter-spacing: -0.3px;
-      }
-
-      .card-narrative {
-        font-size: 15px;
-        line-height: 1.7;
-        color: var(--text-gray);
-        margin-bottom: 16px;
-        white-space: pre-line;
-      }
-
-      .dialogue {
-        background: var(--bg-warm);
-        padding: 14px 14px 14px 32px;
-        border-radius: 8px;
-        font-style: italic;
-        margin-bottom: 16px;
-        color: var(--text-charcoal);
-        font-weight: 500;
-        position: relative;
-        font-size: 14px;
-      }
-
-      .dialogue::before {
-        content: '"';
-        position: absolute;
-        top: 8px;
-        left: 10px;
-        font-size: 36px;
-        color: var(--soft-purple);
-        opacity: 0.15;
-        font-family: "Poppins", sans-serif;
-        line-height: 1;
-      }
-
-      .dialogue .speaker {
-        font-weight: 700;
-        display: block;
-        margin-bottom: 4px;
-        color: var(--primary-teal);
-      }
-
-      .data-card {
-        background: linear-gradient(
-          135deg,
-          rgba(122, 219, 212, 0.08) 0%,
-          rgba(123, 104, 238, 0.08) 100%
-        );
-        border-left: 4px solid var(--accent-teal);
-        padding: 14px;
-        border-radius: 8px;
-        margin: 16px 0;
-        font-size: 13px;
-        color: var(--text-gray);
-        line-height: 1.5;
-      }
-
-      .data-card .statement {
-        font-style: italic;
-        margin-bottom: 8px;
-      }
-
-      .data-card .source {
-        font-size: 11px;
-        opacity: 0.8;
-        font-weight: 600;
+      .card-container,
+      .ending-screen {
+        max-height: none;
+        overflow-y: visible !important;
       }
 
       .choices-container {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin-top: auto;
         max-height: none;
         overflow-y: visible;
         padding-bottom: 12px;
       }
+    }
 
-      .choice-button {
-        background: white;
-        border: 2px solid var(--accent-teal);
-        padding: 12px 18px;
-        border-radius: 12px;
-        cursor: pointer;
-        transition: var(--transition);
-        font-size: 14px;
-        font-weight: 600;
-        text-align: left;
-        color: var(--text-charcoal);
-        position: relative;
-        overflow: hidden;
-        font-family: "Source Sans Pro", sans-serif;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    @media (max-width: 480px) {
+      .hud {
+        max-width: 80px;
+        min-width: 60px;
+        width: 24vw;
+        padding: 4px 2px;
       }
 
-       @media (max-width: 768px) {
-         .choice-button {
-          padding: 2px 18px;
-        }
+      .game-container {
+        width: 76vw;
+        min-height: 100vh;
+        height: auto;
       }
 
-      .choice-button:hover {
-        background: var(--accent-teal);
-        color: white;
-        transform: translateY(-3px);
-        box-shadow: 0 6px 20px rgba(74, 155, 142, 0.25);
-        border-color: var(--primary-teal);
-      }
-
-      .choice-button:active {
-        transform: translateY(0);
-      }
-
-      /* Collapse Message */
-      .collapse-message {
-        background: linear-gradient(135deg, #e53935 0%, #ef5350 100%);
-        color: white;
-        padding: 20px;
-        border-radius: 12px;
-        text-align: center;
-        margin: 20px 0;
-        font-weight: 600;
-        animation: shake 0.5s ease-out;
-      }
-
-      @keyframes shake {
-        0%,
-        100% {
-          transform: translateX(0);
-        }
-        25% {
-          transform: translateX(-5px);
-        }
-        75% {
-          transform: translateX(5px);
-        }
-      }
-
-      /* Ending Screen */
-      .ending-screen {
-        background: white;
-        border-radius: 16px;
-        box-shadow: 0 12px 40px var(--shadow);
-        max-width: 700px;
-        width: 100%;
-        padding: 36px 28px;
-        text-align: center;
-        animation: fadeIn 0.6s ease-out;
-        overflow-y: auto;
+      .choices-container {
         max-height: none;
-        height: calc(100vh - 40px);
       }
+    }
 
-      .ending-title {
-        font-size: 32px;
-        font-weight: 700;
-        margin-bottom: 20px;
-        color: var(--text-charcoal);
-        font-family: "Poppins", sans-serif;
-      }
+    .metrics-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
 
-      .ending-outcome {
-        font-size: 20px;
-        font-weight: 700;
-        margin-bottom: 20px;
-        padding: 12px 24px;
-        border-radius: 8px;
-        display: inline-block;
-        font-family: "Poppins", sans-serif;
-      }
+    .metric {
+      flex: 1;
+      min-width: 80px;
+      text-align: center;
+      transition: var(--transition);
+      /* position: relative;
+                        background: rgba(255, 255, 255, 0.5);
+                        padding: 8px;
+                        border-radius: 8px; */
+    }
 
-      .ending-outcome.justice {
-        background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
-        color: white;
-      }
+    .metric:hover {
+      transform: translateY(-2px);
+    }
 
-      .ending-outcome.partial {
-        background: linear-gradient(135deg, #ffa726 0%, #ffb74d 100%);
-        color: white;
-      }
+    .metric-icon {
+      font-size: 28px;
+      margin-bottom: 4px;
+      display: block;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    }
 
-      .ending-outcome.survival {
-        background: linear-gradient(135deg, #ff9800 0%, #ffb74d 100%);
-        color: white;
-      }
+    .metric-label {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var (--text-charcoal);
+      margin-bottom: 6px;
+      font-family: "Poppins", sans-serif;
+    }
 
-      .ending-outcome.collapse {
-        background: linear-gradient(135deg, #e53935 0%, #ef5350 100%);
-        color: white;
-      }
+    .metric-bar-container {
+      background: var(--bg-warm);
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
 
-      .ending-description {
-        font-size: 16px;
-        line-height: 1.7;
-        color: var(--text-charcoal);
-        font-weight: bold;
-        /* margin-bottom: 24px; */
-      }
+    .metric-bar {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
 
-      .ending-notes {
-        background: var(--bg-warm);
-        padding: 20px;
-        border-radius: 10px;
-        margin-bottom: 24px;
-        text-align: left;
-      }
+    .bar-safety {
+      background: linear-gradient(90deg,
+          var(--primary-teal) 0%,
+          #6bc5b8 100%);
+    }
 
-      .ending-notes h3 {
-        font-size: 16px;
-        margin-bottom: 12px;
-        font-family: "Poppins", sans-serif;
-      }
+    .bar-health {
+      background: linear-gradient(90deg, #b53a4f 0%, #e85a6c 100%);
+    }
 
-      .ending-notes ul {
-        list-style: none;
-        padding-left: 0;
-      }
+    .bar-money {
+      background: linear-gradient(90deg, #e89a26 0%, var(--gold) 100%);
+    }
 
-      .ending-notes li {
-        padding: 6px 0;
-        font-size: 14px;
-        color: var(--text-gray);
-        padding-left: 20px;
-        position: relative;
-      }
-
-      .ending-notes li::before {
-        content: "•";
-        position: absolute;
-        left: 0;
-        color: var(--soft-purple);
-        font-weight: bold;
-      }
-
-      .restart-button {
-        background: linear-gradient(
-          135deg,
+    .bar-child {
+      background: linear-gradient(90deg,
           var(--deep-purple) 0%,
-          var(--soft-purple) 100%
-        );
-        color: white;
-        border: none;
-        padding: 16px 32px;
-        border-radius: 12px;
-        font-size: 16px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: var(--transition);
-        font-family: "Poppins", sans-serif;
-        box-shadow: 0 4px 20px rgba(109, 93, 208, 0.3);
+          var(--soft-purple) 100%);
+    }
+
+    .bar-justice {
+      background: linear-gradient(90deg, #2a4faa 0%, #4a6b8a 100%);
+    }
+
+    /* Main Game Area */
+    .game-container {
+      flex: 1;
+      height: calc(100vh - 40px);
+      /* Match HUD height on desktop */
+      margin: 20px 20px 20px 0;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .card-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      overflow: hidden;
+    }
+
+    /* Cards */
+    .card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 12px 40px var(--shadow);
+      max-width: 1000px;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      height: 100%;
+      /* max-height: calc(100vh - 100px); */
+      display: flex;
+      flex-direction: column;
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    .card-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+
+    .card-background::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg,
+          rgba(255, 255, 255, 0.92) 0%,
+          rgba(255, 255, 255, 0.88) 100%);
+    }
+
+    .card.slide-out-left {
+      animation: slideOutLeft 0.4s ease-in forwards;
+    }
+
+    .card.slide-out-right {
+      animation: slideOutRight 0.4s ease-in forwards;
+    }
+
+    .card.slide-in-left {
+      animation: slideInLeft 0.5s ease-out;
+    }
+
+    .card.slide-in-right {
+      animation: slideInRight 0.5s ease-out;
+    }
+
+    .card.fade-in {
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    .card.zoom-in {
+      animation: zoomIn 0.5s ease-out;
+    }
+
+    .card.flip-in {
+      animation: flipIn 0.6s ease-out;
+    }
+
+    @keyframes slideOutLeft {
+      from {
+        opacity: 1;
+        transform: translateX(0);
       }
 
-      .restart-button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 25px rgba(109, 93, 208, 0.4);
+      to {
+        opacity: 0;
+        transform: translateX(-100%);
+      }
+    }
+
+    @keyframes slideOutRight {
+      from {
+        opacity: 1;
+        transform: translateX(0);
       }
 
-      /* Metric Change Animation */
-      .metric-change {
-        position: absolute;
-        top: -28px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-weight: 900;
-        font-size: 22px;
-        animation: floatUp 1.5s ease-out forwards, metricFlash 0.7s;
-        pointer-events: none;
-        text-shadow: 0 0 12px #fff, 0 2px 8px rgba(0,0,0,0.4), 0 0 18px #ffd700;
-        font-family: "Poppins", sans-serif;
-        z-index: 10;
-        border-radius: 12px;
-        padding: 6px 18px;
-        background: rgba(255,255,255,0.85);
-        box-shadow: 0 0 18px 6px #ffd70044;
+      to {
+        opacity: 0;
+        transform: translateX(100%);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-100%);
       }
 
-      .metric-change.positive {
-        color: #000000;
-        text-shadow: 0 0 16px #020202, 0 0 24px #fff;
-        background: linear-gradient(90deg, #b9ffb9 0%, #000000 100%);
-        box-shadow: 0 0 24px 8px #00e67655;
+      to {
+        opacity: 1;
+        transform: translateX(0);
       }
-      .metric-change.negative {
-        color: #ff1744;
-        text-shadow: 0 0 16px #ff1744, 0 0 24px #fff;
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(100%);
       }
 
-      @keyframes metricFlash {
-        0% { background: #fffbe6; box-shadow: 0 0 32px 12px #ffd70099; }
-        60% { background: #fffbe6; box-shadow: 0 0 32px 12px #ffd70099; }
-        100% { background: rgba(255,255,255,0.85); box-shadow: 0 0 18px 6px #ffd70044; }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes zoomIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
       }
 
-      @keyframes floatUp {
-        0% {
-          opacity: 1;
-          transform: translateX(-50%) translateY(0);
-        }
-        100% {
-          opacity: 0;
-          transform: translateX(-50%) translateY(-30px);
-        }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
       }
 
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-
-      /* Responsive */
-      @media (max-width: 768px) {
-        html, body {
-          height: 100%;
-          min-height: 100vh;
-          width: 100vw;
-          overflow: auto !important;
-        }
-        .card-content-wrapper {
-          flex-direction: column !important;
-        }
-        .card-image {
-          width: 100%;
-          height: 180px;
-          min-height: 180px;
-        }
-        .card-content {
-          width: 100%;
-          padding: 20px;
-          margin: 0;
-        }
-        .start-title {
-          font-size: 36px;
-        }
-        .metric {
-          min-width: 70px;
-        }
-        .metric-icon {
-          font-size: 18px;
-        }
-        .game-container, .card-container, .ending-screen {
-          max-height: none;
-          overflow-y: visible !important;
-        }
-        .hud-logo img {
-          height: 42px;
-        }
-        .app-layout {
-          flex-direction: row !important;
-          width: 100vw;
-          min-height: 100vh;
-          height: auto;
-          align-items: stretch;
-          overflow: visible;
-        }
-        .hud {
-          max-width: 120px;
-          min-width: 90px;
-          width: 28vw;
-          height: 100vh;
-          margin: 0;
-          border-radius: 0 12px 12px 0;
-          box-shadow: 2px 0 12px rgba(0,0,0,0.08);
-          padding: 8px 4px;
-          position: relative;
-          overflow-y: auto;
-        }
-        .game-container {
-          flex: 1;
-          width: 72vw;
-          min-height: 100vh;
-          height: auto;
-          margin: 0;
-          box-sizing: border-box;
-          overflow-y: auto !important;
-          max-height: none;
-        }
-        .choices-container {
-          max-height: none;
-          overflow-y: visible;
-          padding-bottom: 12px;
-        }
-      }
-      @media (max-width: 480px) {
-        .hud {
-          max-width: 80px;
-          min-width: 60px;
-          width: 24vw;
-          padding: 4px 2px;
-        }
-        .game-container {
-          width: 76vw;
-        }
-        .choices-container {
-          max-height: none;
-        }
-      }
-
-      .hidden {
-        display: none !important;
-      }
-
-      .popup-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 2000;
-      }
-
-      .popup-content {
-        background: white;
-        border-radius: 16px;
-        padding: 32px;
-        max-width: 600px;
-        max-height: 80vh;
-        overflow-y: auto;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        animation: zoomIn 0.3s ease-out;
-      }
-
-      .popup-title {
-        font-size: 22px;
-        font-weight: 900;
-        margin-bottom: 16px;
-        color: #130046;
-        font-family: "Poppins", sans-serif;
-      }
-
-      .popup-text {
-        font-size: 14px;
-        line-height: 1.6;
-        color: #000;
-        margin-bottom: 20px;
-        white-space: pre-line;
-        font-weight: bolder;
-      }
-
-      .popup-source {
-        font-size: 12px;
-        font-style: italic;
-        color: #000;
-        opacity: 1.9;
-        margin-bottom: 24px;
-      }
-
-      .popup-close {
-        background: var(--accent-teal);
-        color: white;
-        border: none;
-        padding: 12px 32px;
-        border-radius: 8px;
-        font-size: 18px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: var(--transition);
-        width: 100%;
-      }
-
-      .popup-close:hover {
-        background: var(--primary-teal);
-        transform: translateY(-2px);
-      }
-
-      /* Background Story Screen - FIXED VERSION */
-      .background-screen {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        /* background removed to let body show through */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 999;
-        padding: 20px;
-        overflow: auto; /* CHANGED: Allow scrolling if needed */
-        transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1);
+      to {
         opacity: 1;
       }
+    }
 
-      .background-screen.fade-out {
+    @keyframes flipIn {
+      from {
         opacity: 0;
-        pointer-events: none;
+        transform: rotateY(-90deg);
+      }
+
+      to {
+        opacity: 1;
+        transform: rotateY(0);
+      }
+    }
+
+    .card-content-wrapper {
+      display: flex;
+      flex-direction: row;
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-content-wrapper.image-right {
+      flex-direction: row-reverse;
+    }
+
+    .card-image {
+      width: 40%;
+      object-fit: cover;
+      position: relative;
+    }
+
+    .card-content {
+      width: 60%;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      overflow-y: auto;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(4px);
+      margin: 16px;
+      border-radius: 12px;
+      max-height: calc(100% - 32px);
+    }
+
+    .card-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text-charcoal);
+      line-height: 1.3;
+      font-family: "Poppins", sans-serif;
+      letter-spacing: -0.3px;
+    }
+
+    .card-narrative {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text-gray);
+      margin-bottom: 16px;
+      white-space: pre-line;
+    }
+
+    .dialogue {
+      background: var(--bg-warm);
+      padding: 14px 14px 14px 32px;
+      border-radius: 8px;
+      font-style: italic;
+      margin-bottom: 16px;
+      color: var(--text-charcoal);
+      font-weight: 500;
+      position: relative;
+      font-size: 14px;
+    }
+
+    .dialogue::before {
+      content: '"';
+      position: absolute;
+      top: 8px;
+      left: 10px;
+      font-size: 36px;
+      color: var(--soft-purple);
+      opacity: 0.15;
+      font-family: "Poppins", sans-serif;
+      line-height: 1;
+    }
+
+    .dialogue .speaker {
+      font-weight: 700;
+      display: block;
+      margin-bottom: 4px;
+      color: var(--primary-teal);
+    }
+
+    .data-card {
+      background: linear-gradient(135deg,
+          rgba(122, 219, 212, 0.08) 0%,
+          rgba(123, 104, 238, 0.08) 100%);
+      border-left: 4px solid var(--accent-teal);
+      padding: 14px;
+      border-radius: 8px;
+      margin: 16px 0;
+      font-size: 13px;
+      color: var(--text-gray);
+      line-height: 1.5;
+    }
+
+    .data-card .statement {
+      font-style: italic;
+      margin-bottom: 8px;
+    }
+
+    .data-card .source {
+      font-size: 11px;
+      opacity: 0.8;
+      font-weight: 600;
+    }
+
+    .choices-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: auto;
+      max-height: none;
+      overflow-y: visible;
+      padding-bottom: 12px;
+    }
+
+    .choice-button {
+      background: white;
+      border: 2px solid var(--accent-teal);
+      padding: 12px 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 14px;
+      font-weight: 600;
+      text-align: left;
+      color: var(--text-charcoal);
+      position: relative;
+      overflow: hidden;
+      font-family: "Source Sans Pro", sans-serif;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    @media (max-width: 768px) {
+      .choice-button {
+        padding: 2px 18px;
+      }
+    }
+
+    .choice-button:hover {
+      background: var(--accent-teal);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(74, 155, 142, 0.25);
+      border-color: var(--primary-teal);
+    }
+
+    .choice-button:active {
+      transform: translateY(0);
+    }
+
+    /* Collapse Message */
+    .collapse-message {
+      background: linear-gradient(135deg, #e53935 0%, #ef5350 100%);
+      color: white;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      margin: 20px 0;
+      font-weight: 600;
+      animation: shake 0.5s ease-out;
+    }
+
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      25% {
+        transform: translateX(-5px);
+      }
+
+      75% {
+        transform: translateX(5px);
+      }
+    }
+
+    /* Ending Screen */
+    .ending-screen {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 12px 40px var(--shadow);
+      max-width: 700px;
+      width: 100%;
+      padding: 36px 28px;
+      text-align: center;
+      animation: fadeIn 0.6s ease-out;
+      overflow-y: auto;
+      max-height: none;
+      height: calc(100vh - 40px);
+    }
+
+    .ending-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--text-charcoal);
+      font-family: "Poppins", sans-serif;
+    }
+
+    .ending-outcome {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      display: inline-block;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .ending-outcome.justice {
+      background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+      color: white;
+    }
+
+    .ending-outcome.partial {
+      background: linear-gradient(135deg, #ffa726 0%, #ffb74d 100%);
+      color: white;
+    }
+
+    .ending-outcome.survival {
+      background: linear-gradient(135deg, #ff9800 0%, #ffb74d 100%);
+      color: white;
+    }
+
+    .ending-outcome.collapse {
+      background: linear-gradient(135deg, #e53935 0%, #ef5350 100%);
+      color: white;
+    }
+
+    .ending-description {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text-charcoal);
+      font-weight: bold;
+      /* margin-bottom: 24px; */
+    }
+
+    .ending-notes {
+      background: var(--bg-warm);
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    .ending-notes h3 {
+      font-size: 16px;
+      margin-bottom: 12px;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .ending-notes ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .ending-notes li {
+      padding: 6px 0;
+      font-size: 14px;
+      color: var(--text-gray);
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .ending-notes li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--soft-purple);
+      font-weight: bold;
+    }
+
+    .restart-button {
+      background: linear-gradient(135deg,
+          var(--deep-purple) 0%,
+          var(--soft-purple) 100%);
+      color: white;
+      border: none;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: "Poppins", sans-serif;
+      box-shadow: 0 4px 20px rgba(109, 93, 208, 0.3);
+    }
+
+    .restart-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 25px rgba(109, 93, 208, 0.4);
+    }
+
+    /* Metric Change Animation */
+    .metric-change {
+      position: absolute;
+      top: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-weight: 900;
+      font-size: 22px;
+      animation: floatUp 1.5s ease-out forwards, metricFlash 0.7s;
+      pointer-events: none;
+      text-shadow: 0 0 12px #fff, 0 2px 8px rgba(0, 0, 0, 0.4), 0 0 18px #ffd700;
+      font-family: "Poppins", sans-serif;
+      z-index: 10;
+      border-radius: 12px;
+      padding: 6px 18px;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 0 18px 6px #ffd70044;
+    }
+
+    .metric-change.positive {
+      color: #000000;
+      text-shadow: 0 0 16px #020202, 0 0 24px #fff;
+      background: linear-gradient(90deg, #b9ffb9 0%, #000000 100%);
+      box-shadow: 0 0 24px 8px #00e67655;
+    }
+
+    .metric-change.negative {
+      color: #ff1744;
+      text-shadow: 0 0 16px #ff1744, 0 0 24px #fff;
+    }
+
+    @keyframes metricFlash {
+      0% {
+        background: #fffbe6;
+        box-shadow: 0 0 32px 12px #ffd70099;
+      }
+
+      60% {
+        background: #fffbe6;
+        box-shadow: 0 0 32px 12px #ffd70099;
+      }
+
+      100% {
+        background: rgba(255, 255, 255, 0.85);
+        box-shadow: 0 0 18px 6px #ffd70044;
+      }
+    }
+
+    @keyframes floatUp {
+      0% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-30px);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+
+      html,
+      body {
+        height: 100%;
+        min-height: 100vh;
+        width: 100vw;
+        overflow: auto !important;
+      }
+
+      .card-content-wrapper {
+        flex-direction: column !important;
+      }
+
+      .card-image {
+        width: 100%;
+        height: 180px;
+        min-height: 180px;
+      }
+
+      .card-content {
+        width: 100%;
+        padding: 20px;
+        margin: 0;
+      }
+
+      .start-title {
+        font-size: 36px;
+      }
+
+      .metric {
+        min-width: 70px;
+      }
+
+      .metric-icon {
+        font-size: 18px;
+      }
+
+      .game-container,
+      .card-container,
+      .ending-screen {
+        max-height: none;
+        overflow-y: visible !important;
+      }
+
+      .hud-logo img {
+        height: 42px;
+      }
+
+      .app-layout {
+        flex-direction: row !important;
+        width: 100vw;
+        min-height: 100vh;
+        height: auto;
+        align-items: stretch;
+        overflow: visible;
+      }
+
+      .hud {
+        max-width: 120px;
+        min-width: 90px;
+        width: 28vw;
+        height: 100vh;
+        margin: 0;
+        border-radius: 0 12px 12px 0;
+        box-shadow: 2px 0 12px rgba(0, 0, 0, 0.08);
+        padding: 8px 4px;
+        position: relative;
+        overflow-y: auto;
+      }
+
+      .game-container {
+        flex: 1;
+        width: 72vw;
+        min-height: 100vh;
+        height: auto;
+        margin: 0;
+        box-sizing: border-box;
+        overflow-y: auto !important;
+        max-height: none;
+      }
+
+      .choices-container {
+        max-height: none;
+        overflow-y: visible;
+        padding-bottom: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hud {
+        max-width: 80px;
+        min-width: 60px;
+        width: 24vw;
+        padding: 4px 2px;
+      }
+
+      .game-container {
+        width: 76vw;
+      }
+
+      .choices-container {
+        max-height: none;
+      }
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+
+    .popup-content {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: zoomIn 0.3s ease-out;
+    }
+
+    .popup-title {
+      font-size: 22px;
+      font-weight: 900;
+      margin-bottom: 16px;
+      color: #130046;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .popup-text {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #000;
+      margin-bottom: 20px;
+      white-space: pre-line;
+      font-weight: bolder;
+    }
+
+    .popup-source {
+      font-size: 12px;
+      font-style: italic;
+      color: #000;
+      opacity: 1.9;
+      margin-bottom: 24px;
+    }
+
+    .popup-close {
+      background: var(--accent-teal);
+      color: white;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: var(--transition);
+      width: 100%;
+    }
+
+    .popup-close:hover {
+      background: var(--primary-teal);
+      transform: translateY(-2px);
+    }
+
+    /* Background Story Screen - FIXED VERSION */
+    .background-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      /* Use dynamic viewport height for mobile browsers */
+      padding-bottom: env(safe-area-inset-bottom);
+      /* Handle iPhone home bar */
+      /* background removed to let body show through */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      padding: 20px;
+      overflow: auto;
+      /* CHANGED: Allow scrolling if needed */
+      transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 1;
+    }
+
+    .background-screen.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .background-content {
+      width: 100%;
+      max-width: 1400px;
+      max-height: 95vh;
+      /* Prevents overflow */
+      color: white;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .background-title {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      margin-bottom: 30px;
+      font-family: "Poppins", sans-serif;
+      text-align: center;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    .background-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      margin-bottom: 30px;
+      flex: 1;
+      overflow: hidden;
+      /* Prevent grid overflow */
+    }
+
+    .background-column {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 25px 20px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      opacity: 0;
+      animation: slideUp 0.6s ease-out forwards;
+      overflow-y: auto;
+      /* Allow scrolling within columns */
+      max-height: 60vh;
+      /* Increased height for more content */
+    }
+
+    .background-column h3 {
+      font-size: clamp(18px, 2vw, 24px);
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--bg-warm);
+      font-family: "Poppins", sans-serif;
+    }
+
+    .background-column p {
+      font-size: clamp(14px, 1.5vw, 16px);
+      line-height: 1.6;
+      margin-bottom: 15px;
+      color: white !important;
+      /* FORCED: Ensure white text */
+      opacity: 0.95;
+    }
+
+    .emphasize {
+      background: rgba(255, 184, 0, 0.25);
+      padding: 15px;
+      border-radius: 12px;
+      border: 2px solid var(--gold);
+      font-weight: 700;
+      font-size: clamp(15px, 1.6vw, 17px);
+      margin-top: 20px;
+      color: white !important;
+    }
+
+    .continue-button {
+      background: white;
+      color: var(--deep-purple);
+      border: none;
+      padding: 18px 45px;
+      border-radius: 50px;
+      font-size: clamp(16px, 2vw, 20px);
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: "Poppins", sans-serif;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      margin-top: 20px;
+      opacity: 0;
+      animation: fadeIn 1s ease-out 1.2s forwards;
+      align-self: center;
+    }
+
+    /* Ensure scrollbars are visible if needed */
+    .background-column::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .background-column::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+    }
+
+    .background-column::-webkit-scrollbar-thumb {
+      background: var(--gold);
+      border-radius: 3px;
+    }
+
+    /* Mobile - Stack columns vertically */
+    @media (max-width: 1024px) {
+      .background-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        max-height: 75vh;
+        /* Allow more vertical space */
+        overflow-y: auto;
+        /* Enable scrolling for the grid */
+      }
+
+      .background-column {
+        max-height: none;
+        /* Remove restriction on mobile */
+      }
+    }
+
+    @media (max-width: 768px) {
+      .background-screen {
+        padding: 15px;
+        align-items: flex-start;
+        /* Better scroll behavior */
+        padding-top: 40px;
+        padding-bottom: 80px;
+        /* Extra padding for bottom bars */
       }
 
       .background-content {
+        max-height: none;
+        margin-bottom: 40px;
+        /* Ensure space at bottom of content */
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hud-logo {
+      /* display: inline-block; */
+      vertical-align: middle;
+      margin-bottom: 3px;
+    }
+
+    .app-layout {
+      min-height: 100vh;
+      height: auto;
+      width: 100vw;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 24px;
+      box-sizing: border-box;
+      overflow: visible;
+    }
+
+    .hud {
+      /* min-width: 260px; */
+      max-width: 176px;
+      height: calc(100vh - 40px);
+      margin: 20px 0 20px 20px;
+      box-sizing: border-box;
+      align-self: flex-start;
+    }
+
+    @media (max-width: 1024px) {
+      .app-layout {
+        flex-direction: column;
+        gap: 0;
+        height: auto;
+      }
+
+      .hud {
+        max-width: 100vw;
         width: 100%;
-        max-width: 1400px;
-        max-height: 95vh; /* Prevents overflow */
-        color: white;
+        height: auto;
+        margin: 0 0 12px 0;
+      }
+
+      .game-container {
+        margin: 0;
+        height: auto;
+      }
+    }
+
+    /* --- Responsive HUD Sidebar for Mobile --- */
+    @media (max-width: 768px) {
+      .app-layout {
+        flex-direction: row !important;
+        width: 100vw;
+        height: 100vh;
+        gap: 0;
+        align-items: stretch;
+      }
+
+      .hud {
+        max-width: 120px;
+        min-width: 90px;
+        width: 28vw;
+        height: 100vh;
+        margin: 0;
+        border-radius: 0 12px 12px 0;
+        box-shadow: 2px 0 12px rgba(0, 0, 0, 0.08);
+        padding: 8px 4px;
+        position: relative;
+        overflow-y: auto;
+      }
+
+      .game-container {
+        flex: 1;
+        width: 72vw;
+        height: 100vh;
+        margin: 0;
+        box-sizing: border-box;
+        overflow-y: auto !important;
         display: flex;
         flex-direction: column;
       }
 
-      .background-title {
-        font-size: clamp(28px, 4vw, 42px);
-        font-weight: 700;
-        margin-bottom: 30px;
-        font-family: "Poppins", sans-serif;
-        text-align: center;
-        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        animation: fadeIn 0.8s ease-out;
+      .card-container,
+      .ending-screen {
+        max-height: none;
+        overflow-y: visible !important;
       }
 
-      .background-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 25px;
-        margin-bottom: 30px;
-        flex: 1;
-        overflow: hidden; /* Prevent grid overflow */
+      .choices-container {
+        max-height: none;
+        overflow-y: visible;
+        padding-bottom: 12px;
       }
+    }
 
-      .background-column {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        padding: 25px 20px;
-        border-radius: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        opacity: 0;
-        animation: slideUp 0.6s ease-out forwards;
-        overflow-y: auto; /* Allow scrolling within columns */
-        max-height: 60vh; /* Increased height for more content */
-      }
-
-      .background-column h3 {
-        font-size: clamp(18px, 2vw, 24px);
-        font-weight: 700;
-        margin-bottom: 15px;
-        color: var(--bg-warm);
-        font-family: "Poppins", sans-serif;
-      }
-
-      .background-column p {
-        font-size: clamp(14px, 1.5vw, 16px);
-        line-height: 1.6;
-        margin-bottom: 15px;
-        color: white !important; /* FORCED: Ensure white text */
-        opacity: 0.95;
-      }
-
-      .emphasize {
-        background: rgba(255, 184, 0, 0.25);
-        padding: 15px;
-        border-radius: 12px;
-        border: 2px solid var(--gold);
-        font-weight: 700;
-        font-size: clamp(15px, 1.6vw, 17px);
-        margin-top: 20px;
-        color: white !important;
-      }
-
-      .continue-button {
-        background: white;
-        color: var(--deep-purple);
-        border: none;
-        padding: 18px 45px;
-        border-radius: 50px;
-        font-size: clamp(16px, 2vw, 20px);
-        font-weight: 700;
-        cursor: pointer;
-        transition: var(--transition);
-        font-family: "Poppins", sans-serif;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-        margin-top: 20px;
-        opacity: 0;
-        animation: fadeIn 1s ease-out 1.2s forwards;
-        align-self: center;
-      }
-
-      /* Ensure scrollbars are visible if needed */
-      .background-column::-webkit-scrollbar {
-        width: 6px;
-      }
-
-      .background-column::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 3px;
-      }
-
-      .background-column::-webkit-scrollbar-thumb {
-        background: var(--gold);
-        border-radius: 3px;
-      }
-
-      /* Mobile - Stack columns vertically */
-      @media (max-width: 1024px) {
-        .background-grid {
-          grid-template-columns: 1fr;
-          gap: 20px;
-          max-height: 75vh; /* Allow more vertical space */
-          overflow-y: auto; /* Enable scrolling for the grid */
-        }
-
-        .background-column {
-          max-height: none; /* Remove restriction on mobile */
-        }
-      }
-
-      @media (max-width: 768px) {
-        .background-screen {
-          padding: 15px;
-          align-items: flex-start; /* Better scroll behavior */
-          padding-top: 40px;
-        }
-
-        .background-content {
-          max-height: none;
-        }
-      }
-
-      @keyframes slideUp {
-        from {
-          opacity: 0;
-          transform: translateY(40px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .hud-logo {
-        /* display: inline-block; */
-        vertical-align: middle;
-        margin-bottom: 3px;
-      }
-
-      .app-layout {
-        min-height: 100vh;
-        height: auto;
-        width: 100vw;
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        justify-content: center;
-        gap: 24px;
-        box-sizing: border-box;
-        overflow: visible;
-      }
+    @media (max-width: 480px) {
       .hud {
-        /* min-width: 260px; */
-        max-width: 176px;
-        height: calc(100vh - 40px);
-        margin: 20px 0 20px 20px;
-        box-sizing: border-box;
-        align-self: flex-start;
+        max-width: 80px;
+        min-width: 60px;
+        width: 24vw;
+        padding: 4px 2px;
       }
-      @media (max-width: 1024px) {
-        .app-layout {
-          flex-direction: column;
-          gap: 0;
-          height: auto;
-        }
-        .hud {
-          max-width: 100vw;
-          width: 100%;
-          height: auto;
-          margin: 0 0 12px 0;
-        }
-        .game-container {
-          margin: 0;
-          height: auto;
-        }
+
+      .game-container {
+        width: 76vw;
       }
-      /* --- Responsive HUD Sidebar for Mobile --- */
-      @media (max-width: 768px) {
-        .app-layout {
-          flex-direction: row !important;
-          width: 100vw;
-          height: 100vh;
-          gap: 0;
-          align-items: stretch;
-        }
-        .hud {
-          max-width: 120px;
-          min-width: 90px;
-          width: 28vw;
-          height: 100vh;
-          margin: 0;
-          border-radius: 0 12px 12px 0;
-          box-shadow: 2px 0 12px rgba(0,0,0,0.08);
-          padding: 8px 4px;
-          position: relative;
-          overflow-y: auto;
-        }
-        .game-container {
-          flex: 1;
-          width: 72vw;
-          height: 100vh;
-          margin: 0;
-          box-sizing: border-box;
-          overflow-y: auto !important;
-          display: flex;
-          flex-direction: column;
-        }
-        .card-container, .ending-screen {
-          max-height: none;
-          overflow-y: visible !important;
-        }
-        .choices-container {
-          max-height: none;
-          overflow-y: visible;
-          padding-bottom: 12px;
-        }
+
+      .choices-container {
+        max-height: none;
       }
-      @media (max-width: 480px) {
-        .hud {
-          max-width: 80px;
-          min-width: 60px;
-          width: 24vw;
-          padding: 4px 2px;
-        }
-        .game-container {
-          width: 76vw;
-        }
-        .choices-container {
-          max-height: none;
-        }
-      }
-    </style>
-    <base target="_blank" />
-  </head>
-  <body>
-    <div id="startScreen" class="start-screen">
-      <div class="butterfly">
-        <div class="wing">
-          <div class="bit"></div>
-          <div class="bit"></div>
-        </div>
-        <div class="wing">
-          <div class="bit"></div>
-          <div class="bit"></div>
-        </div>
+    }
+  </style>
+  <base target="_blank" />
+</head>
+
+<body>
+  <div id="startScreen" class="start-screen">
+    <div class="butterfly">
+      <div class="wing">
+        <div class="bit"></div>
+        <div class="bit"></div>
       </div>
-      <div class="start-content">
-        <div class="logo-front" style="text-align:center; margin-bottom: 18px;">
-          <img src="./images/logo.jpeg" alt="Game Logo" style="max-width:120px; border-radius:12px; box-shadow:0 2px 12px #0002;">
-        </div>
-        <h1 class="start-title">Lines of Justice</h1>
-        <p class="start-subtitle">Dhaani's Story</p>
-        <p class="start-description">
-          Navigate the complex journey of seeking justice as a survivor of
-          domestic violence in India. Every choice impacts your safety, health,
-          finances, and your child's well-being. The system is stacked against
-          you—can you find a path forward?
-        </p>
-        <button class="play-button" onclick="startGame()">Begin Journey</button>
+      <div class="wing">
+        <div class="bit"></div>
+        <div class="bit"></div>
       </div>
     </div>
-
-    <!-- Add this after the startScreen div -->
-    <div id="backgroundScreen" class="background-screen hidden">
-        <div class="butterfly">
-        <div class="wing">
-          <div class="bit"></div>
-          <div class="bit"></div>
-        </div>
-        <div class="wing">
-          <div class="bit"></div>
-          <div class="bit"></div>
-        </div>
+    <div class="start-content">
+      <div class="logo-front" style="text-align:center; margin-bottom: 18px;">
+        <img src="./images/logo.jpeg" alt="Game Logo"
+          style="max-width:120px; border-radius:12px; box-shadow:0 2px 12px #0002;">
       </div>
-      <div class="background-content">
-        <h2 class="background-title">Step Into Dhaani's Story</h2>
+      <h1 class="start-title">Lines of Justice</h1>
+      <p class="start-subtitle">Dhaani's Story</p>
+      <p class="start-description">
+        Navigate the complex journey of seeking justice as a survivor of
+        domestic violence in India. Every choice impacts your safety, health,
+        finances, and your child's well-being. The system is stacked against
+        you—can you find a path forward?
+      </p>
+      <button class="play-button" onclick="startGame()">Begin Journey</button>
+    </div>
+  </div>
 
-        <div class="background-grid">
-          <div class="background-column animate-in">
-            <h3>Who She Is</h3>
-            <p>
-              Dhaani is a young migrant woman from a marginalized caste, living
-              in an informal settlement. She works irregular jobs—cleaning,
-              sorting waste, childcare—while caring for her 6-year-old child.
-            </p>
-
-            <p>
-              Her husband, a migrant labourer, has become increasingly violent,
-              fuelled by erratic work, debt, and substance use.
-            </p>
-          </div>
-
-          <div class="background-column animate-in">
-            <h3>Her Reality</h3>
-            <p>
-              Dhaani has little family support and limited savings. Her life is
-              shaped by constant calculations: safety, income, shelter, and her
-              child's wellbeing.
-            </p>
-
-            <p>
-              After a recent violent incident, she must decide how to
-              respond—knowing each choice will shape who she can trust, what
-              risks she faces, and which doors remain open or closed.
-            </p>
-          </div>
-
-          <div class="background-column animate-in">
-            <h3>Your Role</h3>
-            <p>
-              For the next few minutes, step into Dhaani's shoes. Every choice
-              shapes her future pathways.
-            </p>
-
-            <p class="emphasize">
-              There is no perfect option. Each action helps in some ways and
-              complicates others—just like the real choices women like Dhaani
-              navigate daily.
-            </p>
-          </div>
-        </div>
-
-        <button class="continue-button" onclick="startGameProper()">
-          Begin Dhaani's Journey →
-        </button>
+  <!-- Add this after the startScreen div -->
+  <div id="backgroundScreen" class="background-screen hidden">
+    <div class="butterfly">
+      <div class="wing">
+        <div class="bit"></div>
+        <div class="bit"></div>
+      </div>
+      <div class="wing">
+        <div class="bit"></div>
+        <div class="bit"></div>
       </div>
     </div>
+    <div class="background-content">
+      <h2 class="background-title">Step Into Dhaani's Story</h2>
 
-    <div id="app" class="hidden"></div>
+      <div class="background-grid">
+        <div class="background-column animate-in">
+          <h3>Who She Is</h3>
+          <p>
+            Dhaani is a young migrant woman from a marginalized caste, living
+            in an informal settlement. She works irregular jobs—cleaning,
+            sorting waste, childcare—while caring for her 6-year-old child.
+          </p>
 
-    <!-- Logo and Audio Integration -->
-    <audio id="bgAudio" src="./images/light_audio.mp3" autoplay loop></audio>
-    <script>
-      // Ensure audio restarts on game restart
-      function restartGame() {
-        const audio = document.getElementById('bgAudio');
-        if (audio) {
-          audio.currentTime = 0;
-          audio.play();
-        }
-        window.location.reload();
+          <p>
+            Her husband, a migrant labourer, has become increasingly violent,
+            fuelled by erratic work, debt, and substance use.
+          </p>
+        </div>
+
+        <div class="background-column animate-in">
+          <h3>Her Reality</h3>
+          <p>
+            Dhaani has little family support and limited savings. Her life is
+            shaped by constant calculations: safety, income, shelter, and her
+            child's wellbeing.
+          </p>
+
+          <p>
+            After a recent violent incident, she must decide how to
+            respond—knowing each choice will shape who she can trust, what
+            risks she faces, and which doors remain open or closed.
+          </p>
+        </div>
+
+        <div class="background-column animate-in">
+          <h3>Your Role</h3>
+          <p>
+            For the next few minutes, step into Dhaani's shoes. Every choice
+            shapes her future pathways.
+          </p>
+
+          <p class="emphasize">
+            There is no perfect option. Each action helps in some ways and
+            complicates others—just like the real choices women like Dhaani
+            navigate daily.
+          </p>
+        </div>
+      </div>
+
+      <button class="continue-button" onclick="startGameProper()">
+        Begin Dhaani's Journey →
+      </button>
+    </div>
+  </div>
+
+  <div id="app" class="hidden"></div>
+
+  <!-- Logo and Audio Integration -->
+  <audio id="bgAudio" src="./images/light_audio.mp3" autoplay loop></audio>
+  <script>
+    // Ensure audio restarts on game restart
+    function restartGame() {
+      const audio = document.getElementById('bgAudio');
+      if (audio) {
+        audio.currentTime = 0;
+        audio.play();
       }
-    </script>
+      window.location.reload();
+    }
+  </script>
 
-    <script>
-      const animations = [
-        "slide-in-left",
-        "slide-in-right",
-        "zoom-in",
-        "fade-in",
-        "flip-in",
-      ];
-      let currentAnimationIndex = 0;
-      // Game Data
-      const gameData = {
-        cards: [
-          {
-            id: 1,
-            title: "Violence at Home",
-            "image-alt": "A dimly lit room, Dhaani shielding her child.",
-            image:
-              "./images/1.jpg",
-            narrative:
-              "It's late at night. Your partner comes home unsteady, the familiar smell of alcohol filling the room. His anger rises quickly, words slurred but sharp. A glass hits the floor. Your child jolts awake and clings to your saree, their small body shaking against yours.\n\nYou try to stay calm, but your heart races as he steps closer. You edge back, shielding your child, wishing the neighbours would knock or the night would pass faster. The fear is heavy and familiar. You know that whatever happens next will shape tomorrow; and you're running out of strength to hope it will be different.",
-            dialogue: {
-              speaker: "Dhaani (thinking)",
-              text: "I can't keep living like this, I can't go on, but what can you do tonight?",
-            },
-            choices: [
-              {
-                id: "c1_1",
-                text: "You realise you have no options, nowhere to go. Stay home and hope it calms down.",
-                consequences: { Safety: -2, Health: -1, Child: -1 },
-                outcome: {
-                  type: "collapse",
-                  message: "The violence escalates. Your journey ends here.",
-                  collapseImage:"./images/collapse1.png",
-                },
-              },
-              {
-                id: "c1_2",
-                text: "Go to parent's house even though they've been reluctant to help before, saying you have to deal with your marriage and kid however you want yourself",
-                consequences: {},
-                outcome: {
-                  type: "collapse",
-                  message:
-                    'Your parents refuse to take you in and blame you for "ruining your married home."',
-                  collapseImage:"./images/collapse1.png",
-                },
-              },
-              {
-                id: "c1_3",
-                text: "Call a helpline you remember from a door-to-door campaign flyer, asking them to contact the police station and refer you to a shelter.",
-                consequences: { Justice: 1, Safety: 1, Money: -1 },
-                outcome: { type: "continue", nextCard: 2 },
-              },
-            ],
-            dataCard: {
-              statement:
-                "You're not alone. While around 1 in 30 married women face domestic violence and abuse, only 14% of women who face domestic violence ever seek help, and only 7% approach the police.\n\nFor every 1 case of domestic violence recorded by police, surveys estimate at least 20 cases go unreported.",
-              source: "NFHS-5, Ministry of Health & Family Welfare",
-            },
+  <script>
+    const animations = [
+      "slide-in-left",
+      "slide-in-right",
+      "zoom-in",
+      "fade-in",
+      "flip-in",
+    ];
+    let currentAnimationIndex = 0;
+    // Game Data
+    const gameData = {
+      cards: [
+        {
+          id: 1,
+          audio: "./images/slide1.mp3", // Placeholder: Replace with unique audio file for this slide
+          title: "Violence at Home",
+          "image-alt": "A dimly lit room, Dhaani shielding her child.",
+          image:
+            "./images/1.jpg",
+          narrative:
+            "It's late at night. Your partner comes home unsteady, the familiar smell of alcohol filling the room. His anger rises quickly, words slurred but sharp. A glass hits the floor. Your child jolts awake and clings to your saree, their small body shaking against yours.\n\nYou try to stay calm, but your heart races as he steps closer. You edge back, shielding your child, wishing the neighbours would knock or the night would pass faster. The fear is heavy and familiar. You know that whatever happens next will shape tomorrow; and you're running out of strength to hope it will be different.",
+          dialogue: {
+            speaker: "Dhaani (thinking)",
+            text: "I can't keep living like this, I can't go on, but what can you do tonight?",
           },
-          {
-            id: 2,
-            title: "Shelter & Medical Care",
-            "image-alt": "A crowded shelter dormitory with women and children.",
-            image:
-              "./images/2.jpg",
-            narrative:
-              "You are taken to a crowded shelter dormitory with women and children; mattresses close together; soft noises of crying and coughing. You stand at the doorway, overwhelmed but relieved to be somewhere safer.",
-            dialogue: {
-              speaker: "NGO Worker",
-              text: "We can give you a bed for the night. It's crowded, but you'll be safe here.\n\nIf you need medical attention, we can arrange basic first-aid now or a proper check-up tomorrow.\n\nThere's also a legal desk in the morning that you MUST attend—your child can stay in our daycare if you choose. What would you like to do?",
+          choices: [
+            {
+              id: "c1_1",
+              text: "You realise you have no options, nowhere to go. Stay home and hope it calms down.",
+              consequences: { Safety: -2, Health: -1, Child: -1 },
+              outcome: {
+                type: "collapse",
+                message: "The violence escalates. Your journey ends here.",
+                collapseImage: "./images/collapse1.png",
+              },
             },
-            choices: [
-              {
-                id: "c2_1",
-                text: "Stay in the shelter with your child and request basic first-aid tonight.",
-                consequences: { Safety: 2, Health: 1, Child: 1, Money: -1 },
-                outcome: { type: "continue", nextCard: 3 },
-              },
-              {
-                id: "c2_2",
-                text: "Agree to send your child to daycare tomorrow and go for a proper medical check-up, before attending the legal desk",
-                consequences: { Child: 1, Health: 2, Money: -2 },
-                outcome: { type: "continue", nextCard: 3 },
-              },
-              {
-                id: "c2_3",
-                text: "Call a community leader to mediate and ask for advice before committing to the shelter.",
-                consequences: {},
-                outcome: {
-                  type: "collapse",
-                  message:
-                    "The community leader, after hearing the situation, pushes you to not break the house and insists you should take your child and go back to your husband's home.",
-                  collapseImage:"./images/collapse1.png",
-                },
-              },
-              {
-                id: "c2_4",
-                text: "Leave the shelter and return home, feeling overwhelmed by the crowd, the talk of legal steps, and unsure if you're ready for all this.",
-                consequences: {},
-                outcome: {
-                  type: "collapse",
-                  message: "You return to the abusive environment.",
-                  collapseImage:"./images/collapse1.png",
-                },
-              },
-            ],
-            dataCard: {
-              statement:
-                "You escape an abusive home and reach a shelter, only to learn it can offer you safety for just a short while. With limited space and temporary beds, you're pushed back into uncertainty.",
-              source:
-                "Ministry of Women and Child Development Annual Report 2018–19 - According to the Ministry, over 48% of shelter homes run at or beyond capacity.",
+            {
+              id: "c1_2",
+              text: "Go to parent's house even though they've been reluctant to help before, saying you have to deal with your marriage and kid however you want yourself",
+              consequences: {},
+              outcome: { type: "continue", nextCard: 11 },
             },
+            {
+              id: "c1_3",
+              text: "Call a helpline you remember from a door-to-door campaign flyer, asking them to contact the police station and refer you to a shelter.",
+              consequences: { Justice: 1, Safety: 1, Money: -1 },
+              outcome: { type: "continue", nextCard: 2 },
+            },
+          ],
+          dataCard: {
+            statement:
+              "You're not alone. While around 1 in 30 married women face domestic violence and abuse, only 14% of women who face domestic violence ever seek help, and only 7% approach the police.\n\nFor every 1 case of domestic violence recorded by police, surveys estimate at least 20 cases go unreported.",
+            source: "NFHS-5, Ministry of Health & Family Welfare",
           },
-          {
-            id: 3,
-            title: "Access to Legal Aid",
-            "image-alt":
-              "Dhaani holding a mop in one hand and a leaflet about free legal aid in the other.",
-            image:
-              "./images/3.jpg",
-            narrative:
-              "A Paralegal Volunteer (PLV) is visiting your locality today to hold a legal awareness session. The shelter has also offered to connect you with a Legal Aid Lawyer (LAL) on their roster. But you only have a few hours free—and you still need money to support your child and plan your move out of the shelter.",
-            dialogue: { speaker: "Dhaani (thinking)", text: " " },
-            choices: [
-              {
-                id: "c3_1",
-                text: "Take the informal cleaning job (₹200) and quickly stop by the legal desk on the way. You don't get a lawyer assigned.",
-                consequences: { Money: 2, Justice: -1, Health: -1 },
-                outcome: { type: "continue", nextCard: 4 },
-              },
-              {
-                id: "c3_2",
-                text: "Attend the awareness session, and receive legal and procedural assistance from the PLV.",
-                consequences: { Justice: 2, Safety: 1, Money: -1 },
-                outcome: { type: "continue", nextCard: 4 },
-              },
-              {
-                id: "c3_3",
-                text: "Go with the shelter's recommended LAL for first-response support.",
-                consequences: { Justice: 1, Safety: 1, Money: -1 },
-                outcome: { type: "continue", nextCard: 4 },
-              },
-              {
-                id: "c3_4",
-                text: "Approach a private lawyer recommended by community women for quicker, more efficient results",
-                consequences: { Money: -5, Justice: 1 },
-                outcome: { type: "continue", nextCard: 4 },
-              },
-            ],
-            dataCard: {
-              statement:
-                "With India now having four times fewer legal-aid clinics per population than seven years ago, the closest legal-aid centre could be far away.",
-              source:
-                "India Justice Report 2025 - Legal Aid: Villages per Legal Aid Clinic states that, today, one clinic serves an average of 163 villages, and in some states, more than 500.",
-            },
+        },
+        {
+          id: 11,
+          audio: "./images/slide2.mp3",
+          title: "Parents' House",
+          "image-alt": "Parents' humble home",
+          image:
+            "./images/1.jpg",
+          narrative:
+            "Your parents let you stay the night. They feed your child and ask you to rest. For a moment, it feels like you can breathe again.\n\nBut by morning, their worry turns into pressure. They remind you they have little money, limited space, and their own fears of community judgment.\n\nThey allow you to go to your informal work for now, but make it clear they cannot support you long-term.",
+          dialogue: {
+            speaker: "Parents",
+            text: "“You can stay for a few days, not more.”\n\n“We can’t raise your child for you.”\n\n“Go back and sort it out- this is how marriages are.”",
           },
-          {
-            id: 4,
-            title: "Police Station",
-            "image-alt":
-              "Police desk officer, papers piled up, skeptical look.",
-            image:
-              "./images/4.jpg",
-            narrative:
-              "Your hands tremble as you step inside the police station. The room feels colder than outside. You're terrified of saying the wrong thing, guilty for 'airing dirty laundry,' and unsure whether this is even the right place to come. But your child's face from last night flashes in your mind, and you stay.",
-            dialogue: {
-              speaker: "Police Officer",
-              text: "ID lao. And stop crying- it won’t help. These matrimonial complaints… they break families for no reason. Better you sit down with your husband and sort it out. Court-kacchari will only ruin your home",
+          choices: [
+            {
+              id: "c11_1",
+              text: "Dejected, you return to your husband’s home as your parents insist.",
+              consequences: { Safety: 1, Child: 1 },
+              outcome: {
+                type: "collapse",
+                message: "Dejected, you return to your husband’s home as your parents insist.",
+                collapseImage: "./images/collapse1.png",
+              },
             },
-            choices: [
-              {
-                id: "c4_1",
-                text: "Agree to police-facilitated mediation with your husband. (You risk retraumatisation)",
-                consequences: { Justice: 0, Safety: -2 },
-                outcome: { type: "continue", nextCard: 5 },
-                random: { Justice: [-1, 0] },
-              },
-              {
-                id: "c4_2",
-                text: "Skip the mediation and quietly return home, overwhelmed and unsure.",
-                consequences: {},
-                outcome: {
-                  type: "collapse",
-                  message:
-                    "You return to the abusive environment without any protection.",
-                  collapseImage:"./images/collapse1.png",
-                },
-              },
-              {
-                id: "c4_3",
-                text: "Ask the police to register your complaint with PLV + LAL support.",
-                consequences: { Justice: 1, Safety: 2, Money: -1 },
-                outcome: { type: "continue", nextCard: 5 },
-              },
-            ],
-            dataCard: {
-              statement:
-                "You take a step toward justice by filing the complaint, but the struggle begins immediately. Survivors often find themselves going to the police station repeatedly, facing delays, dismissive behaviour, and mismanagement. It's a key reason nearly 75% of people avoid reporting crimes, especially women and marginalised groups.",
-              source:
-                "Study by Tata Institute of Social Sciences (TISS), Mumbai, for the Bureau of Police Research and Development (BPR&D)",
+            {
+              id: "c11_2",
+              text: "Reach out to the NGO helpline while staying at your parents’ house.",
+              consequences: { Safety: 1, Money: -1 },
+              outcome: { type: "continue", nextCard: 2 },
             },
+          ],
+        },
+        {
+          id: 2,
+          audio: "./images/slide3.mp3",
+          title: "Shelter & Medical Care",
+          "image-alt": "A crowded shelter dormitory with women and children.",
+          image:
+            "./images/2.jpg",
+          narrative:
+            "You are taken to a crowded shelter dormitory with women and children; mattresses close together; soft noises of crying and coughing. You stand at the doorway, overwhelmed but relieved to be somewhere safer.",
+          dialogue: {
+            speaker: "NGO Worker",
+            text: "We can give you a bed for the night. It's crowded, but you'll be safe here.\n\nIf you need medical attention, we can arrange basic first-aid now or a proper check-up tomorrow.\n\nThere's also a legal desk in the morning that you MUST attend-cases like these hardly go anywhere. your child can stay in our daycare if you choose. What would you like to do?",
           },
-          {
-            id: 5,
-            title: "Medical Evidence",
-            "image-alt": "Public hospital waiting hall, long queues.",
-            image:
-              "./images/5.jpg",
-            narrative:
-              "The court has asked for medical proof of your injuries. You need to decide where to go for this examination. The public hospital is free but often crowded and sometimes dismissive. A private clinic would be kinder but costs money you don't really have.",
-            dialogue: {
-              speaker: "Dhaani (thinking)",
-              text: "Public Hospital is free but discriminatory. A private clinic is kinder, but costs higher",
+          choices: [
+            {
+              id: "c2_1",
+              text: "Stay in the shelter with your child and request basic first-aid tonight.",
+              consequences: { Safety: 2, Health: 1, Child: 1, Money: -1 },
+              outcome: { type: "continue", nextCard: 3 },
             },
-            choices: [
-              {
-                id: "c5_1",
-                text: "Go to public hospital.",
-                consequences: { Justice: 1, Health: 1, Child: -1 },
-                outcome: { type: "continue", nextCard: 6 },
-              },
-              {
-                id: "c5_2",
-                text: "Pay private clinic(₹1,000).",
-                consequences: { Money: -3, Justice: 2, Health: 2 },
-                outcome: { type: "continue", nextCard: 6 },
-              },
-              {
-                id: "c5_3",
-                text: "Skip exam (Your lawyer advised against this).",
-                consequences: { Justice: -2 },
-                outcome: { type: "continue", nextCard: 6 },
-              },
-            ],
-            dataCard: {
-              statement:
-                "Any support puts you in a rare 2% that are able to access essential medical assistance. Over 98% of survivors of partner violence get no medical help for the trauma they endure",
-              source:
-                "National Family Health Survey (NFHS-V) shows less than 2% of survivors ever approach medical personnel after partner violence",
+            {
+              id: "c2_2",
+              text: "Agree to send your child to daycare tomorrow and go for a proper medical check-up, before attending the legal desk",
+              consequences: { Child: 1, Health: 2, Money: -2 },
+              outcome: { type: "continue", nextCard: 3 },
             },
+            {
+              id: "c2_3",
+              text: "Call a community leader to mediate and ask for advice before committing to the shelter.",
+              consequences: {},
+              outcome: {
+                type: "collapse",
+                message:
+                  "The community leader, after hearing the situation, pushes you to not break the house and insists you should take your child and go back to your husband's home.",
+                collapseImage: "./images/collapse1.png",
+              },
+            },
+            {
+              id: "c2_4",
+              text: "Leave the shelter and return home, feeling overwhelmed by the crowd, the talk of legal steps, and unsure if you're ready for all this.",
+              consequences: {},
+              outcome: {
+                type: "collapse",
+                message: "You return to the abusive environment.",
+                collapseImage: "./images/collapse1.png",
+              },
+            },
+          ],
+          dataCard: {
+            statement:
+              "You escape an abusive home and reach a shelter, only to learn it can offer you safety for just a short while. With limited space and temporary beds, you're pushed back into uncertainty.",
+            source:
+              "Ministry of Women and Child Development Annual Report 2018–19 - According to the Ministry, over 48% of shelter homes run at or beyond capacity.",
           },
-          {
-            id: 6,
-            title: "Everyday Struggles and Challenges",
-            "image-alt":
-              "A cramped one-room rental. Dhani's child lying on a thin mattress feverish.",
-            image:
-              "./images/6.png",
-            narrative:
-              "The PLV is coming for a legal session… and the shelter can connect me to a Legal Aid Lawyer too. The session might give me clarity, but speaking to a lawyer could help with my case directly. What could help our situation most right now? As your time at the shelter home comes to an end, you are planning to move out and have found a small rented room. To support this, you have also started working as a domestic worker in 3 houses. But you only get two days off a month. Today, your child has woken up sick. What do you do now?",
-            dialogue: { speaker: "Dhaani (thinking)", text: "He's so unwell...what can I do, I can't take him with me, and I can't ask for leave when I've only just started working, can I...?" },
-            choices: [
-              {
-                id: "c6_1",
-                text: "Go to work and leave the child at the anganwadi. (Not equipped for sick children)",
-                consequences: { Health: 2, Child: -2 },
-                outcome: { type: "continue", nextCard: 7 },
-              },
-              {
-                id: "c6_2",
-                text: "Take the child to the PHC (Primary Health center).",
-                consequences: { Health: 3, Money: -1, Child: 1 },
-                outcome: { type: "continue", nextCard: 7 },
-              },
-              {
-                id: "c6_3",
-                text: "Call employer and request a day off.",
-                consequences: { Child: 2, Money: -2 },
-                outcome: { type: "continue", nextCard: 7 },
-              },
-              {
-                id: "c6_4",
-                text: "Give home remedies and go to work anyway.",
-                consequences: { Money: 2, Child: -3 },
-                outcome: { type: "continue", nextCard: 7 },
-              },
-            ],
-            dataCard: {
-              statement:
-                "Your child's health and well-being continues to be at stake. A significant proportion of Indian children under age 5 remain undernourished.",
-              source:
-                "National Family Health Survey 5 (NFHS-5, 2019–21) shows that undernutrition is widespread among children under 5, with 32.1% stunted, 19.3% wasted, and 24.7% underweight, risks that are higher for children from poorer households, rural areas, and mothers with lower education",
+        },
+        {
+          id: 3,
+          audio: "./images/slide4.mp3",
+          title: "Access to Legal Aid",
+          "image-alt":
+            "Dhaani holding a mop in one hand and a leaflet about free legal aid in the other.",
+          image:
+            "./images/3.jpg",
+          narrative:
+            "A Paralegal Volunteer (PLV) is visiting your locality today to hold a legal awareness session. The shelter has also offered to connect you with a Legal Aid Lawyer (LAL) on their roster. But you only have a few hours free—and you still need money to support your child and plan your move out of the shelter.",
+          dialogue: { speaker: "Dhaani (thinking)", text: " " },
+          choices: [
+            {
+              id: "c3_1",
+              text: "Take the informal cleaning job (₹400) and quickly stop by the legal desk on the way. You don't get a lawyer assigned.",
+              consequences: { Money: 2, Justice: -1, Health: -1 },
+              outcome: { type: "continue", nextCard: 4 },
             },
+            {
+              id: "c3_2",
+              text: "Attend the awareness session, and receive legal and procedural assistance from the PLV.",
+              consequences: { Justice: 2, Safety: 1, Money: -1 },
+              outcome: { type: "continue", nextCard: 4 },
+            },
+            {
+              id: "c3_3",
+              text: "Go with the shelter's recommended LAL for first-response support.",
+              consequences: { Justice: 1, Safety: 1, Money: -1 },
+              outcome: { type: "continue", nextCard: 4 },
+            },
+            {
+              id: "c3_4",
+              text: "Approach a private lawyer recommended by community women for quicker, more efficient results",
+              consequences: { Money: -5, Justice: 1 },
+              outcome: { type: "continue", nextCard: 4 },
+            },
+          ],
+          dataCard: {
+            statement:
+              "With India now having four times fewer legal-aid clinics per population than seven years ago, the closest legal-aid centre could be far away.",
+            source:
+              "India Justice Report 2025 - Legal Aid: Villages per Legal Aid Clinic states that, today, one clinic serves an average of 163 villages, and in some states, more than 500.",
           },
-          {
-            id: 7,
-            title: "Threats from Abuser's Family",
-            "image-alt": "A narrow alley, relatives blocking Dhaani's way.",
-            image:
-              "./images/7.jpg",
-            narrative:
-              "As you're returning from work, your husband's relatives confront you in a narrow alley. They're angry about the case you've filed and the shame it's bringing to the family. They demand you withdraw the case immediately.",
-            dialogue: {
-              speaker: "Relative",
-              text: "Withdraw the case, or we'll make sure you regret it. You can't just drag your family matters in front of everyone, it affects our image in society",
-            },
-            choices: [
-              {
-                id: "c7_1",
-                text: "Ask police for protection.",
-                consequences: { Justice: 2, Money: -1 },
-                outcome: { type: "continue", nextCard: 8 },
-                random: { Safety: [2, 0] },
-              },
-              {
-                id: "c7_2",
-                text: "Stay hidden, skip court.",
-                consequences: { Safety: 1, Justice: -2 },
-                outcome: { type: "continue", nextCard: 8 },
-              },
-              {
-                id: "c7_3",
-                text: "Confront them with community/PLV support.",
-                consequences: { Safety: -2, Justice: 1 },
-                outcome: { type: "continue", nextCard: 8 },
-              },
-            ],
-            dataCard: {
-              statement:
-                "Police protection may reduce immediate physical risk, but long-term safety is not always guaranteed.",
-              source:
-                "Human Rights Watch, Everyone Blames Me (2017) Report notes that even when survivors take positive action, the system rarely lets them get ahead.",
-            },
+        },
+        {
+          id: 4,
+          audio: "./images/slide5.mp3",
+          title: "Police Station",
+          "image-alt":
+            "Police desk officer, papers piled up, skeptical look.",
+          image:
+            "./images/4.jpg",
+          narrative:
+            "Your hands tremble as you step inside the police station. The room feels colder than outside. You're terrified of saying the wrong thing, guilty for 'airing dirty laundry,' and unsure whether this is even the right place to come. But your child's face from last night flashes in your mind, and you stay.",
+          dialogue: {
+            speaker: "Police Officer",
+            text: "ID lao. And stop crying- it won’t help. These matrimonial complaints… they break families for no reason. Better you sit down with your husband and sort it out. Court-kacchari will only ruin your home",
           },
-          {
-            id: 8,
-            title: "Preparation for Court Proceedings",
-            "image-alt":
-              "Crowded courtroom hallway with Dhaani and her lawyer.",
-            image:
-              "./images/8.jpg",
-            narrative:
-              "THe corridor is packed with people— lawyers rushing between courtrooms, families waiting on hard benches, clerks calling out case numbers that echo off the walls. Paper files are stacked everywhere, a reminder of how many lives sit on hold here. Amid the noise and confusion, you stand with your legal aid lawyer, who flips through the case file. You grip the edge of your dupatta, trying to steady yourself in a place that feels both official and overwhelming",
-            dialogue: {
-              speaker: "Legal Aid Lawyer",
-              text: "Today the judge will take up your application. We can request an interim protection order and maintenance, but I want to prepare you: these things take time and a positive order won't mean immediate protection or financial resources for you",
+          choices: [
+            {
+              id: "c4_1",
+              text: "Agree to police-facilitated mediation with your husband. (You are scared to face him again)",
+              consequences: { Justice: 0, Safety: -2 },
+              outcome: { type: "continue", nextCard: 5 },
+              random: { Justice: [1, 0] },
             },
-            choices: [
-              {
-                id: "c8_1",
-                text: "Tell the lawyer you want to request protection and maintenance today.",
-                consequences: { Justice: 2, Money: -1 },
-                outcome: { type: "continue", nextCard: 9 },
+            {
+              id: "c4_2",
+              text: "You feel too overwhelmed and unsure of the legal process, so you abandon it and quietly return home.",
+              consequences: {},
+              outcome: {
+                type: "collapse",
+                message:
+                  "You return to the abusive environment without any protection.",
+                collapseImage: "./images/collapse1.png",
               },
-              {
-                id: "c8_2",
-                text: "Request a paralegal volunteer to join you during the hearing.",
-                consequences: { Justice: 1, Safety: 1 },
-                outcome: { type: "continue", nextCard: 9 },
-              },
-              {
-                id: "c8_3",
-                text: "Ask whether a settlement should be considered due to fear of facing husband in court.",
-                consequences: { Justice: -1, Safety: 1, Money: 2 },
-                outcome: { type: "continue", nextCard: 9 },
-              },
-            ],
-            dataCard: {
-              statement:
-                "The Domestic Violence Act mandates a 60 day resolution, yet with 4.71 lakh pending domestic violence cases, justice can remain out of reach for months after you file.",
-              source:
-                "NALSA, State-wise Data on Pendency of Domestic Violence Cases, revealed that a total of 4,71,684 original cases and 21,088 appeals were pending under the DV Act in India as on July 2022.",
             },
+            {
+              id: "c4_3",
+              text: "Ask the police to register your complaint with PLV and lawyer support.",
+              consequences: { Justice: 1, Safety: 2, Money: -1 },
+              outcome: { type: "continue", nextCard: 5 },
+            },
+          ],
+          dataCard: {
+            statement:
+              "You take a step toward justice by filing the complaint, but the struggle begins immediately. Survivors often find themselves going to the police station repeatedly, facing delays, dismissive behaviour, and mismanagement. It's a key reason nearly 75% of people avoid reporting crimes, especially women and marginalised groups.",
+            source:
+              "Study by Tata Institute of Social Sciences (TISS), Mumbai, for the Bureau of Police Research and Development (BPR&D)",
           },
-          {
-            id: 9,
-            title: "Court Hearing",
-            "image-alt":
-              "Courtroom with judge's bench, child tugging at Dhaani's sari.",
-            image:
-              "./images/9.png",
-            narrative:
-              "Weeks have passed since you filed your case. The court keeps giving new dates. Every visit means losing a day's wages and arranging childcare again. Your Legal Aid Lawyer explains that this is normal, cases take time—but you feel the strain growing heavier each day.",
-            dialogue: {
-              speaker: "Court clerk",
-              text: "Ab agle tareek pe dekhenge, aap bas date likh lo",
-            },
-            choices: [
-              {
-                id: "c9_1",
-                text: "Continue the case despite the delays, missed work, and mounting expenses. You have a few positive interim orders keeping you afloat.",
-                consequences: { Justice: 2, Money: -2, Health: -1 },
-                outcome: { type: "continue", nextCard: 10 },
-              },
-              {
-                id: "c9_2",
-                text: "Consider a 'compromise' because nothing seems to change even after court orders, and you just want to start afresh and put this traumatic chapter behind you.",
-                consequences: { Justice: -1, Safety: -1 },
-                outcome: { type: "continue", nextCard: 10 },
-              },
-              {
-                id: "c9_3",
-                text: "Stop following up on the case as you feel financially drained and hopeless about a meaningful resolution.",
-                consequences: { Justice: -3, Safety: -2, Money: 2, Health: -2 },
-                outcome: { type: "continue", nextCard: 10 },
-              },
-            ],
-            dataCard: {
-              statement:
-                "The case, meant to resolve and support, often becomes yet another challenge that feels insurmountable—filled with inaccessible legalese and procedural hurdles. In addition, the government's High-Level Committee noted that the judiciary often lacks gender sensitivity and fails to remove barriers that marginalise women navigating litigation.",
-              source:
-                "Report of the High-Level Committee on the Status of Women (HLC, 2014–15).",
-            },
+        },
+        {
+          id: 5,
+          audio: "./images/slide6.mp3",
+          title: "Medical Evidence",
+          "image-alt": "Public hospital waiting hall, long queues.",
+          image:
+            "./images/5.jpg",
+          narrative:
+            "The court has asked for medical proof of your injuries. You need to decide where to go for this examination. The public hospital is free but often crowded and sometimes dismissive. A private clinic would be kinder but costs money you don't really have.",
+          dialogue: {
+            speaker: "Dhaani (thinking)",
+            text: "Public Hospital is free but discriminatory. A private clinic is kinder, but costs higher",
           },
-          {
-            id: 10,
-            title: "Verdict / Resolution",
-            "image-alt": "Judge delivering verdict, Dhaani holding her child.",
-            image:
-              "./images/6.jpg",
-            narrative:
-              "After months of struggle, the court has finally reached a decision in your case. The journey has been long and difficult, with many sacrifices along the way. Now you face the outcome of all your efforts.",
-            dialogue: {
-              speaker: "Judge",
-              text: "After considering all evidence and circumstances, this court has reached its verdict.",
+          choices: [
+            {
+              id: "c5_1",
+              text: "Go to public hospital.",
+              consequences: { Justice: 1, Health: 1, Child: -1 },
+              outcome: { type: "continue", nextCard: 6 },
             },
-            choices: [
-              {
-                id: "c10_1",
-                text: "Hear the verdict",
-                consequences: {},
-                outcome: { type: "end" },
-              },
-            ],
-            dataCard: {
-              statement:
-                "The journey through the justice system is often just the beginning of a longer struggle for safety, stability, and healing.",
-              source:
-                "Based on real experiences of survivors navigating the legal system in India",
+            {
+              id: "c5_2",
+              text: "Pay private clinic(₹500).",
+              consequences: { Money: -3, Justice: 2, Health: 2 },
+              outcome: { type: "continue", nextCard: 6 },
             },
+            {
+              id: "c5_3",
+              text: "Skip exam (Your lawyer advised against this).",
+              consequences: { Justice: -2 },
+              outcome: { type: "continue", nextCard: 6 },
+            },
+          ],
+          dataCard: {
+            statement:
+              "Any support puts you in a rare 2% that are able to access essential medical assistance. Over 98% of survivors of partner violence get no medical help for the trauma they endure",
+            source:
+              "National Family Health Survey (NFHS-V) shows less than 2% of survivors ever approach medical personnel after partner violence",
           },
-        ],
-      };
+        },
+        {
+          id: 6,
+          audio: "./images/slide7.mp3",
+          title: "Everyday Struggles and Challenges",
+          "image-alt":
+            "A cramped one-room rental. Dhani's child lying on a thin mattress feverish.",
+          image:
+            "./images/6.png",
+          narrative:
+            "The PLV is coming for a legal session… and the shelter can connect me to a Legal Aid Lawyer too. The session might give me clarity, but speaking to a lawyer could help with my case directly. What could help our situation most right now? As your time at the shelter home comes to an end, you are planning to move out and have found a small rented room. To support this, you have also started working as a domestic worker in 3 houses. But you only get two days off a month. Today, your child has woken up sick. What do you do now?",
+          dialogue: { speaker: "Dhaani (thinking)", text: "He's so unwell...what can I do, I can't take him with me, and I can't ask for leave when I've only just started working, can I...?" },
+          choices: [
+            {
+              id: "c6_1",
+              text: "Go to work and leave the child at the anganwadi. (Not equipped for sick children)",
+              consequences: { Child: -2, Money: 1 },
+              outcome: { type: "continue", nextCard: 7 },
+            },
+            {
+              id: "c6_2",
+              text: "Call employer and request day off to take the child to the PHC (Primary Health center).",
+              consequences: { Health: 3, Money: -1, Child: 2 },
+              outcome: { type: "continue", nextCard: 7 },
+            },
+            {
+              id: "c6_3",
+              text: "Call employer and request a day off.",
+              consequences: { Child: 2, Money: -2 },
+              outcome: { type: "continue", nextCard: 7 },
+            },
+            {
+              id: "c6_4",
+              text: "Give home remedies and go to work anyway.",
+              consequences: { Money: 2, Child: -3 },
+              outcome: { type: "continue", nextCard: 7 },
+            },
+          ],
+          dataCard: {
+            statement:
+              "Your child's health and well-being continues to be at stake. A significant proportion of Indian children under age 5 remain undernourished.",
+            source:
+              "National Family Health Survey 5 (NFHS-5, 2019–21) shows that undernutrition is widespread among children under 5, with 32.1% stunted, 19.3% wasted, and 24.7% underweight, risks that are higher for children from poorer households, rural areas, and mothers with lower education",
+          },
+        },
+        {
+          id: 7,
+          audio: "./images/slide8.mp3",
+          title: "Threats from Abuser's Family",
+          "image-alt": "A narrow alley, relatives blocking Dhaani's way.",
+          image:
+            "./images/7.jpg",
+          narrative:
+            "As you're returning from work, your husband's relatives confront you in a narrow alley. They're angry about the case you've filed and the shame it's bringing to the family. They demand you withdraw the case immediately.",
+          dialogue: {
+            speaker: "Relative",
+            text: "Withdraw the case, or we'll make sure you regret it. You can't just drag your family matters in front of everyone, it affects our image in society",
+          },
+          choices: [
+            {
+              id: "c7_1",
+              text: "Ask police for protection.",
+              consequences: { Justice: 2, Money: -1 },
+              outcome: { type: "continue", nextCard: 8 },
+              random: { Safety: [2, 0] },
+            },
+            {
+              id: "c7_2",
+              text: "Stay hidden, skip court.",
+              consequences: { Safety: 1, Justice: -2 },
+              outcome: { type: "continue", nextCard: 8 },
+            },
+            {
+              id: "c7_3",
+              text: "Confront them with community/PLV support.",
+              consequences: { Safety: -1, Justice: 1 },
+              outcome: { type: "continue", nextCard: 8 },
+            },
+          ],
+          dataCard: {
+            statement:
+              "Police protection may reduce immediate physical risk, but long-term safety is not always guaranteed.",
+            source:
+              "Human Rights Watch, Everyone Blames Me (2017) Report notes that even when survivors take positive action, the system rarely lets them get ahead.",
+          },
+        },
+        {
+          id: 8,
+          audio: "./images/slide9.mp3",
+          title: "Preparation for Court Proceedings",
+          "image-alt":
+            "Crowded courtroom hallway with Dhaani and her lawyer.",
+          image:
+            "./images/8.jpg",
+          narrative:
+            "THe corridor is packed with people— lawyers rushing between courtrooms, families waiting on hard benches, clerks calling out case numbers that echo off the walls. Paper files are stacked everywhere, a reminder of how many lives sit on hold here. Amid the noise and confusion, you stand with your legal aid lawyer, who flips through the case file. You grip the edge of your dupatta, trying to steady yourself in a place that feels both official and overwhelming",
+          dialogue: {
+            speaker: "Legal Aid Lawyer",
+            text: "Today the judge will take up your application. We can request an interim protection order and maintenance, but I want to prepare you: these things take time and a positive order won't mean immediate protection or financial resources for you",
+          },
+          choices: [
+            {
+              id: "c8_1",
+              text: "Tell the lawyer you want to request protection and maintenance today.",
+              consequences: { Justice: 2, Money: -1 },
+              outcome: { type: "continue", nextCard: 9 },
+            },
+            {
+              id: "c8_2",
+              text: "Request a paralegal volunteer to join you during the hearing.",
+              consequences: { Justice: 1, Safety: 1 },
+              outcome: { type: "continue", nextCard: 9 },
+            },
+            {
+              id: "c8_3",
+              text: "Ask whether a settlement should be considered due to fear of facing husband in court.",
+              consequences: { Justice: -1, Safety: 1, Money: 2 },
+              outcome: { type: "continue", nextCard: 9 },
+            },
+          ],
+          dataCard: {
+            statement:
+              "The Domestic Violence Act mandates a 60 day resolution, yet with 4.71 lakh pending domestic violence cases, justice can remain out of reach for months after you file.",
+            source:
+              "NALSA, State-wise Data on Pendency of Domestic Violence Cases, revealed that a total of 4,71,684 original cases and 21,088 appeals were pending under the DV Act in India as on July 2022.",
+          },
+        },
+        {
+          id: 9,
+          audio: "./images/slide4.mp3",
+          title: "Court Hearing",
+          "image-alt":
+            "Courtroom with judge's bench, child tugging at Dhaani's sari.",
+          image:
+            "./images/9.png",
+          narrative:
+            "Weeks have passed since you filed your case. The court keeps giving new dates. Every visit means losing a day's wages and arranging childcare again. Your Legal Aid Lawyer explains that this is normal, cases take time—but you feel the strain growing heavier each day.",
+          dialogue: {
+            speaker: "Court clerk",
+            text: "Ab agle tareek pe dekhenge, aap bas date likh lo",
+          },
+          choices: [
+            {
+              id: "c9_1",
+              text: "Continue the case despite the delays, missed work, and mounting expenses. You have a few positive interim orders keeping you afloat.",
+              consequences: { Justice: 2, Money: -2, Health: -1 },
+              outcome: { type: "continue", nextCard: 10 },
+            },
+            {
+              id: "c9_2",
+              text: "Consider a 'compromise' because nothing seems to change even after court orders, and you just want to start afresh and put this traumatic chapter behind you.",
+              consequences: { Justice: -1, Safety: -1 },
+              outcome: { type: "continue", nextCard: 10 },
+            },
+            {
+              id: "c9_3",
+              text: "Stop following up on the case as you feel financially drained and hopeless about a meaningful resolution.",
+              consequences: { Justice: -3, Safety: -2, Money: 2, Health: -2 },
+              outcome: { type: "continue", nextCard: 10 },
+            },
+          ],
+          dataCard: {
+            statement:
+              "The case, meant to resolve and support, often becomes yet another challenge that feels insurmountable—filled with inaccessible legalese and procedural hurdles. In addition, the government's High-Level Committee noted that the judiciary often lacks gender sensitivity and fails to remove barriers that marginalise women navigating litigation.",
+            source:
+              "Report of the High-Level Committee on the Status of Women (HLC, 2014–15).",
+          },
+        },
+        {
+          id: 10,
+          audio: "./images/slide5.mp3",
+          title: "Verdict / Resolution",
+          "image-alt": "Judge delivering verdict, Dhaani holding her child.",
+          image:
+            "./images/6.jpg",
+          narrative:
+            "After months of struggle, the court has finally reached a decision in your case. The journey has been long and difficult, with many sacrifices along the way. Now you face the outcome of all your efforts.",
+          dialogue: {
+            speaker: "Judge",
+            text: "After considering all evidence and circumstances, this court has reached its verdict.",
+          },
+          choices: [
+            {
+              id: "c10_1",
+              text: "Hear the verdict",
+              consequences: {},
+              outcome: { type: "end" },
+            },
+          ],
+          dataCard: {
+            statement:
+              "The journey through the justice system is often just the beginning of a longer struggle for safety, stability, and healing.",
+            source:
+              "Based on real experiences of survivors navigating the legal system in India",
+          },
+        },
+      ],
+    };
 
-      // Game State
-      class Game {
-        constructor() {
-          this.metrics = {
-            Safety: { name: "Safety", value: 2, max: 10, icon: "🛡️" },
-            Health: { name: "Health", value: 5, max: 10, icon: "❤️" },
-            Money: { name: "Money", value: 5, max: 10, icon: "💰" },
-            Child: { name: "Child Well-being", value: 2, max: 10, icon: "🧸" },
-            Justice: {
-              name: "Justice Progress",
-              value: 0,
-              max: 10,
-              icon: "⚖️",
-            },
-          };
-          this.currentCardId = 1;
-          this.choicesMade = [];
-        }
+    // Game State
+    class Game {
+      constructor() {
+        this.metrics = {
+          Safety: { name: "Safety", value: 2, max: 10, icon: "🛡️" },
+          Health: { name: "Health", value: 5, max: 10, icon: "❤️" },
+          Money: { name: "Money", value: 5, max: 10, icon: "💰" },
+          Child: { name: "Child Well-being", value: 2, max: 10, icon: "🧸" },
+          Justice: {
+            name: "Justice Progress",
+            value: 0,
+            max: 10,
+            icon: "⚖️",
+          },
+        };
+        this.currentCardId = 1;
+        this.currentAudio = null;
+        this.choicesMade = [];
+      }
 
-        getCurrentCard() {
-          return gameData.cards.find((card) => card.id === this.currentCardId);
-        }
+      getCurrentCard() {
+        return gameData.cards.find((card) => card.id === this.currentCardId);
+      }
 
-        applyEffects(effects) {
-          Object.entries(effects).forEach(([metric, change]) => {
-            if (this.metrics[metric] && change !== 0) {
-              const oldValue = this.metrics[metric].value;
-              this.metrics[metric].value = Math.max(
-                0,
-                Math.min(
-                  this.metrics[metric].max,
-                  this.metrics[metric].value + change
-                )
-              );
-              this.animateMetricChange(metric, change, oldValue);
-            }
-          });
-        }
-
-        applyRandomEffect(effect) {
-          Object.entries(effect).forEach(([metric, possibleValues]) => {
-            const randomValue =
-              possibleValues[Math.floor(Math.random() * possibleValues.length)];
-            if (this.metrics[metric]) {
-              const oldValue = this.metrics[metric].value;
-              this.metrics[metric].value = Math.max(
-                0,
-                Math.min(
-                  this.metrics[metric].max,
-                  this.metrics[metric].value + randomValue
-                )
-              );
-              this.animateMetricChange(metric, randomValue, oldValue);
-            }
-          });
-        }
-
-        animateMetricChange(metricKey, change, oldValue) {
-          const metricElement = document.querySelector(
-            `.metric[data-metric="${metricKey}"]`
-          );
-          if (!metricElement) return;
-
-          const bar = metricElement.querySelector('.metric-bar');
-          if (bar) {
-            bar.style.width = `${(this.metrics[metricKey].value / this.metrics[metricKey].max) * 100}%`;
+      applyEffects(effects) {
+        Object.entries(effects).forEach(([metric, change]) => {
+          if (this.metrics[metric] && change !== 0) {
+            const oldValue = this.metrics[metric].value;
+            this.metrics[metric].value = Math.max(
+              0,
+              Math.min(
+                this.metrics[metric].max,
+                this.metrics[metric].value + change
+              )
+            );
+            this.animateMetricChange(metric, change, oldValue);
           }
+        });
+      }
 
-          // Show the change indicator
-          const changeIndicator = document.createElement("div");
-          changeIndicator.className = `metric-change ${
-            change > 0 ? "positive" : "negative"
+      applyRandomEffect(effect) {
+        Object.entries(effect).forEach(([metric, possibleValues]) => {
+          const randomValue =
+            possibleValues[Math.floor(Math.random() * possibleValues.length)];
+          if (this.metrics[metric]) {
+            const oldValue = this.metrics[metric].value;
+            this.metrics[metric].value = Math.max(
+              0,
+              Math.min(
+                this.metrics[metric].max,
+                this.metrics[metric].value + randomValue
+              )
+            );
+            this.animateMetricChange(metric, randomValue, oldValue);
+          }
+        });
+      }
+
+      animateMetricChange(metricKey, change, oldValue) {
+        const metricElement = document.querySelector(
+          `.metric[data-metric="${metricKey}"]`
+        );
+        if (!metricElement) return;
+
+        const bar = metricElement.querySelector('.metric-bar');
+        if (bar) {
+          bar.style.width = `${(this.metrics[metricKey].value / this.metrics[metricKey].max) * 100}%`;
+        }
+
+        // Show the change indicator
+        const changeIndicator = document.createElement("div");
+        changeIndicator.className = `metric-change ${change > 0 ? "positive" : "negative"
           }`;
-          changeIndicator.textContent = `${change > 0 ? "+" : ""}${change}`;
-          metricElement.appendChild(changeIndicator);
+        changeIndicator.textContent = `${change > 0 ? "+" : ""}${change}`;
+        metricElement.appendChild(changeIndicator);
 
-          setTimeout(() => changeIndicator.remove(), 1500);
+        setTimeout(() => changeIndicator.remove(), 1500);
+      }
+
+      getEnding() {
+        const avgMetric =
+          Object.values(this.metrics).reduce((sum, m) => sum + m.value, 0) /
+          Object.keys(this.metrics).length;
+        const justiceScore = this.metrics.Justice.value;
+        const childScore = this.metrics.Child.value;
+
+        if (justiceScore >= 8 && avgMetric >= 6) {
+          return {
+            type: "justice",
+            title: "Justice Achieved",
+            description:
+              "After navigating countless systemic barriers, Dhaani finally receives a protection order. The court grants her custody and shelter support. With legal recognition, she begins rebuilding her life.",
+            notes: [
+              "Challenges with maintenance order enforcement remain",
+              "Rebuilding support structures requires sustained effort",
+              "Societal stigma persists, especially for migrant women",
+              "Continued legal aid crucial for stability",
+            ],
+          };
+        } else if (justiceScore >= 5 && avgMetric >= 4) {
+          return {
+            type: "partial",
+            title: "Partial Relief",
+            description:
+              "The case drags on, but Dhaani receives interim protection. NGO support keeps her afloat. Justice is delayed, but structural support prevents collapse.",
+            notes: [
+              "Prolonged proceedings create ongoing stress",
+              "Interim measures provide temporary safety only",
+              "Ecosystem support remains critical",
+              "Financial instability threatens independence",
+            ],
+          };
+        } else if (justiceScore >= 2 && childScore >= 4) {
+          return {
+            type: "survival",
+            title: "Survival without Justice",
+            description:
+              "Exhausted by systemic demands, Dhaani withdraws the case to protect her child. She remains in shelter but faces an uncertain future.",
+            notes: [
+              "System retraumatization forces withdrawal",
+              "Child safety prioritized over justice",
+              "Lack of justice perpetuates vulnerability",
+              "Economic independence remains elusive",
+            ],
+          };
+        } else {
+          return {
+            type: "collapse",
+            title: "Protection pathways exhausted",
+            description:
+              "The case is dismissed due to insufficient evidence. Without protection, Dhaani is forced back into her abusive environment.",
+            notes: [
+              "Systemic barriers prevent justice access",
+              "Evidence challenges undermine the case",
+              "No protection against retaliation",
+              "Child safety severely compromised",
+            ],
+          };
         }
+      }
 
-        getEnding() {
-          const avgMetric =
-            Object.values(this.metrics).reduce((sum, m) => sum + m.value, 0) /
-            Object.keys(this.metrics).length;
-          const justiceScore = this.metrics.Justice.value;
-          const childScore = this.metrics.Child.value;
+      renderHUD() {
+        const hudContainer = document.querySelector(".hud");
+        if (!hudContainer) return;
 
-          if (justiceScore >= 8 && avgMetric >= 6) {
-            return {
-              type: "justice",
-              title: "Justice Achieved",
-              description:
-                "After navigating countless systemic barriers, Dhaani finally receives a protection order. The court grants her custody and shelter support. With legal recognition, she begins rebuilding her life.",
-              notes: [
-                "Challenges with maintenance order enforcement remain",
-                "Rebuilding support structures requires sustained effort",
-                "Societal stigma persists, especially for migrant women",
-                "Continued legal aid crucial for stability",
-              ],
-            };
-          } else if (justiceScore >= 5 && avgMetric >= 4) {
-            return {
-              type: "partial",
-              title: "Partial Relief",
-              description:
-                "The case drags on, but Dhaani receives interim protection. NGO support keeps her afloat. Justice is delayed, but structural support prevents collapse.",
-              notes: [
-                "Prolonged proceedings create ongoing stress",
-                "Interim measures provide temporary safety only",
-                "Ecosystem support remains critical",
-                "Financial instability threatens independence",
-              ],
-            };
-          } else if (justiceScore >= 2 && childScore >= 4) {
-            return {
-              type: "survival",
-              title: "Survival without Justice",
-              description:
-                "Exhausted by systemic demands, Dhaani withdraws the case to protect her child. She remains in shelter but faces an uncertain future.",
-              notes: [
-                "System retraumatization forces withdrawal",
-                "Child safety prioritized over justice",
-                "Lack of justice perpetuates vulnerability",
-                "Economic independence remains elusive",
-              ],
-            };
-          } else {
-            return {
-              type: "collapse",
-              title: "Protection pathways exhausted",
-              description:
-                "The case is dismissed due to insufficient evidence. Without protection, Dhaani is forced back into her abusive environment.",
-              notes: [
-                "Systemic barriers prevent justice access",
-                "Evidence challenges undermine the case",
-                "No protection against retaliation",
-                "Child safety severely compromised",
-              ],
-            };
-          }
-        }
+        // Improved logo and HUD layout
+        const logoHTML = `<div class="hud-logo"><img src='./images/logo.jpeg' alt='Game Logo'></div>`;
 
-        renderHUD() {
-          const hudContainer = document.querySelector(".hud");
-          if (!hudContainer) return;
-
-          // Improved logo and HUD layout
-          const logoHTML = `<div class="hud-logo"><img src='./images/logo.jpeg' alt='Game Logo'></div>`;
-
-          const metricsHTML = Object.entries(this.metrics)
-            .map(
-              ([key, metric]) => `
+        const metricsHTML = Object.entries(this.metrics)
+          .map(
+            ([key, metric]) => `
                         <div class="metric" data-metric="${key}">
                             <span class="metric-icon">${metric.icon}</span>
                             <div class="metric-label">${metric.name}</div>
                             <div class="metric-bar-container">
-                                <div class="metric-bar bar-${key.toLowerCase()}" style="width: ${
-                (metric.value / metric.max) * 100
+                                <div class="metric-bar bar-${key.toLowerCase()}" style="width: ${(metric.value / metric.max) * 100
               }%"></div>
                             </div>
                         </div>
                     `
-            )
-            .join("");
+          )
+          .join("");
 
-          hudContainer.innerHTML = `<div class="metrics-container">${logoHTML}${metricsHTML}</div>`;
+        hudContainer.innerHTML = `<div class="metrics-container">${logoHTML}${metricsHTML}</div>`;
+      }
+
+      updateAudio(card) {
+        const audio = document.getElementById('bgAudio');
+        if (!audio) return;
+
+        // Use card specific audio or fallback to default
+        const targetAudio = card.audio || "./images/light_audio.mp3";
+
+        if (this.currentAudio !== targetAudio) {
+          this.currentAudio = targetAudio;
+          audio.src = targetAudio;
+          // Play returns a promise, handle potential errors (e.g., autoplay policy)
+          audio.play().catch((e) => console.warn("Audio playback failed:", e));
         }
+      }
 
-        renderCard() {
-          const app = document.getElementById("app");
-          const card = this.getCurrentCard();
+      renderCard() {
+        const app = document.getElementById("app");
+        const card = this.getCurrentCard();
 
-          if (!card) return;
+        if (!card) return;
 
-          if (card.id === 10) {
-            this.renderEnding();
-            return;
-          }
-          const animation = this.getNextAnimation();
-          const cardHTML = `
+        this.updateAudio(card);
+
+        if (card.id === 10) {
+          this.renderEnding();
+          return;
+        }
+        const animation = this.getNextAnimation();
+        const cardHTML = `
                     <div class="app-layout">
                         <div class="hud"></div>
                         <div class="game-container">
                             <div class="card-container">
                                 <div class="card ${animation}">
-                                    <div class="card-background" style="background-image: url('${
-                                      card.image
-                                    }')"></div>
+                                    <div class="card-background" style="background-image: url('${card.image
+          }')"></div>
                                     <div class="card-content-wrapper">
-                                        <img src="${card.image}" alt="${
-            card["image-alt"]
+                                        <img src="${card.image}" alt="${card["image-alt"]
           }" class="card-image">
                                         <div class="card-content">
-                                            <h1 class="card-title">${
-                                              card.title
-                                            }</h1>
-                                            ${
-                                              card.dialogue &&
-                                              card.dialogue.speaker
-                                                ? `
+                                            <h1 class="card-title">${card.title
+          }</h1>
+                                            ${card.dialogue &&
+            card.dialogue.speaker
+            ? `
                                                 <div class="dialogue">
                                                     <span class="speaker">${card.dialogue.speaker}:</span>
                                                     ${card.dialogue.text}
                                                 </div>
                                             `
-                                                : ""
-                                            }
-                                            <div class="card-narrative">${
-                                              card.narrative
-                                            }</div>
+            : ""
+          }
+                                            <div class="card-narrative">${card.narrative
+          }</div>
                                             
                                             <div class="choices-container">
                                                 ${card.choices
-                                                  .map(
-                                                    (choice, index) => `
+            .map(
+              (choice, index) => `
                                                     <button class="choice-button" data-choice="${index}">
                                                         ${choice.text}
                                                     </button>
                                                 `
-                                                  )
-                                                  .join("")}
+            )
+            .join("")}
                                             </div>
                                         </div>
                                     </div>
@@ -2256,83 +2393,83 @@
                     </div>
                 `;
 
-          app.innerHTML = cardHTML;
-          this.renderHUD();
-          this.attachChoiceListeners();
+        app.innerHTML = cardHTML;
+        this.renderHUD();
+        this.attachChoiceListeners();
+      }
+
+      attachChoiceListeners() {
+        const buttons = document.querySelectorAll(".choice-button");
+        buttons.forEach((button, index) => {
+          button.addEventListener("click", () => this.makeChoice(index));
+        });
+      }
+
+      getNextAnimation() {
+        const animation = animations[currentAnimationIndex];
+        currentAnimationIndex =
+          (currentAnimationIndex + 1) % animations.length;
+        return animation;
+      }
+
+      makeChoice(choiceIndex) {
+        const card = this.getCurrentCard();
+        const choice = card.choices[choiceIndex];
+
+        // Store the dataCard for potential popup
+        const currentDataCard = card.dataCard;
+
+        // Disable buttons
+        document
+          .querySelectorAll(".choice-button")
+          .forEach((btn) => (btn.disabled = true));
+
+        // Apply consequences
+        if (choice.consequences) {
+          this.applyEffects(choice.consequences);
         }
 
-        attachChoiceListeners() {
-          const buttons = document.querySelectorAll(".choice-button");
-          buttons.forEach((button, index) => {
-            button.addEventListener("click", () => this.makeChoice(index));
-          });
+        // Apply random effects if present
+        if (choice.random) {
+          this.applyRandomEffect(choice.random);
         }
 
-        getNextAnimation() {
-          const animation = animations[currentAnimationIndex];
-          currentAnimationIndex =
-            (currentAnimationIndex + 1) % animations.length;
-          return animation;
-        }
+        // Record choice
+        this.choicesMade.push({
+          card: card.title,
+          choice: choice.text,
+        });
 
-        makeChoice(choiceIndex) {
-          const card = this.getCurrentCard();
-          const choice = card.choices[choiceIndex];
-
-          // Store the dataCard for potential popup
-          const currentDataCard = card.dataCard;
-
-          // Disable buttons
-          document
-            .querySelectorAll(".choice-button")
-            .forEach((btn) => (btn.disabled = true));
-
-          // Apply consequences
-          if (choice.consequences) {
-            this.applyEffects(choice.consequences);
+        // Navigate based on outcome
+        setTimeout(() => {
+          if (choice.outcome.type === "collapse") {
+            // Pass user-specified image to collapse popup if provided
+            this.renderCollapse(
+              choice.outcome.message,
+              choice.outcome.collapseImage || (card && card.image),
+              // choice.outcome.collapseImageAlt || (card && card["image-alt"]) || "Collapse Image"
+            );
+          } else if (choice.outcome.type === "continue") {
+            // Pass image to popup
+            this.showDataCardPopup(currentDataCard, () => {
+              this.currentCardId = choice.outcome.nextCard;
+              this.renderCard();
+            });
+          } else if (choice.outcome.type === "end") {
+            this.showDataCardPopup(currentDataCard, () => {
+              this.renderEnding();
+            });
           }
+        }, 500); // Slight delay for choice animation
+      }
 
-          // Apply random effects if present
-          if (choice.random) {
-            this.applyRandomEffect(choice.random);
-          }
-
-          // Record choice
-          this.choicesMade.push({
-            card: card.title,
-            choice: choice.text,
-          });
-
-          // Navigate based on outcome
-          setTimeout(() => {
-            if (choice.outcome.type === "collapse") {
-              // Pass user-specified image to collapse popup if provided
-              this.renderCollapse(
-                choice.outcome.message,
-                choice.outcome.collapseImage || (card && card.image),
-                // choice.outcome.collapseImageAlt || (card && card["image-alt"]) || "Collapse Image"
-              );
-            } else if (choice.outcome.type === "continue") {
-              // Pass image to popup
-              this.showDataCardPopup(currentDataCard, () => {
-                this.currentCardId = choice.outcome.nextCard;
-                this.renderCard();
-              });
-            } else if (choice.outcome.type === "end") {
-              this.showDataCardPopup(currentDataCard, () => {
-                this.renderEnding();
-              });
-            }
-          }, 500); // Slight delay for choice animation
+      showDataCardPopup(dataCard, callback) {
+        if (!dataCard) {
+          callback();
+          return;
         }
-
-        showDataCardPopup(dataCard, callback) {
-          if (!dataCard) {
-            callback();
-            return;
-          }
-          // Do not show an image in the popup
-          const popupHTML = `
+        // Do not show an image in the popup
+        const popupHTML = `
         <div class="popup-overlay" id="popupOverlay">
             <div class="popup-content">
                 <h2 class="popup-title">Important Context</h2>
@@ -2342,17 +2479,17 @@
             </div>
         </div>
     `;
-          document.body.insertAdjacentHTML("beforeend", popupHTML);
-          window.currentPopupCallback = callback;
-        }
+        document.body.insertAdjacentHTML("beforeend", popupHTML);
+        window.currentPopupCallback = callback;
+      }
 
-        renderCollapse(message, collapseImage, collapseImageAlt) {
-          const app = document.getElementById("app");
-          // Use user-specified collapseImage if provided, else fallback to card image
-          const card = this.getCurrentCard();
-          const imageToShow = collapseImage || (card && card.image ? card.image : null);
-          const imageAltToShow = collapseImageAlt || (card && card["image-alt"] ? card["image-alt"] : "Collapse Image");
-          app.innerHTML = `
+      renderCollapse(message, collapseImage, collapseImageAlt) {
+        const app = document.getElementById("app");
+        // Use user-specified collapseImage if provided, else fallback to card image
+        const card = this.getCurrentCard();
+        const imageToShow = collapseImage || (card && card.image ? card.image : null);
+        const imageAltToShow = collapseImageAlt || (card && card["image-alt"] ? card["image-alt"] : "Collapse Image");
+        app.innerHTML = `
                     <div class="app-layout">
                         <div class="hud"></div>
                         <div class="game-container">
@@ -2364,11 +2501,11 @@
                                     <div class="stats-panel" style="text-align: left; margin-bottom: 20px;">
                                         <strong>Final Status:</strong><br>
                                         ${Object.entries(this.metrics)
-                                          .map(
-                                            ([key, metric]) =>
-                                              `${metric.name}: ${metric.value}/${metric.max}`
-                                          )
-                                          .join(" • ")}
+            .map(
+              ([key, metric]) =>
+                `${metric.name}: ${metric.value}/${metric.max}`
+            )
+            .join(" • ")}
                                     </div>
                                     <button class="restart-button" onclick="restartGame()">Try Again</button>
                                 </div>
@@ -2376,21 +2513,21 @@
                         </div>
                     </div>
                 `;
-          this.renderHUD();
-        }
+        this.renderHUD();
+      }
 
-        renderEnding() {
-          const app = document.getElementById("app");
-          const ending = this.getEnding();
+      renderEnding() {
+        const app = document.getElementById("app");
+        const ending = this.getEnding();
 
-          let extraSection = "";
-          if (ending.type === "justice") {
-            extraSection = `<div class="ending-journey-message" style="background: linear-gradient(90deg, #e0e7ff 0%, #b2f7ef 100%); color: #2d2d3a; border-radius: 12px; padding: 22px 18px; margin: 32px 0 18px 0; font-size: 1.18rem; font-family: 'Poppins', sans-serif; font-weight: 600; box-shadow: 0 2px 16px #b2f7ef44; text-align: center;">
+        let extraSection = "";
+        if (ending.type === "justice") {
+          extraSection = `<div class="ending-journey-message" style="background: linear-gradient(90deg, #e0e7ff 0%, #b2f7ef 100%); color: #2d2d3a; border-radius: 12px; padding: 22px 18px; margin: 32px 0 18px 0; font-size: 1.18rem; font-family: 'Poppins', sans-serif; font-weight: 600; box-shadow: 0 2px 16px #b2f7ef44; text-align: center;">
               Her journey doesn’t end with the game; it continues in the gaps of a system that offers rights on paper, but makes women fight for every step of safety and dignity.
             </div>`;
-          }
+        }
 
-          const endingHTML = `
+        const endingHTML = `
                     <div class="app-layout">
                         <div class="hud"></div>
                         <div class="game-container">
@@ -2403,11 +2540,11 @@
                                     <div class="stats-panel" style="text-align: left; margin-bottom: 20px;">
                                         <strong>Final Status:</strong><br>
                                         ${Object.entries(this.metrics)
-                                          .map(
-                                            ([key, metric]) =>
-                                              `${metric.name}: ${metric.value}/${metric.max}`
-                                          )
-                                          .join(" • ")}
+            .map(
+              ([key, metric]) =>
+                `${metric.name}: ${metric.value}/${metric.max}`
+            )
+            .join(" • ")}
                                     </div>
                                     <button class="restart-button" onclick="restartGame()">Play Again</button>
                                 </div>
@@ -2416,91 +2553,91 @@
                     </div>
                 `;
 
-          app.innerHTML = endingHTML;
-          this.renderHUD();
-        }
-
-        start() {
-          this.renderCard();
-        }
+        app.innerHTML = endingHTML;
+        this.renderHUD();
       }
 
-      let game;
-
-      function startGame() {
-        // Animate butterfly out
-        const butterfly = document.querySelector('.butterfly');
-        butterfly.classList.add('butterfly-exit');
-        // After animation, switch screens
-        butterfly.addEventListener('animationend', function handler() {
-          butterfly.removeEventListener('animationend', handler);
-          document.getElementById("startScreen").classList.add("hidden");
-          document.getElementById("backgroundScreen").classList.remove("hidden");
-        });
+      start() {
+        this.renderCard();
       }
+    }
 
-      function startGameProper() {
-        // Animate background screen out
-        const bgScreen = document.getElementById("backgroundScreen");
-        bgScreen.classList.add("fade-out");
-        setTimeout(() => {
-          bgScreen.classList.add("hidden");
-          document.getElementById("app").classList.remove("hidden");
-          game = new Game();
-          game.start();
-        }, 700); // match transition duration
-      }
+    let game;
 
-      // Keep your restartGame() function as is:
-      function restartGame() {
-        window.location.reload();
-      }
-
-      function closePopup() {
-        const overlay = document.getElementById("popupOverlay");
-        if (overlay) {
-          overlay.remove();
-        }
-        if (window.currentPopupCallback) {
-          window.currentPopupCallback();
-          window.currentPopupCallback = null;
-        }
-      }
-
-      window.addEventListener("DOMContentLoaded", () => {
-        // Show start screen on load
+    function startGame() {
+      // Animate butterfly out
+      const butterfly = document.querySelector('.butterfly');
+      butterfly.classList.add('butterfly-exit');
+      // After animation, switch screens
+      butterfly.addEventListener('animationend', function handler() {
+        butterfly.removeEventListener('animationend', handler);
+        document.getElementById("startScreen").classList.add("hidden");
+        document.getElementById("backgroundScreen").classList.remove("hidden");
       });
+    }
 
-      // Show audio permission suggestion if not already granted
-      function requestAudioPermission() {
-        const audio = document.getElementById('bgAudio');
-        if (!audio) return;
-        // Only show if not previously granted or denied
-        const audioStatus = localStorage.getItem('audioPermission');
-        if (audioStatus === 'granted') {
-          audio.play();
-          return;
-        }
-        if (audioStatus === 'denied') {
-          audio.pause();
-          audio.muted = true;
-          return;
-        }
-        // Modern browsers require user interaction for autoplay
-        if (audio.paused) {
-          const permissionDiv = document.createElement('div');
-          permissionDiv.className = 'audio-permission-suggestion';
-          permissionDiv.style.position = 'fixed';
-          permissionDiv.style.top = '0';
-          permissionDiv.style.left = '0';
-          permissionDiv.style.width = '100vw';
-          permissionDiv.style.height = '100vh';
-          permissionDiv.style.background = 'rgba(0,0,0,0.7)';
-          permissionDiv.style.zIndex = '3000';
-          permissionDiv.style.display = 'flex';
-          permissionDiv.style.alignItems = 'center';
-          permissionDiv.style.justifyContent = 'center';
-          permissionDiv.innerHTML = `
+    function startGameProper() {
+      // Animate background screen out
+      const bgScreen = document.getElementById("backgroundScreen");
+      bgScreen.classList.add("fade-out");
+      setTimeout(() => {
+        bgScreen.classList.add("hidden");
+        document.getElementById("app").classList.remove("hidden");
+        game = new Game();
+        game.start();
+      }, 700); // match transition duration
+    }
+
+    // Keep your restartGame() function as is:
+    function restartGame() {
+      window.location.reload();
+    }
+
+    function closePopup() {
+      const overlay = document.getElementById("popupOverlay");
+      if (overlay) {
+        overlay.remove();
+      }
+      if (window.currentPopupCallback) {
+        window.currentPopupCallback();
+        window.currentPopupCallback = null;
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      // Show start screen on load
+    });
+
+    // Show audio permission suggestion if not already granted
+    function requestAudioPermission() {
+      const audio = document.getElementById('bgAudio');
+      if (!audio) return;
+      // Only show if not previously granted or denied
+      const audioStatus = localStorage.getItem('audioPermission');
+      if (audioStatus === 'granted') {
+        audio.play();
+        return;
+      }
+      if (audioStatus === 'denied') {
+        audio.pause();
+        audio.muted = true;
+        return;
+      }
+      // Modern browsers require user interaction for autoplay
+      if (audio.paused) {
+        const permissionDiv = document.createElement('div');
+        permissionDiv.className = 'audio-permission-suggestion';
+        permissionDiv.style.position = 'fixed';
+        permissionDiv.style.top = '0';
+        permissionDiv.style.left = '0';
+        permissionDiv.style.width = '100vw';
+        permissionDiv.style.height = '100vh';
+        permissionDiv.style.background = 'rgba(0,0,0,0.7)';
+        permissionDiv.style.zIndex = '3000';
+        permissionDiv.style.display = 'flex';
+        permissionDiv.style.alignItems = 'center';
+        permissionDiv.style.justifyContent = 'center';
+        permissionDiv.innerHTML = `
             <div style="background: #fff; border-radius: 16px; padding: 32px; max-width: 340px; text-align: center; box-shadow: 0 8px 32px #0002; font-family: 'Poppins', sans-serif;">
               <h2 style="color: #2d7d7b; font-size: 1.3em; margin-bottom: 18px;">Enable Audio</h2>
               <p style="color: #444; font-size: 1em; margin-bottom: 24px;">This app would like to play background audio for a more immersive experience. Please tap below to allow audio playback.</p>
@@ -2509,30 +2646,31 @@
               <button style="background: #eee; color: #222; border: none; border-radius: 8px; padding: 10px 24px; font-size: 1em; font-weight: 600; cursor: pointer; margin-top: 8px;" onclick="denyAudioPermission()">No, thanks</button>
             </div>
           `;
-          document.body.appendChild(permissionDiv);
-        }
+        document.body.appendChild(permissionDiv);
       }
-      function grantAudioPermission() {
-        const audio = document.getElementById('bgAudio');
-        if (audio) {
-          audio.muted = false;
-          audio.play();
-        }
-        localStorage.setItem('audioPermission', 'granted');
-        const permDiv = document.querySelector('.audio-permission-suggestion');
-        if (permDiv) permDiv.remove();
+    }
+    function grantAudioPermission() {
+      const audio = document.getElementById('bgAudio');
+      if (audio) {
+        audio.muted = false;
+        audio.play();
       }
-      function denyAudioPermission() {
-        const audio = document.getElementById('bgAudio');
-        if (audio) {
-          audio.pause();
-          audio.muted = true;
-        }
-        localStorage.setItem('audioPermission', 'denied');
-        const permDiv = document.querySelector('.audio-permission-suggestion');
-        if (permDiv) permDiv.remove();
+      localStorage.setItem('audioPermission', 'granted');
+      const permDiv = document.querySelector('.audio-permission-suggestion');
+      if (permDiv) permDiv.remove();
+    }
+    function denyAudioPermission() {
+      const audio = document.getElementById('bgAudio');
+      if (audio) {
+        audio.pause();
+        audio.muted = true;
       }
-      window.addEventListener('DOMContentLoaded', requestAudioPermission);
-    </script>
-  </body>
+      localStorage.setItem('audioPermission', 'denied');
+      const permDiv = document.querySelector('.audio-permission-suggestion');
+      if (permDiv) permDiv.remove();
+    }
+    window.addEventListener('DOMContentLoaded', requestAudioPermission);
+  </script>
+</body>
+
 </html>
