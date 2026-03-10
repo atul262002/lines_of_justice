@@ -1724,7 +1724,7 @@
         cards: [
           {
             id: 1,
-            audio: "./audio/slide-1-violence-at-home-complete-merged.mp3", // Placeholder: Replace with unique audio file for this slide
+            audio: "./audio/slide-1-violence-at-home-complete-merged.mp3", 
             title: "Violence at Home",
             "image-alt": "A dimly lit room, Dhaani shielding her child.",
             image: "./images/1.jpg",
@@ -1738,10 +1738,10 @@
               {
                 id: "c1_1",
                 text: "You realise you have no options, nowhere to go. Stay home and hope it calms down.",
-                consequences: { Safety: -2, Health: -1, Child: -1 },
+                consequences: { Safety: -2, Health: -1 },
                 outcome: {
                   type: "collapse",
-                  message: "The violence escalates. Your journey ends here.",
+                  message: "Dhaani braces herself, knowing she is stepping back into the cycle of violence. Play again?",
                   collapseImage: "./images/collapse1.png",
                 },
               },
@@ -1753,8 +1753,8 @@
               },
               {
                 id: "c1_3",
-                text: "Call a helpline you remember from a door-to-door campaign flyer, asking them to contact the police station and refer you to a shelter.",
-                consequences: { Justice: 1, Safety: 1, Money: -1 },
+                text: "Call a helpline you remember from a door-to-door campaign flyer, asking them for help.",
+                consequences: { Justice: 1, Safety: 1 },
                 outcome: { type: "continue", nextCard: 2 },
               },
             ],
@@ -1771,7 +1771,7 @@
             "image-alt": "Parents' humble home",
             image: "./images/1.jpg",
             narrative:
-              "Your parents let you stay the night. They feed your child and ask you to rest. For a moment, it feels like you can breathe again.\n\nBut by morning, their worry turns into pressure. They remind you they have little money, limited space, and their own fears of community judgment.\n\nThey allow you to go to your informal work for now, but make it clear they cannot support you long-term.",
+              "Your parents let you stay the night. They feed your child and ask you to rest. For a moment, it feels like you can breathe again.But by morning, their worry turns into pressure. They remind you they have no money, limited space, and their own fears of  judgment from the neighbours.They watch your child while you go to work, but they keep reminding you that this cannot continue for long. They say you must return to your husband and sort things out yourself. As you leave for work, you worry- how long can you keep doing this, traveling every day, working for little money, and raising your child without any real support?",
             dialogue: {
               speaker: "Parents",
               text: "“You can stay for a few days, not more.”\n\n“We can’t raise your child for you.”\n\n“Go back and sort it out- this is how marriages are.”",
@@ -1779,12 +1779,12 @@
             choices: [
               {
                 id: "c11_1",
-                text: "Dejected, you return to your husband’s home as your parents insist.",
+                text: "With no choice, you return to your husband’s home as your parents insist.",
                 consequences: { Safety: 1, Child: 1 },
                 outcome: {
                   type: "collapse",
                   message:
-                    "Dejected, you return to your husband’s home as your parents insist.",
+                    "With no choice, you return to your husband’s home as your parents insist.",
                   collapseImage: "./images/collapse1.png",
                 },
               },
@@ -1803,38 +1803,38 @@
             "image-alt": "A crowded shelter dormitory with women and children.",
             image: "./images/2.jpg",
             narrative:
-              "You are taken to a crowded shelter dormitory with women and children; mattresses close together; soft noises of crying and coughing. You stand at the doorway, overwhelmed but relieved to be somewhere safer.",
+              "You are taken to a crowded shelter dormitory with women and children; mattresses close together; soft noises of crying and coughing. You stand at the doorway momentarily relieved to be somewhere safer.",
             dialogue: {
               speaker: "NGO Worker",
-              text: "We can give you a bed for the night. It's crowded, but you'll be safe here.\n\nIf you need medical attention, we can arrange basic first-aid now or a proper check-up tomorrow.\n\nThere's also a legal desk in the morning that you MUST attend-cases like these hardly go anywhere. your child can stay in our daycare if you choose. What would you like to do?",
+              text: "We can give you a bed for the night. It's crowded, but you'll be safe here.\n\nIf you need medical attention, we can arrange basic first-aid now or a proper check-up tomorrow.\n\nThere's also a legal desk in the morning that is mandatory for you to attend. your child can stay in our daycare if you choose. What would you like to do?",
             },
             choices: [
               {
                 id: "c2_1",
-                text: "Stay in the shelter with your child and request basic first-aid tonight.",
+                text: "Stay in the shelter and send your child to daycare tomorrow while you attend the medical check-up and legal desk",
                 consequences: { Safety: 2, Health: 1, Child: 1, Money: -1 },
                 outcome: { type: "continue", nextCard: 3 },
               },
+              // {
+              //   id: "c2_2",
+              //   text: "Agree to send your child to daycare tomorrow and go for a proper medical check-up, before attending the legal desk",
+              //   consequences: { Child: 1, Health: 2, Money: -2 },
+              //   outcome: { type: "continue", nextCard: 3 },
+              // },
               {
                 id: "c2_2",
-                text: "Agree to send your child to daycare tomorrow and go for a proper medical check-up, before attending the legal desk",
-                consequences: { Child: 1, Health: 2, Money: -2 },
-                outcome: { type: "continue", nextCard: 3 },
-              },
-              {
-                id: "c2_3",
                 text: "Call a community leader to mediate and ask for advice before committing to the shelter.",
                 consequences: {},
                 outcome: {
                   type: "collapse",
                   message:
-                    "The community leader, after hearing the situation, pushes you to not break the house and insists you should take your child and go back to your husband's home.",
+                    "The community elder, after hearing the situation, pushes you to not break the house and insists you should take your child and go back to your husband's home.",
                   collapseImage: "./images/collapse1.png",
                 },
               },
               {
                 id: "c2_4",
-                text: "Leave the shelter and return home, feeling overwhelmed by the crowd, the talk of legal steps, and unsure if you're ready for all this.",
+                text: "Leave the shelter and return home, feeling overwhelmed by the process, the talk of legal steps, and unsure if you're ready for all this.",
                 consequences: {},
                 outcome: {
                   type: "collapse",
@@ -1858,18 +1858,18 @@
               "Dhaani holding a mop in one hand and a leaflet about free legal aid in the other.",
             image: "./images/3.jpg",
             narrative:
-              "A Paralegal Volunteer (PLV) is visiting your locality today to hold a legal awareness session. The shelter has also offered to connect you with a Legal Aid Lawyer (LAL) on their roster. But you only have a few hours free—and you still need money to support your child and plan your move out of the shelter.",
+              "You attend a legal desk held at the shelter by a PLV. The shelter has also offered to connect you with a Legal Aid Lawyer (LAL) on their roster. But you only have a few hours free—and you still need money to support your child and the shelter will only let you stay for a week, so you have to plan your move out.",
             dialogue: { speaker: "Dhaani (thinking)", text: " " },
             choices: [
               {
                 id: "c3_1",
-                text: "Take the informal cleaning job (₹400) and quickly stop by the legal desk on the way. You don't get a lawyer assigned.",
+                text: "Take the cleaning job (₹4000/month) and quickly stop by the legal desk on the way. You don't get a lawyer assigned.",
                 consequences: { Money: 2, Justice: -1, Health: -1 },
                 outcome: { type: "continue", nextCard: 4 },
               },
               {
                 id: "c3_2",
-                text: "Attend the awareness session, and receive legal and procedural assistance from the PLV.",
+                text: "Attend the awareness session, and get a PLV assigned for next steps.",
                 consequences: { Justice: 2, Safety: 1, Money: -1 },
                 outcome: { type: "continue", nextCard: 4 },
               },
@@ -1881,14 +1881,14 @@
               },
               {
                 id: "c3_4",
-                text: "Approach a private lawyer recommended by community women for quicker, more efficient results",
+                text: "You borrow money to Approach a private lawyer, as suggested by community women.",
                 consequences: { Money: -5, Justice: 1 },
                 outcome: { type: "continue", nextCard: 4 },
               },
             ],
             dataCard: {
               statement:
-                "With India now having four times fewer legal-aid clinics per population than seven years ago, the closest legal-aid centre could be far away.",
+                "With India now having four times fewer legal-aid clinics per population than seven years ago, women drastically lack access to legal aid centres.",
               source:
                 "India Justice Report 2025 - Legal Aid: Villages per Legal Aid Clinic states that, today, one clinic serves an average of 163 villages, and in some states, more than 500.",
             },
@@ -1901,7 +1901,7 @@
               "Police desk officer, papers piled up, skeptical look.",
             image: "./images/4.jpg",
             narrative:
-              "Your hands tremble as you step inside the police station. The room feels colder than outside. You're terrified of saying the wrong thing, guilty for 'airing dirty laundry,' and unsure whether this is even the right place to come. But your child's face from last night flashes in your mind, and you stay.",
+              "Everyone suggests that you need to make a police complaint.Your hands tremble as you step inside the police station. The room feels colder than outside. You're terrified of saying the wrong thing, guilty for 'airing dirty laundry,' and unsure whether this is even the right place to come. But your child's face from last night flashes in your mind, and you stay.",
             dialogue: {
               speaker: "Police Officer",
               text: "ID lao. And stop crying- it won’t help. These matrimonial complaints… they break families for no reason. Better you sit down with your husband and sort it out. Court-kacchari will only ruin your home",
@@ -1909,8 +1909,8 @@
             choices: [
               {
                 id: "c4_1",
-                text: "Agree to police-facilitated mediation with your husband. (You are scared to face him again)",
-                consequences: { Justice: 0, Safety: -2 },
+                text: "Agree to police-facilitated mediation with your husband, though you are scared to face him again. ",
+                consequences: { Safety: -2 },
                 outcome: { type: "continue", nextCard: 5 },
                 random: { Justice: [1, 0] },
               },
@@ -1946,10 +1946,10 @@
             "image-alt": "Public hospital waiting hall, long queues.",
             image: "./images/5.jpg",
             narrative:
-              "The court has asked for medical proof of your injuries. You need to decide where to go for this examination. The public hospital is free but often crowded and sometimes dismissive. A private clinic would be kinder but costs money you don't really have.",
+              "The police and your lawyer ask you to get a medical proof of your injuries. You need to decide where to go for this examination. The public hospital is free but often crowded, and survivors at the shelter have warned you that they can be dismissive. A private clinic would be more accessible but costs money you don't really have.",
             dialogue: {
               speaker: "Dhaani (thinking)",
-              text: "Public Hospital is free but discriminatory. A private clinic is kinder, but costs higher",
+              text: "This kind of cases take paperwork. There are so many patients today. Sit outside, we'll call you when its your turn. We can't attend immediately.",
             },
             choices: [
               {
@@ -1973,7 +1973,7 @@
             ],
             dataCard: {
               statement:
-                "Any support puts you in a rare 2% that are able to access essential medical assistance. Over 98% of survivors of partner violence get no medical help for the trauma they endure",
+                "Any support puts you in a rare 2% of survivors who report intimate partner violence. Over 98% of survivors of partner violence get no medical help for the trauma they endure",
               source:
                 "National Family Health Survey (NFHS-V) shows less than 2% of survivors ever approach medical personnel after partner violence",
             },
@@ -1986,10 +1986,10 @@
               "A cramped one-room rental. Dhani's child lying on a thin mattress feverish.",
             image: "./images/6.png",
             narrative:
-              "The PLV is coming for a legal session… and the shelter can connect me to a Legal Aid Lawyer too. The session might give me clarity, but speaking to a lawyer could help with my case directly. What could help our situation most right now? As your time at the shelter home comes to an end, you are planning to move out and have found a small rented room. To support this, you have also started working as a domestic worker in 3 houses. But you only get two days off a month. Today, your child has woken up sick. What do you do now?",
+              "As your time at the shelter home comes to an end, you are planning to move out and have found a small rented room. To support this, you have also started working as a domestic worker in 3 houses. But you only get two days off a month. Today, your child has woken up sick. What do you do now?",
             dialogue: {
               speaker: "Dhaani (thinking)",
-              text: "He's so unwell...what can I do, I can't take him with me, and I can't ask for leave when I've only just started working, can I...?",
+              text: "He's so unwell...what can I do, I can't take him with me, and I can't ask for leave when I've only just started working, can I...? But if I miss work today, I won’t have money for food. And the lawyer said I should come if I want the case to move forward. How am I supposed to do all this at once?",
             },
             choices: [
               {
@@ -2011,8 +2011,8 @@
               //   outcome: { type: "continue", nextCard: 7 },
               // },
               {
-                id: "c6_4",
-                text: "Give home remedies and go to work anyway.",
+                id: "c6_3",
+                text: "Give home remedies and go to work.",
                 consequences: { Money: 2, Child: -3 },
                 outcome: { type: "continue", nextCard: 7 },
               },
@@ -2033,8 +2033,8 @@
             narrative:
               "As you're returning from work, your husband's relatives confront you in a narrow alley. They're angry about the case you've filed and the shame it's bringing to the family. They demand you withdraw the case immediately.",
             dialogue: {
-              speaker: "Relative",
-              text: "Withdraw the case, or we'll make sure you regret it. You can't just drag your family matters in front of everyone, it affects our image in society",
+              speaker: "Relative: Husband's uncle ",
+              text: "Have some shame. Taking your husband to court and telling outsiders about family matters? Withdraw the case. Don’t forget, that child belongs to this family too. If you keep dragging our name through the courts, we’ll make sure you regret it.",
             },
             choices: [
               {
@@ -2046,13 +2046,13 @@
               },
               {
                 id: "c7_2",
-                text: "stay hidden and skip the next court hearing.",
+                text: "Go into hiding and skip the next hearing.",
                 consequences: { Safety: 1, Justice: -2 },
                 outcome: { type: "continue", nextCard: 8 },
               },
               {
                 id: "c7_3",
-                text: "Confront them with community/PLV support.",
+                text: "Confront them with PLV support.",
                 consequences: { Safety: -1, Justice: 1 },
                 outcome: { type: "continue", nextCard: 8 },
               },
@@ -2075,24 +2075,24 @@
               "THe corridor is packed with people— lawyers rushing between courtrooms, families waiting on hard benches, clerks calling out case numbers that echo off the walls. Paper files are stacked everywhere, a reminder of how many lives sit on hold here. Amid the noise and confusion, you stand with your legal aid lawyer, who flips through the case file. You grip the edge of your dupatta, trying to steady yourself in a place that feels both official and overwhelming",
             dialogue: {
               speaker: "Legal Aid Lawyer",
-              text: "Today the judge will take up your application. We can request an interim protection order and maintenance, but I want to prepare you: these things take time and a positive order won't mean immediate protection or financial resources for you",
+              text: "Today the judge will take up your application. We can request an interim protection order and maintenance, but I want to prepare you: these things take time and a positive order won't mean immediate safety or financial relief for you",
             },
             choices: [
               {
                 id: "c8_1",
-                text: "Tell the lawyer you want to request protection and maintenance today.",
+                text: "Tell the lawyer you want to request protection and maintenance today. while a paralegal joins you in court ",
                 consequences: { Justice: 2, Money: -1 },
                 outcome: { type: "continue", nextCard: 9 },
               },
+              // {
+              //   id: "c8_2",
+              //   text: "Request a paralegal volunteer to join you during the hearing.",
+              //   consequences: { Justice: 1, Safety: 1 },
+              //   outcome: { type: "continue", nextCard: 9 },
+              // },
               {
                 id: "c8_2",
-                text: "Request a paralegal volunteer to join you during the hearing.",
-                consequences: { Justice: 1, Safety: 1 },
-                outcome: { type: "continue", nextCard: 9 },
-              },
-              {
-                id: "c8_3",
-                text: "Ask whether a settlement should be considered due to fear of facing husband in court.",
+                text: "Ask the lawyer to settle the matter, just to avoid facing your husband in court.",
                 consequences: { Justice: -1, Safety: 1, Money: 2 },
                 outcome: { type: "continue", nextCard: 9 },
               },
@@ -2112,7 +2112,7 @@
               "Courtroom with judge's bench, child tugging at Dhaani's sari.",
             image: "./images/9.png",
             narrative:
-              "Weeks have passed since you filed your case. The court keeps giving new dates. Every visit means losing a day's wages and arranging childcare again. Your Legal Aid Lawyer explains that this is normal, cases take time—but you feel the strain growing heavier each day.",
+              "Weeks have passed since you filed your case. The court keeps giving new dates. Every visit means losing a day's wages and arranging childcare again. Your Legal Aid Lawyer explains that this is normal, cases take time—but you feel the strain growing heavier each day. Is it even worth it?",
             dialogue: {
               speaker: "Court clerk",
               text: "Ab agle tareek pe dekhenge, aap bas date likh lo",
@@ -2139,7 +2139,7 @@
             ],
             dataCard: {
               statement:
-                "The case, meant to resolve and support, often becomes yet another challenge that feels insurmountable—filled with inaccessible legalese and procedural hurdles. In addition, the government's High-Level Committee noted that the judiciary often lacks gender sensitivity and fails to remove barriers that marginalise women navigating litigation.",
+                "The government's High-Level Committee noted that the judicial system often lacks gender sensitivity and fails to remove barriers that marginalise women navigating litigation. The case, meant to resolve and support, often becomes yet another challenge that feels insurmountable---- filled with inaccessible legalese and procedural hurdles.",
               source:
                 "Report of the High-Level Committee on the Status of Women (HLC, 2014–15).",
             },
@@ -2267,53 +2267,53 @@
           if (justiceScore >= 8 && avgMetric >= 6) {
             return {
               type: "justice",
-              title: "Justice Achieved",
+              title: "Justice Achieved : Protection order, safe housing, custody secured. Dhaani starts rebuilding life.",
               description:
-                "After navigating countless systemic barriers, Dhaani finally receives a protection order. The court grants her custody and shelter support. With legal recognition, she begins rebuilding her life.",
+                "Even after everything she has tried, Dhaani will still face delays in receiving maintenance, if it comes at all. Rebuilding her life- finding steady work, safe childcare, and a support network- remains a daily struggle. And as a migrant woman living apart from her husband, she will continue to face whispers, judgment, and the quiet loneliness that comes from having no family nearby.\n\nHer journey doesn’t end with the game; it continues in the gaps of a system that offers rights on paper, but makes women fight for every step of safety and dignity.",
               notes: [
-                "Challenges with maintenance order enforcement remain",
-                "Rebuilding support structures requires sustained effort",
-                "Societal stigma persists, especially for migrant women",
-                "Continued legal aid crucial for stability",
+                // "Challenges with maintenance order enforcement remain",
+                // "Rebuilding support structures requires sustained effort",
+                // "Societal stigma persists, especially for migrant women",
+                // "Continued legal aid crucial for stability",
               ],
             };
           } else if (justiceScore >= 5 && avgMetric >= 4) {
             return {
               type: "partial",
-              title: "Partial Relief",
+              title: "Partial Relief: Case drags, limited protection, but structural/ ecosystem support keeps them afloat.",
               description:
                 "The case drags on, but Dhaani receives interim protection. NGO support keeps her afloat. Justice is delayed, but structural support prevents collapse.",
               notes: [
-                "Prolonged proceedings create ongoing stress",
-                "Interim measures provide temporary safety only",
-                "Ecosystem support remains critical",
-                "Financial instability threatens independence",
+                // "Prolonged proceedings create ongoing stress",
+                // "Interim measures provide temporary safety only",
+                // "Ecosystem support remains critical",
+                // "Financial instability threatens independence",
               ],
             };
           } else if (justiceScore >= 2 && childScore >= 4) {
             return {
               type: "survival",
-              title: "Survival without Justice",
+              title: "Survival without Justice: Dhaani drops case to protect her child, continues to struggle with her livelihood and expenses.",
               description:
                 "Exhausted by systemic demands, Dhaani withdraws the case to protect her child. She remains in shelter but faces an uncertain future.",
               notes: [
-                "System retraumatization forces withdrawal",
-                "Child safety prioritized over justice",
-                "Lack of justice perpetuates vulnerability",
-                "Economic independence remains elusive",
+                // "System retraumatization forces withdrawal",
+                // "Child safety prioritized over justice",
+                // "Lack of justice perpetuates vulnerability",
+                // "Economic independence remains elusive",
               ],
             };
           } else {
             return {
               type: "collapse",
-              title: "Protection pathways exhausted",
+              title: "Collapse: Case dismissed, child unsafe, Dhaani forced back into abusive environment.",
               description:
                 "The case is dismissed due to insufficient evidence. Without protection, Dhaani is forced back into her abusive environment.",
               notes: [
-                "Systemic barriers prevent justice access",
-                "Evidence challenges undermine the case",
-                "No protection against retaliation",
-                "Child safety severely compromised",
+                // "Systemic barriers prevent justice access",
+                // "Evidence challenges undermine the case",
+                // "No protection against retaliation",
+                // "Child safety severely compromised",
               ],
             };
           }
