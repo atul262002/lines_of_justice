@@ -2763,19 +2763,31 @@
         const persistentAudio = document.getElementById("persistentBgAudio");
         if (!audio) return;
 
-        // Use card specific audio or fallback to empty
-        const targetAudio = card.audio || "";
+        // Hindi: play only light_audio.mp3, English: play slide audio
+        if (currentLanguage === 'hi') {
+          // Always play light_audio.mp3 for Hindi
+          if (audio.src !== './images/light_audio.mp3') {
+            audio.src = './images/light_audio.mp3';
+            audio.currentTime = 0;
+          }
+          audio.play().catch(e => console.warn("Audio playback failed:", e));
+          // Pause persistent audio
+          if (persistentAudio) {
+            persistentAudio.pause();
+            persistentAudio.currentTime = 0;
+            persistentAudio.src = "";
+          }
+          this.currentAudio = './images/light_audio.mp3';
+          return;
+        }
 
+        // English: play card-specific audio
+        const targetAudio = card.audio || "";
         if (this.currentAudio !== targetAudio) {
           this.currentAudio = targetAudio;
           if (targetAudio) {
             audio.src = targetAudio;
-            // Play returns a promise, handle potential errors
-            audio
-              .play()
-              .catch((e) => console.warn("Audio playback failed:", e));
-
-            // Make sure persistent audio is playing too
+            audio.play().catch((e) => console.warn("Audio playback failed:", e));
             if (persistentAudio && persistentAudio.paused) {
               persistentAudio.play().catch(e => console.warn("Persistent audio playback failed:", e));
             }
@@ -2783,8 +2795,6 @@
             audio.pause();
             audio.currentTime = 0;
             audio.src = "";
-
-            // If no slide audio, stop persistent audio too
             if (persistentAudio) {
               persistentAudio.pause();
             }
@@ -2944,7 +2954,7 @@
         }
         const statement = dataCard.statement[currentLanguage] || dataCard.statement.en;
         const source = dataCard.source[currentLanguage] || dataCard.source.en;
-        const contextTitle = currentLanguage === 'hi' ? "महत्वपूर्ण संदर्भ" : "Important Context";
+        const contextTitle = currentLanguage === 'hi' ? "<u>महत्वपूर्ण संदर्भ</u>" : "<u>Important Context</u>";
         const continueBtn = translations[currentLanguage].continue;
 
         // Do not show an image in the popup
